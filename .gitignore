@@ -1,0 +1,5 @@
+node_modules
+.env
+.next
+mysql-apt-config*.*
+mysql-apt-config*.*.*
