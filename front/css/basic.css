@@ -43,6 +43,21 @@
   float: right;
 }
 
+/* UserProfile */
+
+.user-profile-logout-btn {
+  float: right;
+}
+
+.user-profile-card,
+.user-profile-edit-form {
+  margin: 1rem auto;
+}
+
+.user-profile-edit-input {
+  margin: 0.5rem auto;
+}
+
 @media only screen and (min-width: 600px) {
   .home-card-form {
     width: 47.5%;
@@ -51,5 +66,10 @@
   }
   .login-form {
     width: 30rem;
+  }
+  .user-profile-card,
+  .user-profile-edit-form {
+    width: 30rem;
+    margin: 1rem auto;
   }
 }

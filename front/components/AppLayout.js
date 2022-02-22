@@ -6,7 +6,7 @@ import { Menu, Layout } from 'antd';
 const { Header, Content, Footer } = Layout;
 
 const AppLayout = ({ children }) => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
     return (
         <Layout className='applayout'>
             <Header className='applayout-header'>
@@ -17,7 +17,7 @@ const AppLayout = ({ children }) => {
                     ? (
                     <>
                         <Menu.Item key="profile"><Link href='/profile'><a>내 정보</a></Link></Menu.Item>
-                        <Menu.Item key='logout'>로그아웃</Menu.Item>
+                        <Menu.Item key='logout' onClick={() => setIsLoggedIn(false)}>로그아웃</Menu.Item>
                     </>
                     )
                     : (

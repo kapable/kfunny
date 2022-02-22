@@ -6,9 +6,9 @@ const Profile = () => {
     return (
         <Fragment>
             <Head>
-                <title>회원가입 | 케이퍼니</title>
+                <title>내 정보 | 케이퍼니</title>
             </Head>
-            <div>Profile</div>
+            <UserProfile />
         </Fragment>
     );
 };
