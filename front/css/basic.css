@@ -58,6 +58,12 @@
   margin: 0.5rem auto;
 }
 
+/* SignupForm */
+.signup-form-button-group {
+  margin-top: 1rem;
+  float: right;
+}
+
 @media only screen and (min-width: 600px) {
   .home-card-form {
     width: 47.5%;
@@ -68,7 +74,8 @@
     width: 30rem;
   }
   .user-profile-card,
-  .user-profile-edit-form {
+  .user-profile-edit-form,
+  .signup-form {
     width: 30rem;
     margin: 1rem auto;
   }
