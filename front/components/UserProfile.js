@@ -2,14 +2,14 @@ import React, { Fragment, useCallback, useState, useEffect } from 'react';
 import { Avatar, Button, Card, Form, Input } from 'antd'
 import { EditOutlined } from '@ant-design/icons';
 import useInput from '../hooks/useInput';
-import { logoutAction } from '../reducers';
+import { logoutAction } from '../reducers/user';
 import { useDispatch, useSelector } from 'react-redux';
 import Router from 'next/router';
 
 const UserProfile = () => {
     // for LogIn and LogOut check
     const dispatch = useDispatch();
-    const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+    const { isLoggedIn } = useSelector((state) => state.user);
     useEffect(() => {
         if(!isLoggedIn) {
             Router.replace('/');

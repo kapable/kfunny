@@ -3,18 +3,18 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { Menu, Layout } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { logoutAction } from '../reducers';
+import { logoutAction } from '../reducers/user';
 
 const { Header, Content, Footer } = Layout;
 
 const AppLayout = ({ children }) => {
     // for LogIn and LogOut check
     const dispatch = useDispatch();
-    const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+    const { isLoggedIn } = useSelector((state) => state.user);
     const onLogout = useCallback(() => {
         dispatch(logoutAction());
     }, []);
-    
+
     return (
         <Layout className='applayout'>
             <Header className='applayout-header'>

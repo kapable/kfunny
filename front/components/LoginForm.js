@@ -4,12 +4,12 @@ import Link from 'next/link';
 import Router from 'next/router';
 import useInput from '../hooks/useInput'
 import { useDispatch, useSelector } from 'react-redux';
-import { loginAction } from '../reducers';
+import { loginAction } from '../reducers/user';
 
 const LoginForm = () => {
     // for LogIn and LogOut check
     const dispatch = useDispatch();
-    const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+    const { isLoggedIn } = useSelector((state) => state.user);
     useEffect(() => {
         if(isLoggedIn) {
             Router.replace('/');
