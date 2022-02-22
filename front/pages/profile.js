@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import Head from 'next/head';
+import UserProfile from '../components/UserProfile';
 
 const Profile = () => {
     return (

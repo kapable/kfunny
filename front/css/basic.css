@@ -1,0 +1,55 @@
+/* AppLayout */
+.applayout {
+  background-color: white;
+}
+
+.applayout-header {
+  background-color: white;
+  padding: 0 10px;
+}
+
+.applayout-content {
+  padding: 0 10px;
+  margin-bottom: 5rem;
+}
+
+.applayout-footer {
+  color: #d3d3d3;
+  font-weight: bold;
+  text-align: center;
+  background-color: white;
+  padding: 0 10px;
+  margin-bottom: 5rem;
+}
+
+.applayout-footer > a {
+  color: inherit;
+}
+
+/* HomeCardForm */
+.home-card-form {
+  margin: 1rem auto;
+}
+
+/* LoginForm */
+.login-form {
+  padding: 10px;
+  margin: 2rem auto 0;
+  width: 100%;
+}
+
+.login-form-button-group {
+  margin: 10px auto;
+  float: right;
+}
+
+@media only screen and (min-width: 600px) {
+  .home-card-form {
+    width: 47.5%;
+    float: left;
+    margin: 0.5rem 1%;
+  }
+  .login-form {
+    width: 30rem;
+  }
+}

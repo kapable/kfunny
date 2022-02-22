@@ -1,7 +1,9 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import 'antd/dist/antd.css';
+import '../css/basic.css';
 import Head from 'next/head';
+import AppLayout from '../components/AppLayout';
 
 const App = ({ Component }) => {
     return (
@@ -11,7 +13,9 @@ const App = ({ Component }) => {
                 <title>케이퍼니</title>
                 <link rel='shortcut icon' href='/favicon.png'/>
             </Head>
-            <Component />
+            <AppLayout>
+                <Component />
+            </AppLayout>
         </Fragment>
     );
 };
