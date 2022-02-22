@@ -1,16 +1,28 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Form, Input, Button } from 'antd';
 import Link from 'next/link';
+import Router from 'next/router';
 import useInput from '../hooks/useInput'
+import { useDispatch, useSelector } from 'react-redux';
+import { loginAction } from '../reducers';
 
 const LoginForm = () => {
+    // for LogIn and LogOut check
+    const dispatch = useDispatch();
+    const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+    useEffect(() => {
+        if(isLoggedIn) {
+            Router.replace('/');
+        }
+    }, [isLoggedIn]);
+
     const [email, onChangeEmail] = useInput('');
     const [password, onChangePassword] = useInput('');
 
     const onSubmitForm = useCallback(() => {
-        console.log('Submit success!');
-        setIsLoggedIn(true);
-    }, [email, password])
+        dispatch(loginAction({ email, password }));
+    }, [email, password]);
+
 
     return (
         <Form className='login-form' onFinish={onSubmitForm} layout="vertical">

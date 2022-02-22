@@ -1,13 +1,28 @@
-import React, { Fragment, useCallback, useState } from 'react';
+import React, { Fragment, useCallback, useState, useEffect } from 'react';
 import { Avatar, Button, Card, Form, Input } from 'antd'
 import { EditOutlined } from '@ant-design/icons';
 import useInput from '../hooks/useInput';
-
+import { logoutAction } from '../reducers';
+import { useDispatch, useSelector } from 'react-redux';
+import Router from 'next/router';
 
 const UserProfile = () => {
+    // for LogIn and LogOut check
+    const dispatch = useDispatch();
+    const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+    useEffect(() => {
+        if(!isLoggedIn) {
+            Router.replace('/');
+        }
+    }, [isLoggedIn]);
+
     const [nickname, setNickname] = useInput('Seeyong');
     const [description, setDescription] = useInput('Hello, World!');
     const [infoEditMode, setInfoEditMode] = useState(false);
+
+    const onLogout = useCallback(() => {
+        dispatch(logoutAction());
+    }, []);
 
     const onInfoEditMode = useCallback(() => {
         setInfoEditMode(!infoEditMode);
@@ -46,7 +61,7 @@ const UserProfile = () => {
                     title={nickname}
                     description={description}
                 />
-                <Button className='user-profile-logout-btn'>로그아웃</Button>
+                <Button onClick={onLogout} className='user-profile-logout-btn'>로그아웃</Button>
             </Card>
             {infoEditMode
             ? (

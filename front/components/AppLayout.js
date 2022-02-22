@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { Menu, Layout } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutAction } from '../reducers';
 
 const { Header, Content, Footer } = Layout;
 
 const AppLayout = ({ children }) => {
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    // for LogIn and LogOut check
+    const dispatch = useDispatch();
+    const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+    const onLogout = useCallback(() => {
+        dispatch(logoutAction());
+    }, []);
+    
     return (
         <Layout className='applayout'>
             <Header className='applayout-header'>
@@ -17,7 +25,7 @@ const AppLayout = ({ children }) => {
                     ? (
                     <>
                         <Menu.Item key="profile"><Link href='/profile'><a>내 정보</a></Link></Menu.Item>
-                        <Menu.Item key='logout' onClick={() => setIsLoggedIn(false)}>로그아웃</Menu.Item>
+                        <Menu.Item key='logout' onClick={onLogout}>로그아웃</Menu.Item>
                     </>
                     )
                     : (

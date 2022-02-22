@@ -1,8 +1,9 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import Head from 'next/head';
 import UserProfile from '../components/UserProfile';
 
 const Profile = () => {
+    
     return (
         <Fragment>
             <Head>

@@ -4,6 +4,8 @@ import 'antd/dist/antd.css';
 import '../css/basic.css';
 import Head from 'next/head';
 import AppLayout from '../components/AppLayout';
+import wrapper from '../store/configureStore';
+React.useLayoutEffect = React.useEffect;
 
 const App = ({ Component }) => {
     return (
@@ -24,4 +26,4 @@ App.propTypes = {
     Component: PropTypes.elementType.isRequired,
 };
 
-export default App;
+export default wrapper.withRedux(App);
