@@ -5,7 +5,7 @@ import { Menu } from 'antd';
 
 const AppLayout = ({ children }) => {
     return (
-        <div >
+        <div>
             <Menu mode='horizontal' triggerSubMenuAction="click" theme='light'>
                 <Menu.Item key="home"><Link href='/'><a>케이퍼니</a></Link></Menu.Item>
                 <Menu.Item disabled={true}>|</Menu.Item>
