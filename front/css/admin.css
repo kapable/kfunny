@@ -12,3 +12,59 @@
 .admin-index-col > a {
   color: inherit;
 }
+
+/* Upload */
+.admin-upload-form {
+  margin: 10px 0 20px;
+  align-items: center;
+  align-content: center;
+}
+
+.admin-upload-submit-btn {
+  width: 100%;
+  margin: 0 auto;
+  height: 2.5rem;
+}
+
+.admin-upload-img-btn {
+  display: block;
+  margin: 0 auto;
+  width: 10rem;
+  height: 10rem;
+  background-color: lightgray;
+}
+
+.admin-upload-category-select {
+  width: 100%;
+  margin: 1rem auto;
+}
+
+.admin-upload-img-preview-div {
+  display: inline-block;
+}
+
+.admin-upload-img-preview {
+  width: 200px;
+}
+
+@media only screen and (min-width: 600px) {
+  .admin-upload-title-input {
+    display: flex;
+    margin: 0 auto;
+    width: 35rem;
+  }
+  .admin-upload-title-preview {
+    margin: 1.5rem auto;
+    width: 35rem;
+  }
+  .admin-upload-category-select {
+    display: block;
+    width: 35rem;
+    margin: 2rem auto;
+  }
+  .admin-upload-submit-btn {
+    display: block;
+    width: 35rem;
+    margin: 0 auto;
+  }
+}

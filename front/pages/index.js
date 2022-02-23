@@ -11,8 +11,8 @@ const Home = () => {
         <Fragment>
             <Tabs tabPosition='top' size='default' type='line'>
                 {postCategories.map((category, _) => {
-                    return (<TabPane key={category.id} tab={`${category.content}`}>
-                                <HomeCardForm keyword={`${category.content}`}/>
+                    return (<TabPane key={category.value} tab={`${category.label}`}>
+                                <HomeCardForm keyword={`${category.label}`}/>
                             </TabPane>)
                 })}
             </Tabs>
