@@ -1,6 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import Head from 'next/head';
-import Router from 'next/router';
+import React, { useState, useCallback } from 'react';
 import { Button, Checkbox, Form, Input } from 'antd';
 import useInput from '../hooks/useInput';
 import styled from 'styled-components';

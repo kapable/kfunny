@@ -1,18 +1,18 @@
 import React, { Fragment } from 'react';
 import { Tabs } from 'antd';
 import HomeCardForm from '../components/HomeCardForm';
+import { useSelector } from 'react-redux';
 
 const { TabPane } = Tabs;
 
 const Home = () => {
-
+    const { postCategories } = useSelector((state) => state.post);
     return (
         <Fragment>
             <Tabs tabPosition='top' size='default' type='line'>
-                {new Array(10).fill(null).map((_, index) => {
-                    const key = index + 1;
-                    return (<TabPane key={key} tab={`#keyword_${key}`}>
-                                <HomeCardForm keyword={`#keyword_${key}`}/>
+                {postCategories.map((category, _) => {
+                    return (<TabPane key={category.id} tab={`${category.content}`}>
+                                <HomeCardForm keyword={`${category.content}`}/>
                             </TabPane>)
                 })}
             </Tabs>
