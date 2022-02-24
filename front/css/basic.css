@@ -64,6 +64,32 @@
   float: right;
 }
 
+/* HomeCardForm */
+.home-card-form-date {
+  float: right;
+  color: lightgray;
+}
+
+/* ArticleCardForm */
+
+.article-image-title {
+  font-size: 1.5rem;
+  margin: 1rem auto;
+}
+.article-image-div {
+  margin: 0 auto;
+}
+
+.article-share-btn-div {
+  float: right;
+}
+
+.article-date {
+  color: lightgray;
+  float: left;
+  margin-bottom: 1rem;
+}
+
 @media only screen and (min-width: 600px) {
   .home-card-form {
     width: 47.5%;
@@ -78,5 +104,29 @@
   .signup-form {
     width: 30rem;
     margin: 1rem auto;
+  }
+
+  .article-info-div {
+    width: 30rem;
+    margin: 0 auto;
+  }
+
+  .article-image-title {
+    font-size: 2.5rem;
+    width: 30rem;
+    margin: 1rem auto;
+  }
+  .article-image-div {
+    width: 30rem;
+    margin: 0 auto;
+  }
+
+  .article-share-btn-div {
+    float: right;
+    margin: 0 auto;
+  }
+
+  .article-date {
+    color: lightgray;
   }
 }

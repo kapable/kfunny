@@ -17,7 +17,7 @@ const HomeCardForm = ({ keyword }) => {
                         <a key={`${p.title}_a`}>
                             <Card className='home-card-form' key={`${p.title}_card`}>
                                 <div key={`${p.title}_title`}>{p.title}</div>
-                                <div style={{ float: "right", color: "lightgray" }} key={`${p.title}_date`}>{moment(p.createdAt).format('MM.DD')}</div>
+                                <div className='home-card-form-date' key={`${p.title}_date`}>{moment(p.createdAt).format('YYYY-MM-DD')}</div>
                             </Card>
                         </a>
                     </Link>

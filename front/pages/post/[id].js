@@ -12,7 +12,7 @@ const Post = () => {
     return (
         <Fragment>
             <Head>
-                <title>|케이퍼니</title>
+                <title>{singlePost.title} | 케이퍼니</title>
                 <meta name='desciprtion' content={singlePost.title}/>
                 <meta property='og:title' content={singlePost.title}/>
                 <meta property='og:description' content={singlePost.title}/>
