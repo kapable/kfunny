@@ -9,15 +9,15 @@ import Router from 'next/router';
 const UserProfile = () => {
     // for LogIn and LogOut check
     const dispatch = useDispatch();
-    const { isLoggedIn } = useSelector((state) => state.user);
+    const { isLoggedIn, userInfo } = useSelector((state) => state.user);
     useEffect(() => {
         if(!isLoggedIn) {
             Router.replace('/');
         }
     }, [isLoggedIn]);
 
-    const [nickname, setNickname] = useInput('Seeyong');
-    const [description, setDescription] = useInput('Hello, World!');
+    const [nickname, setNickname] = useInput(userInfo?.nickname || '');
+    const [description, setDescription] = useInput(userInfo?.description || '');
     const [infoEditMode, setInfoEditMode] = useState(false);
 
     const onLogout = useCallback(() => {
@@ -50,7 +50,7 @@ const UserProfile = () => {
             <Card
                 className='user-profile-card'
                 actions={[
-                    <div key="register-date">가입일자<br />2022-01-01</div>,
+                    <div key="register-date">가입일자<br />{userInfo?.createdAt || ''}</div>,
                     <div key="comment">내가 쓴 댓글<br />0</div>,
                     <div key="edit" onClick={onInfoEditMode}>수정하기<br /><EditOutlined className="user-profile-card-edit"  /></div>
                     
