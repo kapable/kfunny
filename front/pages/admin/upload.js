@@ -41,7 +41,6 @@ const Upload = () => {
     console.log('success');
     dispatch({
       type: ADD_POST_REQUEST,
-      data,
     })
   }, [title, category, imagePaths]);
 
@@ -75,12 +74,6 @@ const Upload = () => {
               {postCategory.label}
             </Option>
           ))}
-          {/* <Option value="politics" label="정치">
-              정치
-          </Option>
-          <Option value="economics" label="경제">
-            경제
-          </Option> */}
         </Select>
         <Button className='admin-upload-submit-btn' type="primary" htmlType="submit" >Post!</Button>
     </Form>

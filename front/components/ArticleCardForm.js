@@ -1,16 +1,20 @@
 import React, { Fragment, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { Image, Divider } from 'antd';
+import { Image, Divider, List, Comment, Avatar } from 'antd';
 import { LinkOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { useSelector } from 'react-redux';
+import CommentForm from './CommentForm';
 
 moment.locale('ko');
 
 const ArticleCardForm = ({ singlePost }) => {
+    const { isLoggedIn } = useSelector((state) => state.user);
     const onShareButtonClick = useCallback(() => {
         alert('링크가 복사되었습니다!');
     }, []);
+
     return (
         <Fragment>
             <div className='article-info-div'>
@@ -24,13 +28,34 @@ const ArticleCardForm = ({ singlePost }) => {
                 <div className='article-date'>{moment(singlePost.createdAt).format('YYYY-MM-DD')}</div>
             </div>
             <Divider dashed />
-            {singlePost.Images.map((image) => {
+            {singlePost.Images.map((image, index) => {
                 return (
-                    <div className='article-image-div'>
-                        <Image src={image.src} />
+                    <div className='article-image-div' key={`${singlePost.title}-image${index}-div`}>
+                        <Image src={image.src} key={`${singlePost.title}-image${index}`} />
                     </div>
                 )
             })}
+            <Divider dashed />
+            <CommentForm singlePost={singlePost} />
+            <div className='article-comment-list-div'>
+                <List
+                    className='article-comment-list'
+                    header={`${singlePost.Comments.length}개의 댓글`}
+                    dataSource={singlePost.Comments}
+                    itemLayout="horizontal"
+                    renderItem={(item) => (
+                        <li>
+                            <Comment
+                                author={item.User.nickname}
+                                avatar={(
+                                    <Avatar>{item.User.nickname[0]}</Avatar>
+                                )}
+                                content={item.content}
+                            />
+                        </li>
+                    )}
+                />
+            </div>
         </Fragment>
     );
 };

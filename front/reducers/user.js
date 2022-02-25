@@ -1,3 +1,11 @@
+const dummyUser = {
+    id: 1,
+    nickname: '더미 유저',
+    Posts: [],
+    Followings: [],
+    Followers: [],
+};
+
 export const initialState = {
     isLoggedIn: false,
     userInfo: null,
@@ -24,7 +32,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoggedIn: true,
-                userInfo: action.data,
+                userInfo: dummyUser,
             }
         }
         case 'LOG_OUT':{

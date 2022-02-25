@@ -74,6 +74,62 @@ export const initialState = {
                 nickname: 'qwer',
             },
             content: 'This one!'
+        },{
+            id:shortId.generate(),
+            User: {
+                id:shortId.generate(),
+                nickname: 'abcd',
+            },
+            content: 'Wow',
+        }, {
+            id:shortId.generate(),
+            User: {
+                id:shortId.generate(),
+                nickname: 'qwer',
+            },
+            content: 'This one!'
+        },{
+            id:shortId.generate(),
+            User: {
+                id:shortId.generate(),
+                nickname: 'abcd',
+            },
+            content: 'Wow',
+        }, {
+            id:shortId.generate(),
+            User: {
+                id:shortId.generate(),
+                nickname: 'qwer',
+            },
+            content: 'This one!'
+        },{
+            id:shortId.generate(),
+            User: {
+                id:shortId.generate(),
+                nickname: 'abcd',
+            },
+            content: 'Wow',
+        }, {
+            id:shortId.generate(),
+            User: {
+                id:shortId.generate(),
+                nickname: 'qwer',
+            },
+            content: 'This one!'
+        },{
+            id:shortId.generate(),
+            User: {
+                id:shortId.generate(),
+                nickname: 'abcd',
+            },
+            content: 'Wow',
+        }, {
+            id:shortId.generate(),
+            User: {
+                id:shortId.generate(),
+                nickname: 'qwer',
+            },
+            content: 'This one!'
         }],
         Category: {
             id:shortId.generate(),
@@ -128,19 +184,26 @@ export const addComment = (data) => ({
     data,
 });
 
-const dummyPost = (data) => ({
-    id: data.id,
-    title: data.title,
-    content: data.content,
+const dummyPost = {
+    id: 2,
+    title: '더미 타이틀',
+    content: '더미 콘텐트',
     User: {
-        id: 1,
+        id: 2,
         nickname: 'abcd',
     },
-    Images: [],
+    Images: [{
+        id:shortId.generate(),
+        src: 'https://images.unsplash.com/photo-1536173375199-161929d85af2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1471&q=80'
+    }],
     Comments: [],
     createdAt: "2022-01-02",
-    Category: [],
-});
+    Category: {
+        id:shortId.generate(),
+        value:"economics",
+        label: "경제"
+    },
+};
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
