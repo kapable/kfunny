@@ -36,7 +36,7 @@ const ArticleCardForm = ({ singlePost }) => {
                 )
             })}
             <Divider dashed />
-            <CommentForm singlePost={singlePost} />
+            <CommentForm singlePost={singlePost} isLoggedIn={isLoggedIn} />
             <div className='article-comment-list-div'>
                 <List
                     className='article-comment-list'

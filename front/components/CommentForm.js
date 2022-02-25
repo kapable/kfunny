@@ -4,8 +4,7 @@ import { Form, Input, Button } from 'antd';
 import useInput from '../hooks/useInput';
 import { useSelector } from 'react-redux';
 
-const CommentForm = ({ singlePost }) => {
-    const { isLoggedIn } = useSelector((state) => state.user);
+const CommentForm = ({ singlePost, isLoggedIn }) => {
     const userId = useSelector((state) => state.user.userInfo? state.user.userInfo.id: null);
     const [commentText, onChangeCommentText, setCommentText] = useInput('');
     const onSubmitComment = useCallback(() => {
