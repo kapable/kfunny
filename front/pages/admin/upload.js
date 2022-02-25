@@ -9,7 +9,7 @@ const { Option } = Select;
 
 const Upload = () => {
   const dispatch = useDispatch();
-  const { imagePaths, postCategories } = useSelector((state) => state.post);
+  const { imagePaths, postCategories, addPostLoading } = useSelector((state) => state.post);
   const [category, setCategory] = useState('');
   const [title, onChangeTitle, setTitle] = useInput('');
   const imageInput = useRef();
@@ -38,9 +38,9 @@ const Upload = () => {
 }, []);
 
   const onSubmit = useCallback(() => {
-    console.log('success');
     dispatch({
       type: ADD_POST_REQUEST,
+      data: title,
     })
   }, [title, category, imagePaths]);
 
@@ -75,7 +75,7 @@ const Upload = () => {
             </Option>
           ))}
         </Select>
-        <Button className='admin-upload-submit-btn' type="primary" htmlType="submit" >Post!</Button>
+        <Button className='admin-upload-submit-btn' type="primary" htmlType="submit" loading={addPostLoading} >Post!</Button>
     </Form>
   );
 };

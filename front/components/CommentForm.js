@@ -4,7 +4,7 @@ import { Form, Input, Button } from 'antd';
 import useInput from '../hooks/useInput';
 import { useSelector } from 'react-redux';
 
-const CommentForm = ({ singlePost, isLoggedIn }) => {
+const CommentForm = ({ singlePost, logInDone }) => {
     const userId = useSelector((state) => state.user.userInfo? state.user.userInfo.id: null);
     const [commentText, onChangeCommentText, setCommentText] = useInput('');
     const onSubmitComment = useCallback(() => {
@@ -20,7 +20,7 @@ const CommentForm = ({ singlePost, isLoggedIn }) => {
             <Form onFinish={onSubmitComment}>
             <Form.Item className='comment-form-items'>
                 <Input.TextArea
-                    placeholder={isLoggedIn ? '댓글을 입력해주세요(최대 140자).' : '로그인 후 댓글 입력이 가능합니다.'}
+                    placeholder={logInDone ? '댓글을 입력해주세요(최대 140자).' : '로그인 후 댓글 입력이 가능합니다.'}
                     allowClear={true}
                     maxLength={140}
                     showCount={true}
@@ -28,13 +28,13 @@ const CommentForm = ({ singlePost, isLoggedIn }) => {
                     value={commentText}
                     onChange={onChangeCommentText}
                     autoSize={{maxRows: 8}}
-                    disabled={isLoggedIn ? false : true}
+                    disabled={logInDone ? false : true}
                     />
                 <Button
                     className='comment-form-submit-btn'
                     type="primary"
                     htmlType="submit"
-                    disabled={isLoggedIn ? false : true}
+                    disabled={logInDone ? false : true}
                     // loading={addCommentLoading}
                     >등록</Button>
             </Form.Item>

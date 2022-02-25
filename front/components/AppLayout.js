@@ -3,16 +3,18 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { Menu, Layout } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { logoutAction } from '../reducers/user';
+import { LOG_OUT_REQUEST } from '../reducers/user';
 
 const { Header, Content, Footer } = Layout;
 
 const AppLayout = ({ children }) => {
     // for LogIn and LogOut check
     const dispatch = useDispatch();
-    const { isLoggedIn } = useSelector((state) => state.user);
+    const { logInDone } = useSelector((state) => state.user);
     const onLogout = useCallback(() => {
-        dispatch(logoutAction());
+        dispatch({
+            type: LOG_OUT_REQUEST
+        });
     }, []);
 
     return (
@@ -21,7 +23,7 @@ const AppLayout = ({ children }) => {
                 <Menu mode='horizontal' triggerSubMenuAction="click" theme='light'>
                     <Menu.Item key="home"><Link href='/'><a>케이퍼니</a></Link></Menu.Item>
                     <Menu.Item key="divider" disabled={true}>|</Menu.Item>
-                    {isLoggedIn 
+                    {logInDone 
                     ? (
                     <>
                         <Menu.Item key="profile"><Link href='/profile'><a>내 정보</a></Link></Menu.Item>

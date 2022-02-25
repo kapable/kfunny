@@ -10,7 +10,7 @@ import CommentForm from './CommentForm';
 moment.locale('ko');
 
 const ArticleCardForm = ({ singlePost }) => {
-    const { isLoggedIn } = useSelector((state) => state.user);
+    const { logInDone } = useSelector((state) => state.user);
     const onShareButtonClick = useCallback(() => {
         alert('링크가 복사되었습니다!');
     }, []);
@@ -36,7 +36,7 @@ const ArticleCardForm = ({ singlePost }) => {
                 )
             })}
             <Divider dashed />
-            <CommentForm singlePost={singlePost} isLoggedIn={isLoggedIn} />
+            <CommentForm singlePost={singlePost} logInDone={logInDone} />
             <div className='article-comment-list-div'>
                 <List
                     className='article-comment-list'

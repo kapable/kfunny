@@ -2,26 +2,28 @@ import React, { Fragment, useCallback, useState, useEffect } from 'react';
 import { Avatar, Button, Card, Form, Input } from 'antd'
 import { EditOutlined } from '@ant-design/icons';
 import useInput from '../hooks/useInput';
-import { logoutAction } from '../reducers/user';
+import { LOG_OUT_REQUEST } from '../reducers/user';
 import { useDispatch, useSelector } from 'react-redux';
 import Router from 'next/router';
 
 const UserProfile = () => {
     // for LogIn and LogOut check
     const dispatch = useDispatch();
-    const { isLoggedIn, userInfo } = useSelector((state) => state.user);
+    const { logInDone, userInfo, logOutLoading } = useSelector((state) => state.user);
     useEffect(() => {
-        if(!isLoggedIn) {
+        if(!logInDone) {
             Router.replace('/');
         }
-    }, [isLoggedIn]);
+    }, [logInDone]);
 
     const [nickname, setNickname] = useInput(userInfo?.nickname || '');
     const [description, setDescription] = useInput(userInfo?.description || '');
     const [infoEditMode, setInfoEditMode] = useState(false);
 
     const onLogout = useCallback(() => {
-        dispatch(logoutAction());
+        dispatch({
+            type: LOG_OUT_REQUEST,
+        });
     }, []);
 
     const onInfoEditMode = useCallback(() => {
@@ -61,7 +63,7 @@ const UserProfile = () => {
                     title={nickname}
                     description={description}
                 />
-                <Button onClick={onLogout} className='user-profile-logout-btn'>로그아웃</Button>
+                <Button onClick={onLogout} className='user-profile-logout-btn' loading={logOutLoading}>로그아웃</Button>
             </Card>
             {infoEditMode
             ? (

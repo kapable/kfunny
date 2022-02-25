@@ -4,23 +4,32 @@ import Link from 'next/link';
 import Router from 'next/router';
 import useInput from '../hooks/useInput'
 import { useDispatch, useSelector } from 'react-redux';
-import { loginAction } from '../reducers/user';
+import { LOG_IN_REQUEST } from '../reducers/user';
 
 const LoginForm = () => {
     // for LogIn and LogOut check
     const dispatch = useDispatch();
-    const { isLoggedIn } = useSelector((state) => state.user);
+    const { logInDone, logInLoading, logInError } = useSelector((state) => state.user);
     useEffect(() => {
-        if(isLoggedIn) {
+        if(logInDone) {
             Router.replace('/');
         }
-    }, [isLoggedIn]);
+    }, [logInDone]);
+
+    useEffect(() => {
+        if(logInError) {
+            alert(logInError);
+        }
+    }, [logInError]);
 
     const [email, onChangeEmail] = useInput('');
     const [password, onChangePassword] = useInput('');
 
     const onSubmitForm = useCallback(() => {
-        dispatch(loginAction({ email: email, password: password }));
+        dispatch({
+            type: LOG_IN_REQUEST,
+            data: { email, password },
+        });
     }, [email, password]);
 
 
@@ -38,7 +47,7 @@ const LoginForm = () => {
             </div>
             <div>
                 <div className='login-form-button-group'>
-                    <Button type='primary' htmlType='submit'>로그인</Button>
+                    <Button type='primary' htmlType='submit' loading={logInLoading}>로그인</Button>
                     <Link href='/signup'><a><Button>회원가입</Button></a></Link>
                 </div>
             </div>
