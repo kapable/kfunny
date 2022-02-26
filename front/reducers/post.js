@@ -166,6 +166,9 @@ export const initialState = {
     addPostLoading: false,
     addPostDone: false,
     addPostError: false,
+    addCommentLoading: false,
+    addCommentDone: false,
+    addCommentError: false,
 };
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
@@ -218,6 +221,41 @@ const reducer = (state = initialState, action) => {
             return {
                 addPostLoading: false,
                 addPostError: action.error,
+            }
+        case ADD_COMMENT_REQUEST:
+            return {
+                ...state,
+                addCommentLoading: true,
+                addCommentDone: false,
+                addCommentError: null,
+            }
+        case ADD_COMMENT_SUCCESS:
+            const postIndex = state.mainPosts.findIndex((v) => v.id === parseInt(action.data.postId, 10));
+            const post = { ...state.mainPosts[postIndex] };
+            post.Comments = [
+                {
+                    id: action.data.postId,
+                    User: {
+                        id: action.data.userId,
+                        nickname: 'WWW'
+                    },
+                    content: action.data.content
+                },
+                ...post.Comments
+            ]
+            const mainPosts = [...state.mainPosts];
+            mainPosts[postIndex] = post;
+            return {
+                ...state,
+                mainPosts,
+                addCommentDone: true,
+                addCommentLoading: false,
+
+            }
+        case ADD_COMMENT_FAILURE:
+            return {
+                addCommentLoading: false,
+                addCommentError: action.error,
             }
         default:{
             return {

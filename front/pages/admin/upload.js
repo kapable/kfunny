@@ -1,18 +1,26 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Button, Form, Select, Input, Divider } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { PlusOutlined } from '@ant-design/icons';
 import { ADD_POST_REQUEST } from '../../reducers/post';
 import useInput from '../../hooks/useInput';
+import Router from 'next/router';
 
 const { Option } = Select;
 
 const Upload = () => {
   const dispatch = useDispatch();
-  const { imagePaths, postCategories, addPostLoading } = useSelector((state) => state.post);
+  const { imagePaths, postCategories, addPostLoading, addPostDone } = useSelector((state) => state.post);
   const [category, setCategory] = useState('');
-  const [title, onChangeTitle, setTitle] = useInput('');
+  const [title, onChangeTitle] = useInput('');
   const imageInput = useRef();
+
+  useEffect(() => {
+    if(addPostDone) {
+      alert('게시물이 성공적으로 업로드 되었습니다!');
+      Router.push('/admin/posts');
+    }
+  }, [addPostDone]);
 
   const onClickImageUpload = useCallback(() => {
         imageInput.current.click();

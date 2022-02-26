@@ -1,13 +1,18 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Button, Checkbox, Form, Input } from 'antd';
+import Router from 'next/router';
 import useInput from '../hooks/useInput';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { SIGN_UP_REQUEST } from '../reducers/user';
 
 const ErrorMessage = styled.div`
     color: red;
 `;
 
 const SignupForm = () => {
+    const dispatch = useDispatch();
+    const { signUpDone, signUpError, signUpLoading } = useSelector((state) => state.user);
 
     const [email, onChangeEmail] = useInput('');
     const [nickname, onChangeNickname] = useInput('');
@@ -32,6 +37,16 @@ const SignupForm = () => {
         [],
     )
 
+    useEffect(() => {
+        if (signUpDone) {
+            Router.push('/login');
+        }
+
+        if (signUpError) {
+            alert('회원가입 에러가 발생했습니다. 다시 시도해주세요 ㅠㅠ');
+        }
+    }, [signUpDone, signUpError]);
+
     const onSubmit = useCallback(
         () => {
             if(password !== passwordCheck) {
@@ -40,6 +55,10 @@ const SignupForm = () => {
             if(!term) {
                 return setTermError(true);
             }
+            dispatch({
+                type: SIGN_UP_REQUEST,
+                data: { email, nickname, password }
+            })
             console.log({ email, nickname, password });
         },
         [password, passwordCheck, setPasswordError, term, setTermError, email, nickname],
@@ -79,7 +98,7 @@ const SignupForm = () => {
                 {termError && <ErrorMessage>개인정보활용방침 동의 후 가입이 가능합니다.</ErrorMessage>}
             </div>
             <div className='signup-form-button-group'>
-                <Button type="primary" htmlType="submit">회원가입</Button>
+                <Button type="primary" htmlType="submit" loading={signUpLoading} >회원가입</Button>
             </div>
         </Form>
     );

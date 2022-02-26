@@ -1,19 +1,30 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Input, Button } from 'antd';
 import useInput from '../hooks/useInput';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { ADD_COMMENT_REQUEST } from '../reducers/post';
 
 const CommentForm = ({ singlePost, logInDone }) => {
+    const dispatch = useDispatch();
     const userId = useSelector((state) => state.user.userInfo? state.user.userInfo.id: null);
+    const { addCommentDone } = useSelector((state) => state.post);
     const [commentText, onChangeCommentText, setCommentText] = useInput('');
+
+    useEffect(() => {
+        if(addCommentDone) {
+            alert('댓글이 성공적으로 입력되었습니다!');
+            setCommentText('');
+        }
+    }, [addCommentDone]);
+
     const onSubmitComment = useCallback(() => {
-        // dispatch({
-        //     type: ADD_COMMENT_REQUEST,
-        //     data: { content: commentText, postId: post.id, userId: id }
-        // })
+        dispatch({
+            type: ADD_COMMENT_REQUEST,
+            data: { content: commentText, postId: singlePost.id, userId: userId }
+        })
         console.log(singlePost.id, commentText);
-    }, [commentText, singlePost]);
+    }, [commentText, userId, singlePost]);
 
     return (
         <div className='comment-form'>
