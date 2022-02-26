@@ -1,12 +1,22 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Table, Space, Image } from 'antd';
+import { REMOVE_POST_REQUEST } from '../../reducers/post';
 
 const { Column, ColumnGroup } = Table;
 
 const PostList = () => {
     const dispatch = useDispatch();
     const { mainPosts } = useSelector((state) => state.post);
+    
+    const onRemovePost = useCallback((id) => {
+        if (confirm("정말로 삭제하시겠습니까?\n삭제된 게시물은 복구가 불가능합니다.") === true) {
+            return dispatch({
+                type: REMOVE_POST_REQUEST,
+                data: id,
+            });
+        }
+    }, []);
     return (
         <Fragment>
             <Table pagination={{ pageSize: 10 }} dataSource={mainPosts} key="table" rowKey={post => post.id}>
@@ -26,9 +36,10 @@ const PostList = () => {
                     />
                     <Column
                         title="삭제" key="delete"
-                        render={() => (
+                        dataIndex="id"
+                        render={(id) => (
                             <Space size="middle">
-                                <a>삭제하기</a>
+                                <a onClick={() => onRemovePost(id)}>삭제하기</a>
                             </Space>
                         )}
                     />

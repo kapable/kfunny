@@ -129,6 +129,22 @@ const reducer = (state = initialState, action) => {
                 changeNicknameDone: false,
                 changeNicknameError: action.error,
             }
+        case ADD_POST_TO_ME:
+            return {
+                ...state,
+                userInfo: {
+                    ...state.userInfo,
+                    Posts: [{ id: action.data }, ...state.me.Posts],
+                }
+            };
+        case REMOVE_POST_OF_ME:
+            return {
+                ...state,
+                userInfo: {
+                    ...state.userInfo,
+                    Posts: state.userInfo.Posts.filter((v) => v.id !== parseInt(action.data, 10)),
+                }
+            };
         default:{
             return {
                 ...state

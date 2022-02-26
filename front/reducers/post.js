@@ -166,6 +166,9 @@ export const initialState = {
     addPostLoading: false,
     addPostDone: false,
     addPostError: false,
+    removePostLoading: false,
+    removePostDone: false,
+    removePostError: false,
     addCommentLoading: false,
     addCommentDone: false,
     addCommentError: false,
@@ -175,13 +178,17 @@ export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
 export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
 
+export const REMOVE_POST_REQUEST = 'REMOVE_POST_REQUEST';
+export const REMOVE_POST_SUCCESS = 'REMOVE_POST_SUCCESS';
+export const REMOVE_POST_FAILURE = 'REMOVE_POST_FAILURE';
+
 export const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
 export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
 export const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
 
 const dummyPost = (data) => ({
-    id: shortId.generate(),
-    title: data,
+    id: data.id,
+    title: data.title,
     content: '더미 콘텐트',
     User: {
         id: 2,
@@ -219,8 +226,29 @@ const reducer = (state = initialState, action) => {
             }
         case ADD_POST_FAILURE:
             return {
+                ...state,
                 addPostLoading: false,
                 addPostError: action.error,
+            }
+        case REMOVE_POST_REQUEST:
+            return {
+                ...state,
+                removePostLoading: true,
+                removePostDone: false,
+                removePostError: null,
+            }
+        case REMOVE_POST_SUCCESS:
+            return {
+                ...state,
+                mainPosts: state.mainPosts.filter((v) => v.id !== action.data),
+                removePostDone: true,
+                removePostLoading: false,
+            }
+        case REMOVE_POST_FAILURE:
+            return {
+                ...state,
+                removePostLoading : false,
+                removePostError : action.error,
             }
         case ADD_COMMENT_REQUEST:
             return {
@@ -254,6 +282,7 @@ const reducer = (state = initialState, action) => {
             }
         case ADD_COMMENT_FAILURE:
             return {
+                ...state,
                 addCommentLoading: false,
                 addCommentError: action.error,
             }
