@@ -2,19 +2,25 @@ import React, { Fragment, useCallback, useState, useEffect } from 'react';
 import { Avatar, Button, Card, Form, Input } from 'antd'
 import { EditOutlined } from '@ant-design/icons';
 import useInput from '../hooks/useInput';
-import { LOG_OUT_REQUEST } from '../reducers/user';
+import { CHANGE_NICKNAME_REQUEST, LOG_OUT_REQUEST } from '../reducers/user';
 import { useDispatch, useSelector } from 'react-redux';
 import Router from 'next/router';
 
 const UserProfile = () => {
     // for LogIn and LogOut check
     const dispatch = useDispatch();
-    const { logInDone, userInfo, logOutLoading } = useSelector((state) => state.user);
+    const { logInDone, userInfo, logOutLoading, changeNicknameDone, changeNicknameLoading } = useSelector((state) => state.user);
     useEffect(() => {
-        if(!logInDone) {
+        if(changeNicknameDone === null || !logInDone) {
             Router.replace('/');
         }
-    }, [logInDone]);
+    }, [changeNicknameDone, logInDone]);
+
+    useEffect(() => {
+        if(changeNicknameDone) {
+            alert("닉네임 수정이 반영되었습니다!");
+        }
+    }, [changeNicknameDone]);
 
     const [nickname, setNickname] = useInput(userInfo?.nickname || '');
     const [description, setDescription] = useInput(userInfo?.description || '');
@@ -36,6 +42,10 @@ const UserProfile = () => {
         } else if (nickname.length > 20) {
             alert('닉네임은 20자 이내로 적어주세요!');
         } else {
+            dispatch({
+                type: CHANGE_NICKNAME_REQUEST,
+                data: nickname,
+            });
             setInfoEditMode(false);
         };
     }, [nickname]);
@@ -75,6 +85,7 @@ const UserProfile = () => {
                         addonBefore="닉네임"
                         enterButton="수정"
                         onSearch={onNicknameSubmit}
+                        loading={changeNicknameLoading}
                     />
                     <Input.Search
                         className='user-profile-edit-input'

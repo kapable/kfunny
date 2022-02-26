@@ -179,9 +179,9 @@ export const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
 export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
 export const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
 
-const dummyPost = {
-    id: 2,
-    title: '더미 타이틀',
+const dummyPost = (data) => ({
+    id: shortId.generate(),
+    title: data,
     content: '더미 콘텐트',
     User: {
         id: 2,
@@ -198,7 +198,7 @@ const dummyPost = {
         value:"economics",
         label: "경제"
     },
-};
+});
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -212,7 +212,7 @@ const reducer = (state = initialState, action) => {
         case ADD_POST_SUCCESS:
             return {
                 ...state,
-                mainPosts: [dummyPost, ...state.mainPosts],
+                mainPosts: [dummyPost(action.data), ...state.mainPosts],
                 addPostDone: true,
                 addPostLoading: false,
                 imagePaths: []
