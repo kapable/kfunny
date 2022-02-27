@@ -131,11 +131,12 @@ const reducer = (state = initialState, action) => {
                 changeNicknameError: action.error,
             }
         case ADD_POST_TO_ME:
+            console.log(action.data);
             return {
                 ...state,
                 userInfo: {
                     ...state.userInfo,
-                    Posts: [{ id: action.data }, ...state.me.Posts],
+                    Posts: [{ id: action.data }, ...state.userInfo.Posts],
                 }
             };
         case REMOVE_POST_OF_ME:
@@ -143,7 +144,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 userInfo: {
                     ...state.userInfo,
-                    Posts: state.userInfo.Posts.filter((v) => v.id !== parseInt(action.data, 10)),
+                    Posts: state.userInfo.Posts.filter((v) => v.id !== action.data),
                 }
             };
         default:{
