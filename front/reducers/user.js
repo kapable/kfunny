@@ -131,7 +131,6 @@ const reducer = (state = initialState, action) => {
                 changeNicknameError: action.error,
             }
         case ADD_POST_TO_ME:
-            console.log(action.data);
             return {
                 ...state,
                 userInfo: {
