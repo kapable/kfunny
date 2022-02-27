@@ -2,14 +2,13 @@ import React, { Fragment, useEffect } from 'react';
 import { Row, Col } from 'antd';
 import { EditOutlined, OrderedListOutlined } from '@ant-design/icons';
 import Link from 'next/link';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const Admin = () => {
-    const dispatch = useDispatch();
     const { userInfo, logInDone } = useSelector((state) => state.user);
 
     useEffect(() => {
-        if(!userInfo || !logInDone) {
+        if(!userInfo.admin || !logInDone) {
             // alert('관리자 로그인이 필요합니다!');
             // Router.push('/login');
         }

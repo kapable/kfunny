@@ -3,6 +3,7 @@ const dummyUser = {
     nickname: '더미 유저',
     description: 'Hello, World!',
     createdAt: "2022-01-02",
+    admin: true,
     Posts: [],
     Followings: [],
     Followers: [],
