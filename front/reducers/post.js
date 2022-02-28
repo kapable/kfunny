@@ -202,7 +202,7 @@ export const generateDuummyPost = (category_value) => Array(10).fill().map(() =>
         id:shortId.generate(),
         User: {
             id:shortId.generate(),
-            nickname: "GOOD",
+            nickname: faker.name.firstName(),
         },
         content: faker.lorem.sentence(),
     })),
@@ -214,37 +214,37 @@ export const generateDuummyPost = (category_value) => Array(10).fill().map(() =>
     },
 }))
 
-initialState.mainPosts = initialState.mainPosts.concat(
-    Array(20).fill().map(() => ({
-        id: Math.floor(Math.random() * 100),
-        title: faker.lorem.sentence(),
-        content: faker.lorem.sentences(),
-        User: {
-            id: Math.floor(Math.random() * 100),
-            nickname: faker.name.firstName(),
-        },
-        Images: [{
-            id: shortId.generate(),
-            src: faker.image.imageUrl()
-        }, {
-            id: shortId.generate(),
-            src: faker.image.imageUrl()
-        }, {
-            id: shortId.generate(),
-            src: faker.image.imageUrl()
-        }],
-        Comments: Array(15).fill().map(() => ({
-            id:shortId.generate(),
-            User: {
-                id:shortId.generate(),
-                nickname: "GOOD",
-            },
-            content: faker.lorem.sentence(),
-        })),
-        createdAt: "2020-12-31",
-        Category: initialState.postCategories[Math.floor(Math.random() * initialState.postCategories.length)],
-    }))
-);
+// initialState.mainPosts = initialState.mainPosts.concat(
+//     Array(20).fill().map(() => ({
+//         id: Math.floor(Math.random() * 100),
+//         title: faker.lorem.sentence(),
+//         content: faker.lorem.sentences(),
+//         User: {
+//             id: Math.floor(Math.random() * 100),
+//             nickname: faker.name.firstName(),
+//         },
+//         Images: [{
+//             id: shortId.generate(),
+//             src: faker.image.imageUrl()
+//         }, {
+//             id: shortId.generate(),
+//             src: faker.image.imageUrl()
+//         }, {
+//             id: shortId.generate(),
+//             src: faker.image.imageUrl()
+//         }],
+//         Comments: Array(15).fill().map(() => ({
+//             id:shortId.generate(),
+//             User: {
+//                 id:shortId.generate(),
+//                 nickname: "GOOD",
+//             },
+//             content: faker.lorem.sentence(),
+//         })),
+//         createdAt: "2020-12-31",
+//         Category: initialState.postCategories[Math.floor(Math.random() * initialState.postCategories.length)],
+//     }))
+// );
 
 export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST';
 export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCESS';
@@ -261,6 +261,8 @@ export const REMOVE_POST_FAILURE = 'REMOVE_POST_FAILURE';
 export const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
 export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
 export const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
+
+export const RESET_KEYWORD_POSTS = 'RESET_KEYWORD_POSTS';
 
 const dummyPost = (data) => ({
     id: data.id,
@@ -292,7 +294,9 @@ const reducer = (state = initialState, action) => {
                 draft.loadPostsError = null;
                 break;
             case LOAD_POSTS_SUCCESS:
-                draft.keywordPosts = draft.keywordPosts.concat(generateDuummyPost(action.data).concat(draft.mainPosts.filter((post) => post.Category.value == action.data)));
+                const randomPosts = generateDuummyPost(action.data);
+                draft.keywordPosts = draft.keywordPosts.concat(randomPosts);
+                draft.mainPosts = draft.mainPosts.concat(randomPosts);
                 draft.loadPostsDone = true;
                 draft.loadPostsLoading = false;
                 draft.hasMorePosts = draft.keywordPosts.length < 50;
@@ -341,7 +345,7 @@ const reducer = (state = initialState, action) => {
                     id: action.data.postId,
                     User: {
                         id: action.data.userId,
-                        nickname: 'WWW'
+                        nickname: faker.name.firstName(),
                     },
                     content: action.data.content
                 });
@@ -352,6 +356,8 @@ const reducer = (state = initialState, action) => {
                 draft.addCommentLoading = false;
                 draft.addCommentError = action.error;
                 break;
+            case RESET_KEYWORD_POSTS:
+                draft.keywordPosts = [];
             default:
                 break;
         };

@@ -28,7 +28,7 @@ const HomeCardForm = ({ posts, keyword }) => {
                     <Link href={`/post/${p.id}`} key={`${p.title}_link`}>
                         <a key={`${p.title}_a`}>
                             <Card className='home-card-form' key={`${p.title}_card`}>
-                                <div key={`${p.title}_title`}>{p.title}</div>
+                                <div key={`${p.title}_title`}>{p.title.length > 60 ? `${p.title.slice(0, 60)}...` : p.title}</div>
                                 <div className='home-card-form-date' key={`${p.title}_date`}>{moment(p.createdAt).format('YYYY-MM-DD')}</div>
                             </Card>
                         </a>

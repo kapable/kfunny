@@ -2,7 +2,7 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { Tabs } from 'antd';
 import HomeCardForm from '../components/HomeCardForm';
 import { useDispatch, useSelector } from 'react-redux';
-import { LOAD_POSTS_REQUEST } from '../reducers/post';
+import { LOAD_POSTS_REQUEST, RESET_KEYWORD_POSTS } from '../reducers/post';
 
 const { TabPane } = Tabs;
 
@@ -15,10 +15,13 @@ const Home = () => {
     }, []);
     useEffect(() => {
         dispatch({
+            type: RESET_KEYWORD_POSTS,
+        });
+        dispatch({
             type: LOAD_POSTS_REQUEST,
             data: currentCategory,
-        })
-    }, [currentCategory])
+        });
+    }, [currentCategory]);
 
     useEffect(() => {
         function onScroll() {
@@ -29,15 +32,15 @@ const Home = () => {
                         type: LOAD_POSTS_REQUEST,
                         data: currentCategory,
                         lastId
-                    })
-                }
-            }
-        }
+                    });
+                };
+            };
+        };
         window.addEventListener('scroll', onScroll);
         return () => {
             window.removeEventListener('scroll', onScroll);
-        }
-    }, [hasMorePosts, loadPostsLoading, keywordPosts, currentCategory])
+        };
+    }, [hasMorePosts, loadPostsLoading, keywordPosts, currentCategory]);
     
     return (
         <Fragment>
