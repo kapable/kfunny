@@ -163,7 +163,12 @@ export const initialState = {
         value:"history",
         label: "역사"
     }],
+    keywordPosts: [],
     imagePaths: [],
+    hasMorePosts: true,
+    loadPostsLoading: false,
+    loadPostsDone: false,
+    loadPostsError: false,
     addPostLoading: false,
     addPostDone: false,
     addPostError: false,
@@ -174,6 +179,40 @@ export const initialState = {
     addCommentDone: false,
     addCommentError: false,
 };
+
+export const generateDuummyPost = (category_value) => Array(10).fill().map(() => ({
+    id: Math.floor(Math.random() * 100),
+    title: faker.lorem.sentence(),
+    content: faker.lorem.sentences(),
+    User: {
+        id: Math.floor(Math.random() * 100),
+        nickname: faker.name.firstName(),
+    },
+    Images: [{
+        id: shortId.generate(),
+        src: faker.image.imageUrl()
+    }, {
+        id: shortId.generate(),
+        src: faker.image.imageUrl()
+    }, {
+        id: shortId.generate(),
+        src: faker.image.imageUrl()
+    }],
+    Comments: Array(15).fill().map(() => ({
+        id:shortId.generate(),
+        User: {
+            id:shortId.generate(),
+            nickname: "GOOD",
+        },
+        content: faker.lorem.sentence(),
+    })),
+    createdAt: "2020-12-31",
+    Category: {
+        id:shortId.generate(),
+        value: category_value,
+        label: "경제"
+    },
+}))
 
 initialState.mainPosts = initialState.mainPosts.concat(
     Array(20).fill().map(() => ({
@@ -194,11 +233,22 @@ initialState.mainPosts = initialState.mainPosts.concat(
             id: shortId.generate(),
             src: faker.image.imageUrl()
         }],
-        Comments: [],
+        Comments: Array(15).fill().map(() => ({
+            id:shortId.generate(),
+            User: {
+                id:shortId.generate(),
+                nickname: "GOOD",
+            },
+            content: faker.lorem.sentence(),
+        })),
         createdAt: "2020-12-31",
         Category: initialState.postCategories[Math.floor(Math.random() * initialState.postCategories.length)],
     }))
 );
+
+export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST';
+export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCESS';
+export const LOAD_POSTS_FAILURE = 'LOAD_POSTS_FAILURE';
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
@@ -236,6 +286,21 @@ const dummyPost = (data) => ({
 const reducer = (state = initialState, action) => {
     return produce(state, (draft) => {
         switch (action.type) {
+            case LOAD_POSTS_REQUEST:
+                draft.loadPostsLoading = true;
+                draft.loadPostsDone = false;
+                draft.loadPostsError = null;
+                break;
+            case LOAD_POSTS_SUCCESS:
+                draft.keywordPosts = draft.keywordPosts.concat(generateDuummyPost(action.data).concat(draft.mainPosts.filter((post) => post.Category.value == action.data)));
+                draft.loadPostsDone = true;
+                draft.loadPostsLoading = false;
+                draft.hasMorePosts = draft.keywordPosts.length < 50;
+                break;
+            case LOAD_POSTS_FAILURE:
+                draft.loadPostsLoading = false;
+                draft.loadPostsError = action.error;
+                break;
             case ADD_POST_REQUEST:
                 draft.addPostLoading = true;
                 draft.addPostDone = false;

@@ -6,12 +6,12 @@ import Link from 'next/link';
 
 moment.locale('ko');
 
-const HomeCardForm = ({ keyword }) => {
+const HomeCardForm = ({ posts, keyword }) => {
     const { mainPosts } = useSelector((state) => state.post);
 
     return (
         <Fragment>
-            {mainPosts.filter((post) => post.Category.label === keyword).map((p) => {
+            {/* {mainPosts.filter((post) => post.Category.label === keyword).map((p) => {
                 return (
                     <Link href={`/post/${p.id}`} key={`${p.title}_link`}>
                         <a key={`${p.title}_a`}>
@@ -22,13 +22,17 @@ const HomeCardForm = ({ keyword }) => {
                         </a>
                     </Link>
                 );
-            })}
-            {new Array(10).fill(null).map((_, index) => {
-                const key = index + 1;
+            })} */}
+            {posts.map((p) => {
                 return (
-                    <Card className='home-card-form' key={key+keyword} title={`#title_${keyword}`}>
-                        <p>{`#contents_${keyword}`}</p>
-                    </Card>
+                    <Link href={`/post/${p.id}`} key={`${p.title}_link`}>
+                        <a key={`${p.title}_a`}>
+                            <Card className='home-card-form' key={`${p.title}_card`}>
+                                <div key={`${p.title}_title`}>{p.title}</div>
+                                <div className='home-card-form-date' key={`${p.title}_date`}>{moment(p.createdAt).format('YYYY-MM-DD')}</div>
+                            </Card>
+                        </a>
+                    </Link>
                 );
             })}
         </Fragment>
