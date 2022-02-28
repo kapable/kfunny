@@ -140,6 +140,10 @@ export const initialState = {
     }],
     postCategories: [{
         id:shortId.generate(),
+        value:"news",
+        label: "최신"
+    }, {
+        id:shortId.generate(),
         value:"economics",
         label: "경제"
     }, {
@@ -180,39 +184,45 @@ export const initialState = {
     addCommentError: false,
 };
 
-export const generateDuummyPost = (category_value) => Array(10).fill().map(() => ({
-    id: Math.floor(Math.random() * 100),
-    title: faker.lorem.sentence(),
-    content: faker.lorem.sentences(),
-    User: {
-        id: Math.floor(Math.random() * 100),
-        nickname: faker.name.firstName(),
-    },
-    Images: [{
-        id: shortId.generate(),
-        src: faker.image.imageUrl()
-    }, {
-        id: shortId.generate(),
-        src: faker.image.imageUrl()
-    }, {
-        id: shortId.generate(),
-        src: faker.image.imageUrl()
-    }],
-    Comments: Array(15).fill().map(() => ({
-        id:shortId.generate(),
-        User: {
-            id:shortId.generate(),
-            nickname: faker.name.firstName(),
-        },
-        content: faker.lorem.sentence(),
-    })),
-    createdAt: "2020-12-31",
-    Category: {
-        id:shortId.generate(),
-        value: category_value,
-        label: "경제"
-    },
-}))
+export const generateDuummyPost = (category_value) => {
+    if(category_value !== "news") {
+        return (
+            Array(10).fill().map(() => ({
+                id: Math.floor(Math.random() * 100),
+                title: faker.lorem.sentence(),
+                content: faker.lorem.sentences(),
+                User: {
+                    id: Math.floor(Math.random() * 100),
+                    nickname: faker.name.firstName(),
+                },
+                Images: [{
+                    id: shortId.generate(),
+                    src: faker.image.imageUrl()
+                }, {
+                    id: shortId.generate(),
+                    src: faker.image.imageUrl()
+                }, {
+                    id: shortId.generate(),
+                    src: faker.image.imageUrl()
+                }],
+                Comments: Array(15).fill().map(() => ({
+                    id:shortId.generate(),
+                    User: {
+                        id:shortId.generate(),
+                        nickname: faker.name.firstName(),
+                    },
+                    content: faker.lorem.sentence(),
+                })),
+                createdAt: "2020-12-31",
+                Category: {
+                    id:shortId.generate(),
+                    value: category_value,
+                    label: "경제"
+                },
+            }))
+        )
+    }
+}
 
 // initialState.mainPosts = initialState.mainPosts.concat(
 //     Array(20).fill().map(() => ({
@@ -295,11 +305,11 @@ const reducer = (state = initialState, action) => {
                 break;
             case LOAD_POSTS_SUCCESS:
                 const randomPosts = generateDuummyPost(action.data);
-                draft.keywordPosts = draft.keywordPosts.concat(randomPosts);
-                draft.mainPosts = draft.mainPosts.concat(randomPosts);
+                draft.keywordPosts = draft.keywordPosts.concat(randomPosts).filter(n => n);
+                draft.mainPosts = draft.mainPosts.concat(randomPosts).filter(n => n);
                 draft.loadPostsDone = true;
                 draft.loadPostsLoading = false;
-                draft.hasMorePosts = draft.keywordPosts.length < 50;
+                draft.hasMorePosts = draft.keywordPosts.length < 50 && draft.mainPosts.length < 50;
                 break;
             case LOAD_POSTS_FAILURE:
                 draft.loadPostsLoading = false;
@@ -357,6 +367,7 @@ const reducer = (state = initialState, action) => {
                 draft.addCommentError = action.error;
                 break;
             case RESET_KEYWORD_POSTS:
+                draft.loadPostsLoading = true;
                 draft.keywordPosts = [];
             default:
                 break;

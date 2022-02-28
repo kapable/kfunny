@@ -47,7 +47,7 @@ const Home = () => {
             <Tabs tabPosition='top' size='default' type='line' onChange={onCategoryChange}>
                 {postCategories.map((category, _) => {
                     return (<TabPane key={category.value} tab={`${category.label}`}>
-                                <HomeCardForm posts={keywordPosts} keyword={`${category.label}`}/>
+                                <HomeCardForm posts={keywordPosts} keyword={`${category.value}`}/>
                             </TabPane>)
                 })}
             </Tabs>
