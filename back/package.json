@@ -4,7 +4,9 @@
   "description": "kfunny-back",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app",
+    "start": "cross-env NODE_ENV=production pm2 start app.js"
   },
   "author": "Seeyong",
   "license": "ISC",
