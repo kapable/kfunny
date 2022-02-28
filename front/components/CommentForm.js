@@ -8,7 +8,7 @@ import { ADD_COMMENT_REQUEST } from '../reducers/post';
 const CommentForm = ({ singlePost, logInDone }) => {
     const dispatch = useDispatch();
     const userId = useSelector((state) => state.user.userInfo? state.user.userInfo.id: null);
-    const { addCommentDone } = useSelector((state) => state.post);
+    const { addCommentDone, addCommentLoading } = useSelector((state) => state.post);
     const [commentText, onChangeCommentText, setCommentText] = useInput('');
 
     useEffect(() => {
@@ -22,8 +22,7 @@ const CommentForm = ({ singlePost, logInDone }) => {
         dispatch({
             type: ADD_COMMENT_REQUEST,
             data: { content: commentText, postId: singlePost.id, userId: userId }
-        })
-        console.log(singlePost.id, commentText);
+        });
     }, [commentText, userId, singlePost]);
 
     return (
@@ -46,7 +45,7 @@ const CommentForm = ({ singlePost, logInDone }) => {
                     type="primary"
                     htmlType="submit"
                     disabled={logInDone ? false : true}
-                    // loading={addCommentLoading}
+                    loading={addCommentLoading}
                     >등록</Button>
             </Form.Item>
         </Form>

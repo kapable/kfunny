@@ -11,10 +11,10 @@ const UserProfile = () => {
     const dispatch = useDispatch();
     const { logInDone, userInfo, logOutLoading, changeNicknameDone, changeNicknameLoading } = useSelector((state) => state.user);
     useEffect(() => {
-        if(changeNicknameDone === null || !logInDone) {
+        if(!(userInfo && logInDone)) {
             Router.replace('/');
         }
-    }, [changeNicknameDone, logInDone]);
+    }, [userInfo && logInDone]);
 
     useEffect(() => {
         if(changeNicknameDone) {

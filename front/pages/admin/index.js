@@ -7,12 +7,12 @@ import { useSelector } from 'react-redux';
 const Admin = () => {
     const { userInfo, logInDone } = useSelector((state) => state.user);
 
-    useEffect(() => {
-        if(!userInfo.admin || !logInDone) {
-            // alert('관리자 로그인이 필요합니다!');
-            // Router.push('/login');
-        }
-    }, [userInfo, logInDone]);
+    // useEffect(() => {
+    //     if(!userInfo.admin || !logInDone) {
+    //         alert('관리자 로그인이 필요합니다!');
+    //         Router.push('/login');
+    //     }
+    // }, [userInfo, logInDone]);
 
     return (
         <Fragment>
