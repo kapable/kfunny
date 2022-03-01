@@ -7,8 +7,6 @@ const dummyUser = {
     createdAt: "2022-01-02",
     admin: true,
     Posts: [],
-    Followings: [],
-    Followers: [],
 };
 
 export const initialState = {
