@@ -5,6 +5,16 @@ const db = {};
 
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
 
+db.User = user;
+db.Post = post;
+db.Comment = comment;
+db.Image = image;
+db.Category = category;
+
+Object.keys(db).forEach(modelName => {
+  db[modelName].init(sequelize);
+});
+
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db);

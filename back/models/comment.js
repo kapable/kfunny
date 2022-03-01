@@ -12,7 +12,7 @@ module.exports = class Comment extends Model {
             modelName: 'Comment',
             tableName: 'comments',
             charset: 'utf8mb4',
-            collate: 'utf8mb4_general_ci', // 한글 저장
+            collate: 'utf8mb4_general_ci',
             sequelize
         })
     }
