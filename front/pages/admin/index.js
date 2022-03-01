@@ -3,16 +3,17 @@ import { Row, Col } from 'antd';
 import { EditOutlined, OrderedListOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
+import Router from 'next/router';
 
 const Admin = () => {
     const { userInfo, logInDone } = useSelector((state) => state.user);
 
-    // useEffect(() => {
-    //     if(!userInfo.admin || !logInDone) {
-    //         alert('관리자 로그인이 필요합니다!');
-    //         Router.push('/login');
-    //     }
-    // }, [userInfo, logInDone]);
+    useEffect(() => {
+        if(!userInfo?.admin || !logInDone) {
+            alert('관리자 로그인이 필요합니다!');
+            Router.replace('/login');
+        }
+    }, [userInfo, logInDone]);
 
     return (
         <Fragment>

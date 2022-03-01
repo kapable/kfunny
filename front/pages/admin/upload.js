@@ -11,9 +11,17 @@ const { Option } = Select;
 const Upload = () => {
   const dispatch = useDispatch();
   const { imagePaths, postCategories, addPostLoading, addPostDone } = useSelector((state) => state.post);
+  const { userInfo, logInDone } = useSelector((state) => state.user);
   const [category, setCategory] = useState('');
   const [title, onChangeTitle] = useInput('');
   const imageInput = useRef();
+
+  // useEffect(() => {
+  //     if(!userInfo?.admin || !logInDone) {
+  //         alert('관리자 로그인이 필요합니다!');
+  //         Router.replace('/login');
+  //     }
+  // }, [userInfo, logInDone]);
 
   useEffect(() => {
     if(addPostDone) {
@@ -48,7 +56,7 @@ const Upload = () => {
   const onSubmit = useCallback(() => {
     dispatch({
       type: ADD_POST_REQUEST,
-      data: title,
+      data: { title, category },
     })
   }, [title, category, imagePaths]);
 
@@ -77,7 +85,7 @@ const Upload = () => {
           optionLabelProp="label"
           onChange={setCategory}
         >
-          {postCategories.map((postCategory) => (
+          {postCategories.slice(1).map((postCategory) => ( // except 최신 related to slice
             <Option value={postCategory.value} label={postCategory.label} key={`${postCategory.value}_category`}>
               {postCategory.label}
             </Option>

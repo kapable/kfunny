@@ -4,12 +4,22 @@ import { Table, Space, Image } from 'antd';
 import { LinkOutlined } from '@ant-design/icons';
 import { REMOVE_POST_REQUEST } from '../../reducers/post';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import Router from 'next/router';
 
 const { Column, ColumnGroup } = Table;
 
 const PostList = () => {
     const dispatch = useDispatch();
     const { mainPosts } = useSelector((state) => state.post);
+    const { userInfo, logInDone } = useSelector((state) => state.user);
+
+    // useEffect(() => {
+    //     if(!userInfo?.admin || !logInDone) {
+    //         alert('관리자 로그인이 필요합니다!');
+    //         Router.replace('/login');
+    //     }
+    // }, [userInfo, logInDone]);
+
     const onShareButtonClick = useCallback(() => {
         alert('링크가 복사되었습니다!');
     }, []);
