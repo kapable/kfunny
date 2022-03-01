@@ -5,11 +5,14 @@ import useInput from '../hooks/useInput';
 import { CHANGE_NICKNAME_REQUEST, LOG_OUT_REQUEST } from '../reducers/user';
 import { useDispatch, useSelector } from 'react-redux';
 import Router from 'next/router';
+import moment from 'moment';
+
+moment.locale('ko');
 
 const UserProfile = () => {
     // for LogIn and LogOut check
     const dispatch = useDispatch();
-    const { logInDone, userInfo, logOutLoading, changeNicknameDone, changeNicknameLoading } = useSelector((state) => state.user);
+    const { logInDone, logInError, userInfo, logOutLoading, changeNicknameDone, changeNicknameLoading } = useSelector((state) => state.user);
     useEffect(() => {
         if(!(userInfo && logInDone)) {
             Router.replace('/');
@@ -22,6 +25,12 @@ const UserProfile = () => {
         }
     }, [changeNicknameDone]);
 
+    useEffect(() => {
+        if (logInError) {
+            alert(logInError);
+        };
+    }, [logInError]);
+
     const [nickname, setNickname] = useInput(userInfo?.nickname || '');
     const [description, setDescription] = useInput(userInfo?.description || '');
     const [infoEditMode, setInfoEditMode] = useState(false);
@@ -30,7 +39,7 @@ const UserProfile = () => {
         dispatch({
             type: LOG_OUT_REQUEST,
         });
-    }, []);
+    }, [LOG_OUT_REQUEST]);
 
     const onInfoEditMode = useCallback(() => {
         setInfoEditMode(!infoEditMode);
@@ -62,7 +71,7 @@ const UserProfile = () => {
             <Card
                 className='user-profile-card'
                 actions={[
-                    <div key="register-date">가입일자<br />{userInfo?.createdAt || ''}</div>,
+                    <div key="register-date">가입일자<br />{moment(userInfo?.createdAt).format('YYYY-MM-DD') || ''}</div>,
                     <div key="comment">내가 쓴 댓글<br />0</div>,
                     <div key="edit" onClick={onInfoEditMode}>수정하기<br /><EditOutlined className="user-profile-card-edit"  /></div>
                     

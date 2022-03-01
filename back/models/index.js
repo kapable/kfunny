@@ -1,3 +1,9 @@
+const user = require('./user');
+const post = require('./post');
+const comment = require('./comment');
+const image = require('./image');
+const category = require('./category');
+
 const Sequelize = require('sequelize');
 const env = process.env.NODE_ENV || 'development';
 const config = require('../config/config')[env];

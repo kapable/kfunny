@@ -15,7 +15,7 @@ const AppLayout = ({ children }) => {
         dispatch({
             type: LOG_OUT_REQUEST
         });
-    }, []);
+    }, [LOG_OUT_REQUEST]);
 
     return (
         <Layout className='applayout'>

@@ -39,7 +39,8 @@ const SignupForm = () => {
 
     useEffect(() => {
         if (signUpDone) {
-            Router.push('/login');
+            alert("회원가입에 성공했습니다!");
+            Router.replace('/login');
         }
 
         if (signUpError) {
@@ -59,7 +60,6 @@ const SignupForm = () => {
                 type: SIGN_UP_REQUEST,
                 data: { email, nickname, password }
             })
-            console.log({ email, nickname, password });
         },
         [password, passwordCheck, setPasswordError, term, setTermError, email, nickname],
     )
