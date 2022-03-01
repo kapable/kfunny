@@ -4,10 +4,11 @@ const dotenv = require('dotenv');
 const { User, Post, Image, Comment } = require('../models');
 const passport = require('passport');
 const router = express.Router();
+const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
 
 dotenv.config();
 // LOG IN
-router.post(`/login`, (req, res, next) => { // POST /user/login
+router.post(`/login`, isNotLoggedIn, (req, res, next) => { // POST /user/login
     passport.authenticate('local', (err, user, info) => {
         if (err) {
             console.error(err);
@@ -32,13 +33,13 @@ router.post(`/login`, (req, res, next) => { // POST /user/login
     })(req, res, next);
 });
 // LOG OUT
-router.post(`/logout`, (req, res) => { // POST /user/logout
+router.post(`/logout`, isLoggedIn, (req, res) => { // POST /user/logout
     req.logout();
     req.session.destroy();
     res.send('로그아웃 되었습니다!');
 });
 // SIGN UP
-router.post('/', async (req, res, next) => { // POST /user
+router.post('/', isNotLoggedIn, async (req, res, next) => { // POST /user
     try {
         const exUser = await User.findOne({ // 기존에 있는 아이디(이메일)인지 찾은 후,
             where: {
