@@ -4,7 +4,7 @@ const { isLoggedIn } = require('./middlewares');
 const router = express.Router();
 
 // ADD CATEGORY
-router.post('/', async (req, res, next) => { // POST /category
+router.post('/', isLoggedIn, async (req, res, next) => { // POST /category
     try {
         const exCategory = await Category.findOne({
             where: {
@@ -46,7 +46,7 @@ router.get('/', async (req, res, next) => { // GET /category
 });
 
 // SET CATEGORY
-router.patch(`/`, async (req, res, next) => { // PATCH /category
+router.patch(`/`, isLoggedIn, async (req, res, next) => { // PATCH /category
     try {
         await Category.update({
             enabled: req.body.checked,

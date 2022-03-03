@@ -6,11 +6,11 @@ import HomeCards from './HomeCards';
 const HomeCardForm = ({ posts, keyword }) => {
     const { mainPosts, loadPostsLoading } = useSelector((state) => state.post);
     if (keyword === "최신") {
-    return (
-        <Fragment>
-            {loadPostsLoading ? <HomeCardSkeleton number={10} /> : <HomeCards posts={mainPosts} />}
-        </Fragment>
-    );
+        return (
+            <Fragment>
+                {loadPostsLoading ? <HomeCardSkeleton number={10} /> : <HomeCards posts={mainPosts} />}
+            </Fragment>
+        );
     } else {
         return (
             <Fragment>

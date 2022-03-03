@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const postRouter = require('./routes/post');
+const postsRouter = require('./routes/posts');
 const userRouter = require('./routes/user');
 const categoryRouter = require('./routes/category');
 const db = require('./models');
@@ -67,6 +68,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/post', postRouter);
+app.use('/posts', postsRouter);
 app.use('/user', userRouter);
 app.use('/category', categoryRouter);
 

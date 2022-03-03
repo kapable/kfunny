@@ -12,12 +12,12 @@ moment.locale('ko');
 const UserProfile = () => {
     // for LogIn and LogOut check
     const dispatch = useDispatch();
-    const { logInDone, logInError, userInfo, logOutLoading, changeNicknameDone, changeNicknameLoading } = useSelector((state) => state.user);
+    const { logInError, userInfo, logOutLoading, changeNicknameDone, changeNicknameLoading } = useSelector((state) => state.user);
     useEffect(() => {
-        if(!(userInfo && logInDone)) {
+        if(!(userInfo && userInfo.id)) {
             Router.replace('/');
         }
-    }, [userInfo && logInDone]);
+    }, [userInfo && userInfo.id]);
 
     useEffect(() => {
         if(changeNicknameDone) {

@@ -2,11 +2,13 @@ import React, { Fragment, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Table, Space, Image } from 'antd';
 import { LinkOutlined } from '@ant-design/icons';
-import { REMOVE_POST_REQUEST } from '../../reducers/post';
+import { LOAD_POSTS_REQUEST, REMOVE_POST_REQUEST } from '../../reducers/post';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Router from 'next/router';
 import { LOAD_MY_INFO_REQUEST } from '../../reducers/user';
+import moment from 'moment';
 
+moment.locale('ko');
 const { Column, ColumnGroup } = Table;
 
 const PostList = () => {
@@ -14,6 +16,10 @@ const PostList = () => {
     const { mainPosts } = useSelector((state) => state.post);
     const { userInfo, logInDone } = useSelector((state) => state.user);
     useEffect(() => {
+        dispatch({
+            type: LOAD_POSTS_REQUEST,
+            data: "최신",
+        });
         dispatch({
             type: LOAD_MY_INFO_REQUEST
         });
@@ -74,7 +80,16 @@ const PostList = () => {
                         )}
                     />
                 </ColumnGroup>
-                <Column title="작성일" dataIndex="createdAt" key="createdAt" />
+                <Column
+                    title="작성일"
+                    dataIndex="createdAt"
+                    key="createdAt"
+                    render={(date) => (
+                        <Space size="middle">
+                            {moment(date).format('YYYY-MM-DD')}
+                        </Space>
+                    )}
+                    />
             </Table>
         </Fragment>
     );

@@ -10,11 +10,11 @@ const HomeCards = ({ posts }) => {
     return (
         posts.map((p) => {
             return (
-                <Link href={`/post/${p.id}`} key={`${p.title}_link`}>
-                    <a key={`${p.title}_a`}>
-                        <Card className='home-card-form' key={`${p.title}_card`}>
-                            <div key={`${p.title}_title`}>{p.title}</div>
-                            <div className='home-card-form-date' key={`${p.title}_date`}>{moment(p.createdAt).format('YYYY-MM-DD')}</div>
+                <Link href={`/post/${p.id}`} key={`${p.id}_link`}>
+                    <a key={`${p.id}_a`}>
+                        <Card className='home-card-form' key={`${p.id}_card`}>
+                            <div key={`${p.id}_title`}>{p.title}</div>
+                            <div className='home-card-form-date' key={`${p.id}_date`}>{moment(p.createdAt).format('YYYY-MM-DD')}</div>
                         </Card>
                     </a>
                 </Link>
@@ -29,7 +29,7 @@ HomeCards.propTypes = {
         User: PropTypes.object.isRequired,
         title: PropTypes.string.isRequired,
         conent: PropTypes.string,
-        Category: PropTypes.object.isRequired,
+        Categories: PropTypes.arrayOf(PropTypes.object).isRequired,
         createdAt: PropTypes.string.isRequired,
         Comments: PropTypes.arrayOf(PropTypes.object),
         Images: PropTypes.arrayOf(PropTypes.object),

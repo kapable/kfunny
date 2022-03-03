@@ -277,8 +277,10 @@ const reducer = (state = initialState, action) => {
                 break;
             case LOAD_POSTS_SUCCESS:
                 const randomPosts = generateDuummyPost(action.data);
-                draft.keywordPosts = draft.keywordPosts.concat(randomPosts).filter(n => n);
-                draft.mainPosts = draft.mainPosts.concat(randomPosts).filter(n => n);
+                // draft.keywordPosts = draft.keywordPosts.concat(randomPosts).filter(n => n);
+                // draft.mainPosts = draft.mainPosts.concat(randomPosts).filter(n => n);
+                draft.keywordPosts = action.data;
+                draft.mainPosts = action.data;
                 draft.loadPostsDone = true;
                 draft.loadPostsLoading = false;
                 draft.hasMorePosts = draft.keywordPosts.length < 50 && draft.mainPosts.length < 50;
