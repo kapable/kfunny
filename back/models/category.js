@@ -3,17 +3,16 @@ const { Model } = DataTypes;
 
 module.exports = class Category extends Model {
     static init(sequelize) {
-        return super.init({ 
-            value: {
-                type: DataTypes.STRING(20),
-                allowNull: false,
-                unique: true,
-            },
+        return super.init({
             label: {
                 type: DataTypes.STRING(20),
                 allowNull: false,
                 unique: true,
             },
+            enabled: {
+                type: DataTypes.BOOLEAN,
+                allowNull: false,
+            }
         }, {
             modelName: 'Category',
             tableName: 'categories',

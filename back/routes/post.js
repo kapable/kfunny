@@ -1,10 +1,12 @@
 const express = require('express');
+const multer = require('multer')
+const path = require('path');
+const fs = require('fs');
 const { Post, Comment, Image, User, Category } = require('../models');
-const { findOne } = require('../models/user');
 const { isLoggedIn } = require('./middlewares');
 const router = express.Router();
 
-// ADD POST *Category 추가 필요!!!!!!!!!!!!!!!!!!!!
+// ADD POST
 router.post('/', isLoggedIn, async (req, res, next) => { // POST /post
     try {
         const post = await Post.create({

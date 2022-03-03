@@ -86,7 +86,7 @@ const Upload = () => {
           onChange={setCategory}
         >
           {postCategories.slice(1).map((postCategory) => ( // except 최신 related to slice
-            <Option value={postCategory.value} label={postCategory.label} key={`${postCategory.value}_category`}>
+            <Option value={postCategory.label} label={postCategory.label} key={`${postCategory.label}_category`}>
               {postCategory.label}
             </Option>
           ))}

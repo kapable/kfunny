@@ -8,7 +8,8 @@ const { TabPane } = Tabs;
 
 const Home = () => {
     const dispatch = useDispatch();
-    const { postCategories, keywordPosts, hasMorePosts, loadPostsLoading } = useSelector((state) => state.post);
+    const { keywordPosts, hasMorePosts, loadPostsLoading } = useSelector((state) => state.post);
+    const { postCategories } = useSelector((state) => state.category);
     const [currentCategory, setCurrentCategory] = useState(postCategories[0].value);
     const onCategoryChange = useCallback((category) => {
         setCurrentCategory(category);
@@ -46,9 +47,11 @@ const Home = () => {
         <Fragment>
             <Tabs tabPosition='top' size='default' type='line' onChange={onCategoryChange}>
                 {postCategories.map((category, _) => {
-                    return (<TabPane key={category.value} tab={`${category.label}`}>
-                                <HomeCardForm posts={keywordPosts} keyword={`${category.value}`}/>
-                            </TabPane>)
+                    if(category.enabled) {
+                        return (<TabPane key={category.label} tab={`${category.label}`}>
+                                    <HomeCardForm posts={keywordPosts} keyword={`${category.label}`}/>
+                                </TabPane>)
+                    }
                 })}
             </Tabs>
         </Fragment>

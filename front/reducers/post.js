@@ -138,35 +138,6 @@ export const initialState = {
             label: "경제"
         }
     }],
-    postCategories: [{
-        id:shortId.generate(),
-        value:"news",
-        label: "최신"
-    }, {
-        id:shortId.generate(),
-        value:"economics",
-        label: "경제"
-    }, {
-        id:shortId.generate(),
-        value:"politics",
-        label: "정치"
-    }, {
-        id:shortId.generate(),
-        value:"gossip",
-        label: "연예"
-    }, {
-        id:shortId.generate(),
-        value:"society",
-        label: "사회"
-    },{
-        id:shortId.generate(),
-        value:"culture",
-        label: "문화"
-    },{
-        id:shortId.generate(),
-        value:"history",
-        label: "역사"
-    }],
     keywordPosts: [],
     imagePaths: [],
     hasMorePosts: true,
