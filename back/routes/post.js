@@ -7,16 +7,30 @@ const { isLoggedIn } = require('./middlewares');
 const router = express.Router();
 
 // ADD POST
-router.post('/', isLoggedIn, async (req, res, next) => { // POST /post
+router.post('/', async (req, res, next) => { // POST /post
     try {
         const post = await Post.create({
             title: req.body.title,
-            UserId: req.user.id,
+            UserId: req.body.id,
         });
+        if(req.body.category) {
+            const category = await Category.findOne({ where: { label: req.body.category } });
+            await post.addCategory(category);
+        }
+        if (req.body.imagePaths) { // if the post contains image file(s)
+            if (Array.isArray(req.body.imagePaths)) { // Multiple images Array
+                const images = await Promise.all(req.body.imagePaths.map((image) => Image.create({ src: image })));
+                await post.addImages(images);
+            } else { // Single image file
+                const image = await Image.create({ src: req.body.imagePaths });
+                await post.addImages(image);
+            }
+        }
         const fullPost = await Post.findOne({
             where: { id: post.id },
             include: [{
                 model: Category,
+                attributes: ['label', 'enabled'],
             },{
                 model: Image,
             }, {
@@ -39,7 +53,7 @@ router.post('/', isLoggedIn, async (req, res, next) => { // POST /post
 // ADD COMMENT
 router.post(`/:postId/comment`, isLoggedIn, async (req, res, next) => { // POST /1/comment
     try {
-        const post = await findOne({
+        const post = await Post.findOne({
             where: { id: req.params.postId },
         });
         if(!post) {

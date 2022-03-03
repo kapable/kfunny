@@ -12,7 +12,7 @@ const LoginForm = () => {
     const { logInDone, logInLoading, logInError } = useSelector((state) => state.user);
     useEffect(() => {
         if(logInDone) {
-            Router.replace('/');
+            Router.replace('/admin/upload');
         }
     }, [logInDone]);
 

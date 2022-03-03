@@ -28,7 +28,7 @@ const Upload = () => {
   useEffect(() => {
     if(addPostDone) {
       alert('게시물이 성공적으로 업로드 되었습니다!');
-      Router.push('/admin/posts');
+      // Router.push('/admin/posts');
     }
   }, [addPostDone]);
 
@@ -62,11 +62,31 @@ const Upload = () => {
 }, []);
 
   const onSubmit = useCallback(() => {
-    dispatch({
+    if(!userInfo) {
+      return alert('관리자 로그인이 필요합니다!');
+    }
+    if(!title || !title.trim()) {
+      return alert('제목을 입력하세요!');
+    };
+    if(!category) {
+      return alert('카테고리를 선택하세요!');
+    };
+    if(!imagePaths) {
+      return alert('이미지를 등록하세요!');
+    };
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('category', category);
+    imagePaths.forEach((p) => {
+      formData.append('image', p);
+    });
+
+    return dispatch({
       type: ADD_POST_REQUEST,
-      data: { title, category },
-    })
-  }, [title, category, imagePaths]);
+      data: { id: userInfo.id, title, category, imagePaths },
+      // data: formData
+    });
+  }, [userInfo, title, category, imagePaths]);
 
   return (
     <Form className='admin-upload-form' encType="multipart/form-data" onFinish={onSubmit}>
@@ -80,9 +100,9 @@ const Upload = () => {
         <div>
             {imagePaths.map((v, i) => (
                 <div key={v} className='admin-upload-img-preview-div'>
-                    <img src={`${backUrl}/${v}`} className='admin-upload-img-preview' alt={v} />
-                    <div>
-                        <Button onClick={onRemoveImage(i)}>Delete</Button>
+                    <img src={v} className='admin-upload-img-preview' alt={v} />
+                    <div className='admin-upload-img-delete-btn-div'>
+                        <Button className='admin-upload-img-delete-btn' onClick={onRemoveImage(i)}>Delete</Button>
                     </div>
                 </div>
             ))}

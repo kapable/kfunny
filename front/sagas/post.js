@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { all, fork, delay, put, takeLatest, call } from 'redux-saga/effects';
 import {
     LOAD_POSTS_REQUEST, LOAD_POSTS_SUCCESS, LOAD_POSTS_FAILURE,
@@ -35,7 +36,6 @@ function addPostAPI(data) {
 function* addPost(action) {
     try {
         const result = yield call(addPostAPI, action.data);
-        // const id = Math.floor(Math.random() * 100);
         yield put({
             type: ADD_POST_SUCCESS,
             data: result.data,

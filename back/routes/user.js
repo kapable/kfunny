@@ -27,6 +27,10 @@ router.post(`/login`, isNotLoggedIn, (req, res, next) => { // POST /user/login
                 attributes: {
                     exclude: ['password'],
                 },
+                include: [{
+                    model: Post,
+                    attributes: ['id'],
+                },]
             });
             return res.status(200).json(fullUserWithoutPassword);
         });
