@@ -39,7 +39,6 @@ export const initialState = {
         }],
         Category: {
             id:shortId.generate(),
-            value:"economics",
             label: "경제"
         }
     }, {
@@ -134,7 +133,6 @@ export const initialState = {
         }],
         Category: {
             id:shortId.generate(),
-            value:"economics",
             label: "경제"
         }
     }],
@@ -155,8 +153,8 @@ export const initialState = {
     addCommentError: false,
 };
 
-export const generateDuummyPost = (category_value) => {
-    if(category_value !== "news") {
+export const generateDuummyPost = (category_label) => {
+    if(category_label !== "최신") {
         return (
             Array(10).fill().map(() => ({
                 id: Math.floor(Math.random() * 100),
@@ -187,8 +185,7 @@ export const generateDuummyPost = (category_value) => {
                 createdAt: "2020-12-31",
                 Category: {
                     id:shortId.generate(),
-                    value: category_value,
-                    label: "경제"
+                    label: category_label,
                 },
             }))
         )

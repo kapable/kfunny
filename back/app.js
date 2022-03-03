@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const postRouter = require('./routes/post');
 const userRouter = require('./routes/user');
+const categoryRouter = require('./routes/category');
 const db = require('./models');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
@@ -67,6 +68,7 @@ app.get('/', (req, res) => {
 
 app.use('/post', postRouter);
 app.use('/user', userRouter);
+app.use('/category', categoryRouter);
 
 app.listen(3065, () => {
     console.log('Server is running...');

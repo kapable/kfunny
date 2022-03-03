@@ -3,6 +3,7 @@ import { Button, Form, Select, Input, Divider } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { PlusOutlined } from '@ant-design/icons';
 import { ADD_POST_REQUEST } from '../../reducers/post';
+import { LOAD_CATEGORIES_REQUEST } from '../../reducers/category';
 import useInput from '../../hooks/useInput';
 import Router from 'next/router';
 
@@ -10,7 +11,8 @@ const { Option } = Select;
 
 const Upload = () => {
   const dispatch = useDispatch();
-  const { imagePaths, postCategories, addPostLoading, addPostDone } = useSelector((state) => state.post);
+  const { imagePaths, addPostLoading, addPostDone } = useSelector((state) => state.post);
+  const { postCategories } = useSelector((state) => state.category);
   const { userInfo, logInDone } = useSelector((state) => state.user);
   const [category, setCategory] = useState('');
   const [title, onChangeTitle] = useInput('');
@@ -29,6 +31,12 @@ const Upload = () => {
       Router.push('/admin/posts');
     }
   }, [addPostDone]);
+
+  useEffect(() => {
+    dispatch({
+        type: LOAD_CATEGORIES_REQUEST
+    })
+  }, []);
 
   const onClickImageUpload = useCallback(() => {
         imageInput.current.click();

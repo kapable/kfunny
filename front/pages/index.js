@@ -3,14 +3,21 @@ import { Tabs } from 'antd';
 import HomeCardForm from '../components/HomeCardForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { LOAD_POSTS_REQUEST, RESET_KEYWORD_POSTS } from '../reducers/post';
+import { LOAD_CATEGORIES_REQUEST } from '../reducers/category';
 
 const { TabPane } = Tabs;
 
 const Home = () => {
+    useEffect(() => {
+        dispatch({
+            type: LOAD_CATEGORIES_REQUEST
+        })
+    }, []);
+
     const dispatch = useDispatch();
     const { keywordPosts, hasMorePosts, loadPostsLoading } = useSelector((state) => state.post);
     const { postCategories } = useSelector((state) => state.category);
-    const [currentCategory, setCurrentCategory] = useState(postCategories[0].value);
+    const [currentCategory, setCurrentCategory] = useState(postCategories[0].label);
     const onCategoryChange = useCallback((category) => {
         setCurrentCategory(category);
     }, []);

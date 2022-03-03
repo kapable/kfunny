@@ -2,7 +2,7 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { Tag, Input } from 'antd';
 import { PlusOutlined, LoadingOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { ADD_CATEGORY_REQUEST, SET_CATEGORY_REQUEST } from '../../reducers/category';
+import { ADD_CATEGORY_REQUEST, LOAD_CATEGORIES_REQUEST, SET_CATEGORY_REQUEST } from '../../reducers/category';
 import useInput from '../../hooks/useInput';
 
 const { CheckableTag } = Tag;
@@ -21,6 +21,12 @@ const Category = () => {
     // }, [userInfo, logInDone]);
 
     useEffect(() => {
+        dispatch({
+            type: LOAD_CATEGORIES_REQUEST
+        })
+    }, []);
+
+    useEffect(() => {
         if(setCategoryDone) {
             alert('설정이 변경되었습니다!');
         };
@@ -34,7 +40,7 @@ const Category = () => {
             alert('새로운 카테고리가 추가되었습니다!');
         }
         if(addCategoryError) {
-            alert('카테고리 추가에 실패했습니다 ㅠㅠ');
+            alert(addCategoryError);
         }
     }, [addCategoryDone, addCategoryError]);
 
@@ -51,7 +57,7 @@ const Category = () => {
         } else {
             dispatch({
                 type: ADD_CATEGORY_REQUEST,
-                data: newCategory,
+                data: { newCategory },
             })
             setNewCategory('');
             setInputVisible(false);
@@ -60,13 +66,13 @@ const Category = () => {
 
     return (
         <Fragment>
-            <div>category</div>
+            <h1>카테고리 목록</h1>
             {postCategories.map((v) => (
                 <CheckableTag
-                key={v.label}
-                checked={v.enabled}
-                onChange={(checked) => onCheckChange(v.label, checked)}
-                >{setCategoryLoading? <LoadingOutlined /> : v.label}</CheckableTag>
+                    key={v.label}
+                    checked={v.enabled}
+                    onChange={(checked) => onCheckChange(v.label, checked)}
+                    >{setCategoryLoading? <LoadingOutlined /> : v.label}</CheckableTag>
             ))}
             {addCategoryLoading
             ? (<LoadingOutlined />)
