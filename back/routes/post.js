@@ -7,11 +7,11 @@ const { isLoggedIn } = require('./middlewares');
 const router = express.Router();
 
 // ADD POST
-router.post('/', async (req, res, next) => { // POST /post
+router.post('/', isLoggedIn, async (req, res, next) => { // POST /post
     try {
         const post = await Post.create({
             title: req.body.title,
-            UserId: req.body.id,
+            UserId: req.user.id,
         });
         if(req.body.category) {
             const category = await Category.findOne({ where: { label: req.body.category } });

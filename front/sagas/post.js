@@ -40,10 +40,10 @@ function* addPost(action) {
             type: ADD_POST_SUCCESS,
             data: result.data,
         })
-        yield put({
-            type: ADD_POST_TO_ME,
-            data: result.data.id,
-        })
+        // yield put({
+        //     type: ADD_POST_TO_ME,
+        //     data: result.data.id,
+        // })
     } catch (err) {
         console.log(err);
         yield put({

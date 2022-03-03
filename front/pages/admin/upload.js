@@ -6,6 +6,7 @@ import { ADD_POST_REQUEST } from '../../reducers/post';
 import { LOAD_CATEGORIES_REQUEST } from '../../reducers/category';
 import useInput from '../../hooks/useInput';
 import Router from 'next/router';
+import { LOAD_MY_INFO_REQUEST } from '../../reducers/user';
 
 const { Option } = Select;
 
@@ -17,12 +18,17 @@ const Upload = () => {
   const [category, setCategory] = useState('');
   const [title, onChangeTitle] = useInput('');
   const imageInput = useRef();
+  useEffect(() => {
+      dispatch({
+          type: LOAD_MY_INFO_REQUEST
+      });
+  }, []);
 
   // useEffect(() => {
-  //     if(!userInfo?.admin || !logInDone) {
-  //         alert('관리자 로그인이 필요합니다!');
-  //         Router.replace('/login');
-  //     }
+  //   if(!(userInfo?.admin)) {
+  //       alert('관리자 로그인이 필요합니다!');
+  //       Router.replace('/login');
+  //   }
   // }, [userInfo, logInDone]);
 
   useEffect(() => {
@@ -83,7 +89,7 @@ const Upload = () => {
 
     return dispatch({
       type: ADD_POST_REQUEST,
-      data: { id: userInfo.id, title, category, imagePaths },
+      data: { title, category, imagePaths },
       // data: formData
     });
   }, [userInfo, title, category, imagePaths]);

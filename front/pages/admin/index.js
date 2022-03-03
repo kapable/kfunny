@@ -2,14 +2,22 @@ import React, { Fragment, useEffect } from 'react';
 import { Row, Col } from 'antd';
 import { EditOutlined, OrderedListOutlined, TagsOutlined, QuestionOutlined } from '@ant-design/icons';
 import Link from 'next/link';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Router from 'next/router';
+import { LOAD_MY_INFO_REQUEST } from '../../reducers/user';
 
 const Admin = () => {
+    const dispatch = useDispatch();
     const { userInfo, logInDone } = useSelector((state) => state.user);
 
+    useEffect(() => {
+        dispatch({
+            type: LOAD_MY_INFO_REQUEST
+        });
+    }, []);
+    
     // useEffect(() => {
-    //     if(!userInfo?.admin || !logInDone) {
+    //     if(!userInfo?.admin) {
     //         alert('관리자 로그인이 필요합니다!');
     //         Router.replace('/login');
     //     }

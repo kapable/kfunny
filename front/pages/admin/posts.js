@@ -1,10 +1,11 @@
-import React, { Fragment, useCallback } from 'react';
+import React, { Fragment, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Table, Space, Image } from 'antd';
 import { LinkOutlined } from '@ant-design/icons';
 import { REMOVE_POST_REQUEST } from '../../reducers/post';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Router from 'next/router';
+import { LOAD_MY_INFO_REQUEST } from '../../reducers/user';
 
 const { Column, ColumnGroup } = Table;
 
@@ -12,9 +13,14 @@ const PostList = () => {
     const dispatch = useDispatch();
     const { mainPosts } = useSelector((state) => state.post);
     const { userInfo, logInDone } = useSelector((state) => state.user);
+    useEffect(() => {
+        dispatch({
+            type: LOAD_MY_INFO_REQUEST
+        });
+    }, []);
 
     // useEffect(() => {
-    //     if(!userInfo?.admin || !logInDone) {
+    //     if(!userInfo?.admin) {
     //         alert('관리자 로그인이 필요합니다!');
     //         Router.replace('/login');
     //     }

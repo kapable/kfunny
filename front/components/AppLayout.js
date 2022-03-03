@@ -10,7 +10,7 @@ const { Header, Content, Footer } = Layout;
 const AppLayout = ({ children }) => {
     // for LogIn and LogOut check
     const dispatch = useDispatch();
-    const { logInDone } = useSelector((state) => state.user);
+    const { userInfo } = useSelector((state) => state.user);
     const onLogout = useCallback(() => {
         dispatch({
             type: LOG_OUT_REQUEST
@@ -23,7 +23,7 @@ const AppLayout = ({ children }) => {
                 <Menu mode='horizontal' triggerSubMenuAction="click" theme='light'>
                     <Menu.Item key="home"><Link href='/'><a>케이퍼니</a></Link></Menu.Item>
                     <Menu.Item key="divider" disabled={true}>|</Menu.Item>
-                    {logInDone 
+                    {userInfo 
                     ? (
                     <>
                         <Menu.Item key="profile"><Link href='/profile'><a>내 정보</a></Link></Menu.Item>

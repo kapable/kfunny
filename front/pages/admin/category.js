@@ -4,6 +4,7 @@ import { PlusOutlined, LoadingOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { ADD_CATEGORY_REQUEST, LOAD_CATEGORIES_REQUEST, SET_CATEGORY_REQUEST } from '../../reducers/category';
 import useInput from '../../hooks/useInput';
+import { LOAD_MY_INFO_REQUEST } from '../../reducers/user';
 
 const { CheckableTag } = Tag;
 
@@ -13,6 +14,11 @@ const Category = () => {
     const { userInfo, logInDone } = useSelector((state) => state.user);
     const [inputVisible, setInputVisible] = useState('');
     const [newCategory, handleNewCategory, setNewCategory] = useInput('');
+    useEffect(() => {
+        dispatch({
+            type: LOAD_MY_INFO_REQUEST
+        });
+    }, [])
     // useEffect(() => {
     //     if(!userInfo?.admin || !logInDone) {
     //         alert('관리자 로그인이 필요합니다!');

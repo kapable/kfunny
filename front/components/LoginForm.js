@@ -4,17 +4,20 @@ import Link from 'next/link';
 import Router from 'next/router';
 import useInput from '../hooks/useInput'
 import { useDispatch, useSelector } from 'react-redux';
-import { LOG_IN_REQUEST } from '../reducers/user';
+import { LOAD_MY_INFO_REQUEST, LOG_IN_REQUEST } from '../reducers/user';
 
 const LoginForm = () => {
     // for LogIn and LogOut check
     const dispatch = useDispatch();
-    const { logInDone, logInLoading, logInError } = useSelector((state) => state.user);
+    const { userInfo, logInLoading, logInError } = useSelector((state) => state.user);
     useEffect(() => {
-        if(logInDone) {
-            Router.replace('/admin/upload');
+        dispatch({
+            type: LOAD_MY_INFO_REQUEST
+        })
+        if(userInfo) {
+            Router.replace('/');
         }
-    }, [logInDone]);
+    }, [userInfo]);
 
     useEffect(() => {
         if(logInError) {

@@ -7,6 +7,25 @@ const router = express.Router();
 const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
 
 dotenv.config();
+// GET USER
+router.get(`/`, async (req, res, next) => { // GET /user
+    try {
+        if(req.user) {
+            const fullUserWithoutPassword = await User.findOne({
+                where: { id: req.user.id },
+                attributes: {
+                    exclude: ['password'],
+                },
+            });
+            return res.status(200).json(fullUserWithoutPassword);
+        } else {
+            return res.status(200).json(null);
+        }
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+});
 // LOG IN
 router.post(`/login`, isNotLoggedIn, (req, res, next) => { // POST /user/login
     passport.authenticate('local', (err, user, info) => {

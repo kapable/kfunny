@@ -4,7 +4,7 @@ import {
     LOG_IN_REQUEST, LOG_IN_SUCCESS, LOG_IN_FAILURE,
     LOG_OUT_REQUEST, LOG_OUT_SUCCESS, LOG_OUT_FAILURE,
     SIGN_UP_REQUEST, SIGN_UP_SUCCESS, SIGN_UP_FAILURE,
-    CHANGE_NICKNAME_REQUEST, CHANGE_NICKNAME_SUCCESS, CHANGE_NICKNAME_FAILURE
+    CHANGE_NICKNAME_REQUEST, CHANGE_NICKNAME_SUCCESS, CHANGE_NICKNAME_FAILURE, LOAD_MY_INFO_REQUEST, LOAD_MY_INFO_SUCCESS, LOAD_MY_INFO_FAILURE
 } from '../reducers/user';
 
 function logInAPI(data) {
@@ -65,6 +65,26 @@ function* signUp(action) {
     }
 }
 
+function loadMyInfoAPI() {
+    return axios.get(`/user`);
+}
+
+function* loadMyInfo(action) {
+    try {
+        const result = yield call(loadMyInfoAPI, action.data);
+        yield put({
+            type: LOAD_MY_INFO_SUCCESS,
+            data: result.data
+        })
+    } catch (err) {
+        console.log(err);
+        yield put({
+            type: LOAD_MY_INFO_FAILURE,
+            error: err.response.data
+        })
+    }
+};
+
 function changeNicknameAPI(data) {
     return axios.patch(`/user/nickname`, { nickname: data });
 }
@@ -102,11 +122,16 @@ function* watchChangeNickname() {
     yield takeLatest(CHANGE_NICKNAME_REQUEST, changeNickname)
 }
 
+function* watchLoadMyInfo() {
+    yield takeLatest(LOAD_MY_INFO_REQUEST, loadMyInfo)
+}
+
 export default function* userSaga() {
     yield all([
         fork(watchLogin),
         fork(watchLogout),
         fork(watchSignUp),
         fork(watchChangeNickname),
+        fork(watchLoadMyInfo),
     ])
 }
