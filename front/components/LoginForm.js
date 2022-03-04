@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Router from 'next/router';
 import useInput from '../hooks/useInput'
 import { useDispatch, useSelector } from 'react-redux';
-import { LOAD_MY_INFO_REQUEST, LOG_IN_REQUEST } from '../reducers/user';
+import { LOG_IN_REQUEST } from '../reducers/user';
 
 const LoginForm = () => {
     // for LogIn and LogOut check

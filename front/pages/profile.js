@@ -10,12 +10,6 @@ import Router from 'next/router';
 
 const Profile = () => {
     const { userInfo } = useSelector((state) => state.user);
-    useEffect(() => {
-        if(!userInfo) {
-            alert('로그인 한 유저만 접근할 수 있습니다!');
-            Router.push('/');
-        }
-    }, [userInfo]);
     return (
         <Fragment>
             <Head>

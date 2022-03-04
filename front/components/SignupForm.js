@@ -12,8 +12,12 @@ const ErrorMessage = styled.div`
 
 const SignupForm = () => {
     const dispatch = useDispatch();
-    const { signUpDone, signUpError, signUpLoading } = useSelector((state) => state.user);
-
+    const { userInfo, signUpDone, signUpError, signUpLoading } = useSelector((state) => state.user);
+    useEffect(() => {
+        if(userInfo) {
+            Router.push('/');
+        }
+    }, [userInfo]);
     useEffect(() => {
         if (signUpDone) {
             alert("회원가입에 성공했습니다!");
