@@ -5,8 +5,11 @@ import { PlusOutlined } from '@ant-design/icons';
 import { ADD_POST_REQUEST, REMOVE_IMAGE, UPLOAD_IMAGES_REQUEST } from '../../reducers/post';
 import { LOAD_CATEGORIES_REQUEST } from '../../reducers/category';
 import useInput from '../../hooks/useInput';
-import Router, { useRouter } from 'next/router';
+import Router from 'next/router';
 import { LOAD_MY_INFO_REQUEST } from '../../reducers/user';
+import { END } from 'redux-saga';
+import axios from 'axios';
+import wrapper from '../../store/configureStore';
 
 
 const { Option } = Select;
@@ -15,16 +18,10 @@ const Upload = () => {
   const dispatch = useDispatch();
   const { imagePaths, addPostLoading, addPostDone } = useSelector((state) => state.post);
   const { postCategories } = useSelector((state) => state.category);
-  const { userInfo, logInDone } = useSelector((state) => state.user);
+  const { userInfo } = useSelector((state) => state.user);
   const [category, setCategory] = useState('');
   const [title, onChangeTitle, setTitle] = useInput('');
   const imageInput = useRef(null);
-
-  useEffect(() => {
-      dispatch({
-          type: LOAD_MY_INFO_REQUEST
-      });
-  }, []);
 
   useEffect(() => {
     if(addPostDone) {
@@ -33,18 +30,12 @@ const Upload = () => {
     }
   }, [addPostDone]);
 
-  // useEffect(() => {
-  //   if(!(userInfo?.admin)) {
-  //       alert('관리자 로그인이 필요합니다!');
-  //       Router.replace('/login');
-  //   }
-  // }, [userInfo, logInDone]);
-
   useEffect(() => {
-    dispatch({
-        type: LOAD_CATEGORIES_REQUEST
-    })
-  }, []);
+    if(!(userInfo?.admin)) {
+        alert('관리자 로그인이 필요합니다!');
+        Router.replace('/login');
+    }
+  }, [userInfo]);
 
   const onClickImageUpload = useCallback(() => {
     imageInput.current.click();
@@ -130,5 +121,22 @@ const Upload = () => {
     </Form>
   );
 };
+
+export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+  const cookie = context.req ? context.req.headers.cookie : '';
+  axios.defaults.headers.Cookie = '';
+  if(context.req && cookie) {
+      axios.defaults.headers.Cookie = cookie;
+  }
+  context.store.dispatch({
+      type: LOAD_MY_INFO_REQUEST
+  });
+  context.store.dispatch({
+    type: LOAD_CATEGORIES_REQUEST
+  });
+  context.store.dispatch(END)
+
+  await context.store.sagaTask.toPromise()
+});
 
 export default Upload;

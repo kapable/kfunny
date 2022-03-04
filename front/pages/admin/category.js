@@ -4,7 +4,10 @@ import { PlusOutlined, LoadingOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { ADD_CATEGORY_REQUEST, LOAD_CATEGORIES_REQUEST, SET_CATEGORY_REQUEST } from '../../reducers/category';
 import useInput from '../../hooks/useInput';
+import { END } from 'redux-saga';
+import axios from 'axios';
 import { LOAD_MY_INFO_REQUEST } from '../../reducers/user';
+import wrapper from '../../store/configureStore';
 
 const { CheckableTag } = Tag;
 
@@ -19,12 +22,12 @@ const Category = () => {
             type: LOAD_MY_INFO_REQUEST
         });
     }, [])
-    // useEffect(() => {
-    //     if(!userInfo?.admin || !logInDone) {
-    //         alert('관리자 로그인이 필요합니다!');
-    //         Router.replace('/login');
-    //     }
-    // }, [userInfo, logInDone]);
+    useEffect(() => {
+        if(!userInfo?.admin) {
+            alert('관리자 로그인이 필요합니다!');
+            Router.replace('/login');
+        }
+    }, [userInfo]);
 
     useEffect(() => {
         dispatch({
@@ -106,5 +109,19 @@ const Category = () => {
         </Fragment>
     );
 };
+
+export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+    const cookie = context.req ? context.req.headers.cookie : '';
+    axios.defaults.headers.Cookie = '';
+    if(context.req && cookie) {
+        axios.defaults.headers.Cookie = cookie;
+    }
+    context.store.dispatch({
+        type: LOAD_MY_INFO_REQUEST
+    });
+    context.store.dispatch(END)
+
+    await context.store.sagaTask.toPromise()
+});
 
 export default Category;

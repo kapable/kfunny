@@ -1,12 +1,13 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { Tabs } from 'antd';
-import { END } from 'redux-saga';
 import HomeCardForm from '../components/HomeCardForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { LOAD_POSTS_REQUEST, RESET_KEYWORD_POSTS } from '../reducers/post';
 import { LOAD_CATEGORIES_REQUEST } from '../reducers/category';
 import { LOAD_MY_INFO_REQUEST } from '../reducers/user';
+import { END } from 'redux-saga';
 import wrapper from '../store/configureStore';
+import axios from 'axios';
 
 const { TabPane } = Tabs;
 
@@ -80,6 +81,11 @@ const Home = () => {
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+    const cookie = context.req ? context.req.headers.cookie : '';
+    axios.defaults.headers.Cookie = '';
+    if(context.req && cookie) {
+        axios.defaults.headers.Cookie = cookie;
+    }
     context.store.dispatch({
         type: LOAD_MY_INFO_REQUEST
     });
