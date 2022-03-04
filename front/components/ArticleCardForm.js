@@ -31,7 +31,7 @@ const ArticleCardForm = ({ singlePost }) => {
             {singlePost.Images.map((image, index) => {
                 return (
                     <div className='article-image-div' key={`${singlePost.title}-image${index}-div`}>
-                        <Image src={image.src} key={`${singlePost.title}-image${index}`} />
+                        <Image src={`http://localhost:3065/${image.src}`} key={`${singlePost.title}-image${index}`} />
                     </div>
                 )
             })}

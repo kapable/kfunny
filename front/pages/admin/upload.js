@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Button, Form, Select, Input, Divider } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { PlusOutlined } from '@ant-design/icons';
-import { ADD_POST_REQUEST } from '../../reducers/post';
+import { ADD_POST_REQUEST, REMOVE_IMAGE, UPLOAD_IMAGES_REQUEST } from '../../reducers/post';
 import { LOAD_CATEGORIES_REQUEST } from '../../reducers/category';
 import useInput from '../../hooks/useInput';
 import Router from 'next/router';
@@ -16,7 +16,7 @@ const Upload = () => {
   const { postCategories } = useSelector((state) => state.category);
   const { userInfo, logInDone } = useSelector((state) => state.user);
   const [category, setCategory] = useState('');
-  const [title, onChangeTitle] = useInput('');
+  const [title, onChangeTitle, setTitle] = useInput('');
   const imageInput = useRef();
   useEffect(() => {
       dispatch({
@@ -30,13 +30,6 @@ const Upload = () => {
   //       Router.replace('/login');
   //   }
   // }, [userInfo, logInDone]);
-
-  useEffect(() => {
-    if(addPostDone) {
-      alert('게시물이 성공적으로 업로드 되었습니다!');
-      // Router.push('/admin/posts');
-    }
-  }, [addPostDone]);
 
   useEffect(() => {
     dispatch({
@@ -53,18 +46,17 @@ const Upload = () => {
     [].forEach.call(e.target.files, (f) => {
         imageFormData.append('image', f);
     });
-    // dispatch({
-    //   type: UPLOAD_IMAGES_REQUEST,
-    //   data: imageFormData,
-    // });
+    dispatch({
+      type: UPLOAD_IMAGES_REQUEST,
+      data: imageFormData,
+    });
   }, []);
 
   const onRemoveImage = useCallback((index) => () => {
-    // dispatch({
-    //     type: REMOVE_IMAGE,
-    //     data: index,
-    // });
-    console.log('remove image');
+    dispatch({
+        type: REMOVE_IMAGE,
+        data: index,
+    });
 }, []);
 
   const onSubmit = useCallback(() => {
@@ -87,11 +79,17 @@ const Upload = () => {
       formData.append('image', p);
     });
 
-    return dispatch({
+    dispatch({
       type: ADD_POST_REQUEST,
-      data: { title, category, imagePaths },
-      // data: formData
+      // data: { title, category, imagePaths },
+      data: formData
     });
+    if(addPostDone) {
+      setTitle('');
+      setCategory('');
+      alert('게시물이 성공적으로 업로드 되었습니다!');
+      Router.push('/admin/posts');
+    }
   }, [userInfo, title, category, imagePaths]);
 
   return (
@@ -100,13 +98,13 @@ const Upload = () => {
         <h1 className='admin-upload-title-preview'>{title}</h1>
         <Divider dashed />
         <div>
-            <input type="file" name='image' multiple hidden ref={imageInput} onChange={onChangeImages} />
+            <input key={imagePaths.join()} type="file" name='image' multiple hidden ref={imageInput} onChange={onChangeImages} />
             <Button className='admin-upload-img-btn' onClick={onClickImageUpload}><PlusOutlined  /><br />사진 업로드</Button>
         </div>
         <div>
             {imagePaths.map((v, i) => (
                 <div key={v} className='admin-upload-img-preview-div'>
-                    <img src={v} className='admin-upload-img-preview' alt={v} />
+                    <img src={`http://localhost:3065/${v}`} className='admin-upload-img-preview' alt={v} />
                     <div className='admin-upload-img-delete-btn-div'>
                         <Button className='admin-upload-img-delete-btn' onClick={onRemoveImage(i)}>Delete</Button>
                     </div>

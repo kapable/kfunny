@@ -15,10 +15,10 @@ const LoginForm = () => {
             type: LOAD_MY_INFO_REQUEST
         });
     }, []);
+
     useEffect(() => {
-        
         if(userInfo) {
-            Router.replace('/');
+            Router.replace('/admin/upload');
         }
     }, [userInfo]);
 

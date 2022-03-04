@@ -137,11 +137,7 @@ export const initialState = {
     //     }
     // }],
     mainPosts: [],
-    imagePaths: [
-        'https://images.unsplash.com/photo-1587813368357-9e58f27691b2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80',
-        'https://images.unsplash.com/photo-1591347887817-173e3d5c4891?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1507&q=80', 
-        'https://images.unsplash.com/photo-1536173375199-161929d85af2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1471&q=80'
-    ],
+    imagePaths: [],
     hasMorePosts: true,
     loadPostsLoading: false,
     loadPostsDone: false,
@@ -212,7 +208,13 @@ export const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
 export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
 export const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
 
+export const UPLOAD_IMAGES_REQUEST = 'UPLOAD_IMAGES_REQUEST';
+export const UPLOAD_IMAGES_SUCCESS = 'UPLOAD_IMAGES_SUCCESS';
+export const UPLOAD_IMAGES_FAILURE = 'UPLOAD_IMAGES_FAILURE';
+
 export const RESET_KEYWORD_POSTS = 'RESET_KEYWORD_POSTS';
+
+export const REMOVE_IMAGE = 'REMOVE_IMAGE';
 
 const reducer = (state = initialState, action) => {
     return produce(state, (draft) => {
@@ -279,6 +281,23 @@ const reducer = (state = initialState, action) => {
             case RESET_KEYWORD_POSTS:
                 draft.loadPostsLoading = true;
                 draft.keywordPosts = [];
+            case UPLOAD_IMAGES_REQUEST:
+                draft.uploadImagesLoading = true;
+                draft.uploadImagesDone = false;
+                draft.uploadImagesError = null;
+                break;
+            case UPLOAD_IMAGES_SUCCESS:
+                draft.imagePaths = action.data;
+                draft.uploadImagesDone = true;
+                draft.uploadImagesLoading = false;
+                break;
+            case UPLOAD_IMAGES_FAILURE:
+                draft.uploadImagesLoading = false;
+                draft.uploadImagesError = action.error;
+                break;
+            case REMOVE_IMAGE:
+                draft.imagePaths = draft.imagePaths.filter((v, i) => i !== action.data);
+                break;
             default:
                 break;
         };

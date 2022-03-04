@@ -8,6 +8,7 @@ const db = require('./models');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const path = require('path');
 const passportConfig = require('./passport');
 const passport = require('passport');
 const session = require('express-session');
@@ -51,6 +52,7 @@ app.use(cors({
     credentials: true,
 }));
 
+app.use('/', express.static(path.join(__dirname, 'uploads')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
