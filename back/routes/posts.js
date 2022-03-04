@@ -11,6 +11,11 @@ router.get(`/:category`, async (req, res, next) => {
         } else {
             categoryWhere.label = req.params.category;
         }
+        if (parseInt(req.query.lastId, 10)) {
+            console.log("=================", req.query.lastId);
+            categoryWhere.id = { [Op.lt]: parseInt(req.query.lastId, 10) };
+        };
+
         const posts = await Post.findAll({
             limit: 10,
             order: [

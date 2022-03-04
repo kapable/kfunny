@@ -59,7 +59,7 @@ const PostList = () => {
                     )}
                 />
                 <Column title="미리보기" key="preview" render={(_, post) => (
-                    <Image width={70} src={post.Images[0].src} alt={post.title} />
+                    <Image width={70} src={`http://localhost:3065/${post.Images[0]?.src}` || null} alt={post.title} />
                 )}/>
                 <ColumnGroup title="수정/삭제">
                     <Column

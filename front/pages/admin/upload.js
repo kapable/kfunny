@@ -5,8 +5,9 @@ import { PlusOutlined } from '@ant-design/icons';
 import { ADD_POST_REQUEST, REMOVE_IMAGE, UPLOAD_IMAGES_REQUEST } from '../../reducers/post';
 import { LOAD_CATEGORIES_REQUEST } from '../../reducers/category';
 import useInput from '../../hooks/useInput';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { LOAD_MY_INFO_REQUEST } from '../../reducers/user';
+
 
 const { Option } = Select;
 
@@ -17,12 +18,20 @@ const Upload = () => {
   const { userInfo, logInDone } = useSelector((state) => state.user);
   const [category, setCategory] = useState('');
   const [title, onChangeTitle, setTitle] = useInput('');
-  const imageInput = useRef();
+  const imageInput = useRef(null);
+
   useEffect(() => {
       dispatch({
           type: LOAD_MY_INFO_REQUEST
       });
   }, []);
+
+  useEffect(() => {
+    if(addPostDone) {
+      alert('게시물이 성공적으로 업로드 되었습니다!');
+      Router.reload();
+    }
+  }, [addPostDone]);
 
   // useEffect(() => {
   //   if(!(userInfo?.admin)) {
@@ -38,7 +47,7 @@ const Upload = () => {
   }, []);
 
   const onClickImageUpload = useCallback(() => {
-        imageInput.current.click();
+    imageInput.current.click();
     }, [imageInput.current]);
 
   const onChangeImages = useCallback((e) => {
@@ -84,12 +93,6 @@ const Upload = () => {
       // data: { title, category, imagePaths },
       data: formData
     });
-    if(addPostDone) {
-      setTitle('');
-      setCategory('');
-      alert('게시물이 성공적으로 업로드 되었습니다!');
-      Router.push('/admin/posts');
-    }
   }, [userInfo, title, category, imagePaths]);
 
   return (
