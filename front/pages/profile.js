@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import Head from 'next/head';
 import UserProfile from '../components/UserProfile';
 import wrapper from '../store/configureStore';
@@ -11,8 +11,8 @@ import Router from 'next/router';
 const Profile = () => {
     const { userInfo } = useSelector((state) => state.user);
     useEffect(() => {
-        if(userInfo) {
-            alert('로그인하지 않은 유저만 접근할 수 있습니다!');
+        if(!userInfo) {
+            alert('로그인 한 유저만 접근할 수 있습니다!');
             Router.push('/');
         }
     }, [userInfo]);

@@ -21,7 +21,7 @@ const Upload = () => {
   const { postCategories } = useSelector((state) => state.category);
   const { userInfo } = useSelector((state) => state.user);
   const [category, setCategory] = useState('');
-  const [title, onChangeTitle, setTitle] = useInput('');
+  const [title, onChangeTitle] = useInput('');
   const imageInput = useRef(null);
 
   useEffect(() => {

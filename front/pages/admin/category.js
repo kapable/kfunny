@@ -9,13 +9,14 @@ import axios from 'axios';
 import { LOAD_MY_INFO_REQUEST } from '../../reducers/user';
 import wrapper from '../../store/configureStore';
 import Head from 'next/head';
+import Router from 'next/router';
 
 const { CheckableTag } = Tag;
 
 const Category = () => {
     const dispatch = useDispatch();
     const { postCategories, setCategoryDone, setCategoryLoading, setCategoryError, addCategoryDone, addCategoryLoading, addCategoryError } = useSelector((state) => state.category);
-    const { userInfo, logInDone } = useSelector((state) => state.user);
+    const { userInfo } = useSelector((state) => state.user);
     const [inputVisible, setInputVisible] = useState('');
     const [newCategory, handleNewCategory, setNewCategory] = useInput('');
 

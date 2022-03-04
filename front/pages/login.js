@@ -3,8 +3,8 @@ import Head from 'next/head';
 import LoginForm from '../components/LoginForm';
 import { END } from 'redux-saga';
 import axios from 'axios';
-import { LOAD_MY_INFO_REQUEST } from '../../reducers/user';
-import wrapper from '../../store/configureStore';
+import { LOAD_MY_INFO_REQUEST } from '../reducers/user';
+import wrapper from '../store/configureStore';
 import Router from 'next/router';
 import { useSelector } from 'react-redux';
 
