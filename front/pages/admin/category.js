@@ -8,6 +8,7 @@ import { END } from 'redux-saga';
 import axios from 'axios';
 import { LOAD_MY_INFO_REQUEST } from '../../reducers/user';
 import wrapper from '../../store/configureStore';
+import Head from 'next/head';
 
 const { CheckableTag } = Tag;
 
@@ -17,23 +18,13 @@ const Category = () => {
     const { userInfo, logInDone } = useSelector((state) => state.user);
     const [inputVisible, setInputVisible] = useState('');
     const [newCategory, handleNewCategory, setNewCategory] = useInput('');
-    useEffect(() => {
-        dispatch({
-            type: LOAD_MY_INFO_REQUEST
-        });
-    }, [])
+
     useEffect(() => {
         if(!userInfo?.admin) {
             alert('관리자 로그인이 필요합니다!');
             Router.replace('/login');
         }
     }, [userInfo]);
-
-    useEffect(() => {
-        dispatch({
-            type: LOAD_CATEGORIES_REQUEST
-        })
-    }, []);
 
     useEffect(() => {
         if(setCategoryDone) {
@@ -75,6 +66,10 @@ const Category = () => {
 
     return (
         <Fragment>
+            <Head>
+                <meta charSet='utf-8'/>
+                <title>카테고리 편집 | 케이퍼니</title>
+            </Head>
             <h1>카테고리 목록</h1>
             {postCategories.map((v) => (
                 <CheckableTag
@@ -118,6 +113,9 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
     }
     context.store.dispatch({
         type: LOAD_MY_INFO_REQUEST
+    });
+    context.store.dispatch({
+        type: LOAD_CATEGORIES_REQUEST
     });
     context.store.dispatch(END)
 

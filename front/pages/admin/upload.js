@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { Button, Form, Select, Input, Divider } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { PlusOutlined } from '@ant-design/icons';
@@ -10,6 +10,7 @@ import { LOAD_MY_INFO_REQUEST } from '../../reducers/user';
 import { END } from 'redux-saga';
 import axios from 'axios';
 import wrapper from '../../store/configureStore';
+import Head from 'next/head';
 
 
 const { Option } = Select;
@@ -87,38 +88,45 @@ const Upload = () => {
   }, [userInfo, title, category, imagePaths]);
 
   return (
-    <Form className='admin-upload-form' encType="multipart/form-data" onFinish={onSubmit}>
-        <Input className='admin-upload-title-input' value={title} showCount maxLength={30} onChange={onChangeTitle} placeholder="제목을 써주세요!" allowClear={true} />
-        <h1 className='admin-upload-title-preview'>{title}</h1>
-        <Divider dashed />
-        <div>
-            <input key={imagePaths.join()} type="file" name='image' multiple hidden ref={imageInput} onChange={onChangeImages} />
-            <Button className='admin-upload-img-btn' onClick={onClickImageUpload}><PlusOutlined  /><br />사진 업로드</Button>
-        </div>
-        <div>
-            {imagePaths.map((v, i) => (
-                <div key={v} className='admin-upload-img-preview-div'>
-                    <img src={`http://localhost:3065/${v}`} className='admin-upload-img-preview' alt={v} />
-                    <div className='admin-upload-img-delete-btn-div'>
-                        <Button className='admin-upload-img-delete-btn' onClick={onRemoveImage(i)}>Delete</Button>
-                    </div>
-                </div>
+    <Fragment>
+      <Head>
+        <meta charSet='utf-8'/>
+        <title>게시물 업로드 | 케이퍼니</title>
+      </Head>
+      
+      <Form className='admin-upload-form' encType="multipart/form-data" onFinish={onSubmit}>
+          <Input className='admin-upload-title-input' value={title} showCount maxLength={30} onChange={onChangeTitle} placeholder="제목을 써주세요!" allowClear={true} />
+          <h1 className='admin-upload-title-preview'>{title}</h1>
+          <Divider dashed />
+          <div>
+              <input key={imagePaths.join()} type="file" name='image' multiple hidden ref={imageInput} onChange={onChangeImages} />
+              <Button className='admin-upload-img-btn' onClick={onClickImageUpload}><PlusOutlined  /><br />사진 업로드</Button>
+          </div>
+          <div>
+              {imagePaths.map((v, i) => (
+                  <div key={v} className='admin-upload-img-preview-div'>
+                      <img src={`http://localhost:3065/${v}`} className='admin-upload-img-preview' alt={v} />
+                      <div className='admin-upload-img-delete-btn-div'>
+                          <Button className='admin-upload-img-delete-btn' onClick={onRemoveImage(i)}>Delete</Button>
+                      </div>
+                  </div>
+              ))}
+          </div>
+          <Select
+            className='admin-upload-category-select'
+            placeholder="카테고리를 골라주세요"
+            optionLabelProp="label"
+            onChange={setCategory}
+          >
+            {postCategories.slice(1).map((postCategory) => ( // except 최신 related to slice
+              <Option value={postCategory.label} label={postCategory.label} key={`${postCategory.label}_category`}>
+                {postCategory.label}
+              </Option>
             ))}
-        </div>
-        <Select
-          className='admin-upload-category-select'
-          placeholder="카테고리를 골라주세요"
-          optionLabelProp="label"
-          onChange={setCategory}
-        >
-          {postCategories.slice(1).map((postCategory) => ( // except 최신 related to slice
-            <Option value={postCategory.label} label={postCategory.label} key={`${postCategory.label}_category`}>
-              {postCategory.label}
-            </Option>
-          ))}
-        </Select>
-        <Button className='admin-upload-submit-btn' type="primary" htmlType="submit" loading={addPostLoading} >Post!</Button>
-    </Form>
+          </Select>
+          <Button className='admin-upload-submit-btn' type="primary" htmlType="submit" loading={addPostLoading} >Post!</Button>
+      </Form>
+    </Fragment>
   );
 };
 

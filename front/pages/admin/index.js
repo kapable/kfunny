@@ -8,6 +8,7 @@ import { END } from 'redux-saga';
 import axios from 'axios';
 import { LOAD_MY_INFO_REQUEST } from '../../reducers/user';
 import wrapper from '../../store/configureStore';
+import Head from 'next/head';
 
 const Admin = () => {
     const { userInfo } = useSelector((state) => state.user);
@@ -21,6 +22,10 @@ const Admin = () => {
 
     return (
         <Fragment>
+            <Head>
+                <meta charSet='utf-8'/>
+                <title>관리자 페이지 | 케이퍼니</title>
+            </Head>
             <Row className='admin-index-row'>
                 <Col className='admin-index-col' xs={24} sm={24} md={12} lg={12} >
                     <Link href='/admin/upload'><a><EditOutlined /><br />새로운 포스트 올리기</a></Link>

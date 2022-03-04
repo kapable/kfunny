@@ -10,13 +10,14 @@ import axios from 'axios';
 import { LOAD_MY_INFO_REQUEST } from '../../reducers/user';
 import wrapper from '../../store/configureStore';
 import moment from 'moment';
+import Head from 'next/head';
 
 moment.locale('ko');
 const { Column, ColumnGroup } = Table;
 
 const PostList = () => {
     const dispatch = useDispatch();
-    const { mainPosts } = useSelector((state) => state.post);
+    const { mainPosts, hasMorePosts, loadPostsLoading } = useSelector((state) => state.post);
     const { userInfo } = useSelector((state) => state.user);
 
     useEffect(() => {
@@ -25,6 +26,25 @@ const PostList = () => {
             Router.replace('/login');
         }
     }, [userInfo]);
+
+    useEffect(() => {
+        function onScroll() {
+            if(window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight - 500) {
+                if(hasMorePosts && !loadPostsLoading) {
+                    const lastId = mainPosts[mainPosts.length - 1]?.id;
+                    dispatch({
+                        type: LOAD_POSTS_REQUEST,
+                        data: encodeURI('최신'),
+                        lastId
+                    });
+                };
+            };
+        };
+        window.addEventListener('scroll', onScroll);
+        return () => {
+            window.removeEventListener('scroll', onScroll);
+        };
+    }, [hasMorePosts, loadPostsLoading, mainPosts]);
 
     const onShareButtonClick = useCallback(() => {
         alert('링크가 복사되었습니다!');
@@ -40,7 +60,11 @@ const PostList = () => {
     }, []);
     return (
         <Fragment>
-            <Table pagination={{ pageSize: 10 }} dataSource={mainPosts} key="table" rowKey={post => post.id}>
+            <Head>
+                <meta charSet='utf-8'/>
+                <title>게시물 리스트 | 케이퍼니</title>
+            </Head>
+            <Table pagination={{ hideOnSinglePage: true }} dataSource={mainPosts} key="table" rowKey={post => post.id}>
                 <Column title="No." dataIndex="id" key="post-id" />
                 <Column title="제목" dataIndex="title" key="title" />
                 <Column
@@ -57,19 +81,19 @@ const PostList = () => {
                 )}/>
                 <ColumnGroup title="수정/삭제">
                     <Column
-                        title="수정" key="edit"
+                        title="" key="edit"
                         render={() => (
                             <Space size="middle">
-                                <a>수정하기</a>
+                                <a>수정</a>
                             </Space>
                         )}
                     />
                     <Column
-                        title="삭제" key="delete"
+                        title="" key="delete"
                         dataIndex="id"
                         render={(id) => (
                             <Space size="middle">
-                                <a onClick={() => onRemovePost(id)}>삭제하기</a>
+                                <a onClick={() => onRemovePost(id)}>삭제</a>
                             </Space>
                         )}
                     />

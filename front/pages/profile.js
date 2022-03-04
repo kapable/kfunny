@@ -6,9 +6,16 @@ import { END } from 'redux-saga';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { LOAD_MY_INFO_REQUEST } from '../reducers/user';
+import Router from 'next/router';
 
 const Profile = () => {
     const { userInfo } = useSelector((state) => state.user);
+    useEffect(() => {
+        if(userInfo) {
+            alert('로그인하지 않은 유저만 접근할 수 있습니다!');
+            Router.push('/');
+        }
+    }, [userInfo]);
     return (
         <Fragment>
             <Head>

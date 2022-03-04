@@ -14,6 +14,17 @@ const SignupForm = () => {
     const dispatch = useDispatch();
     const { signUpDone, signUpError, signUpLoading } = useSelector((state) => state.user);
 
+    useEffect(() => {
+        if (signUpDone) {
+            alert("회원가입에 성공했습니다!");
+            Router.replace('/login');
+        }
+
+        if (signUpError) {
+            alert('회원가입 에러가 발생했습니다. 다시 시도해주세요 ㅠㅠ');
+        }
+    }, [signUpDone, signUpError]);
+
     const [email, onChangeEmail] = useInput('');
     const [nickname, onChangeNickname] = useInput('');
     const [password, onChangePassword] = useInput('');
@@ -35,18 +46,7 @@ const SignupForm = () => {
             setTermError(false);
         },
         [],
-    )
-
-    useEffect(() => {
-        if (signUpDone) {
-            alert("회원가입에 성공했습니다!");
-            Router.replace('/login');
-        }
-
-        if (signUpError) {
-            alert('회원가입 에러가 발생했습니다. 다시 시도해주세요 ㅠㅠ');
-        }
-    }, [signUpDone, signUpError]);
+    );
 
     const onSubmit = useCallback(
         () => {

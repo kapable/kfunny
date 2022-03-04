@@ -12,14 +12,6 @@ import axios from 'axios';
 const { TabPane } = Tabs;
 
 const Home = () => {
-    // useEffect(() => {
-    //     dispatch({
-    //         type: LOAD_MY_INFO_REQUEST
-    //     });
-    //     dispatch({
-    //         type: LOAD_CATEGORIES_REQUEST
-    //     });
-    // }, []);
 
     const dispatch = useDispatch();
     const { mainPosts, hasMorePosts, loadPostsLoading } = useSelector((state) => state.post);
@@ -35,16 +27,6 @@ const Home = () => {
             data: currentCategory,
         });
     }, [currentCategory]);
-
-    // useEffect(() => {
-    //     dispatch({
-    //         type: RESET_KEYWORD_POSTS,
-    //     });
-    //     dispatch({
-    //         type: LOAD_POSTS_REQUEST,
-    //         data: currentCategory,
-    //     });
-    // }, [currentCategory]);
 
     useEffect(() => {
         function onScroll() {

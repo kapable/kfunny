@@ -10,11 +10,6 @@ const LoginForm = () => {
     // for LogIn and LogOut check
     const dispatch = useDispatch();
     const { userInfo, logInLoading, logInError } = useSelector((state) => state.user);
-    useEffect(() => {
-        dispatch({
-            type: LOAD_MY_INFO_REQUEST
-        });
-    }, []);
 
     useEffect(() => {
         if(userInfo) {
