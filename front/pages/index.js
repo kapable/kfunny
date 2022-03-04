@@ -1,22 +1,24 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { Tabs } from 'antd';
+import { END } from 'redux-saga';
 import HomeCardForm from '../components/HomeCardForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { LOAD_POSTS_REQUEST, RESET_KEYWORD_POSTS } from '../reducers/post';
 import { LOAD_CATEGORIES_REQUEST } from '../reducers/category';
 import { LOAD_MY_INFO_REQUEST } from '../reducers/user';
+import wrapper from '../store/configureStore';
 
 const { TabPane } = Tabs;
 
 const Home = () => {
-    useEffect(() => {
-        dispatch({
-            type: LOAD_MY_INFO_REQUEST
-        });
-        dispatch({
-            type: LOAD_CATEGORIES_REQUEST
-        });
-    }, []);
+    // useEffect(() => {
+    //     dispatch({
+    //         type: LOAD_MY_INFO_REQUEST
+    //     });
+    //     dispatch({
+    //         type: LOAD_CATEGORIES_REQUEST
+    //     });
+    // }, []);
 
     const dispatch = useDispatch();
     const { mainPosts, hasMorePosts, loadPostsLoading } = useSelector((state) => state.post);
@@ -24,8 +26,6 @@ const Home = () => {
     const [currentCategory, setCurrentCategory] = useState('최신');
     const onCategoryChange = useCallback((category) => {
         setCurrentCategory(category);
-    }, []);
-    useEffect(() => {
         dispatch({
             type: RESET_KEYWORD_POSTS,
         });
@@ -34,6 +34,16 @@ const Home = () => {
             data: currentCategory,
         });
     }, [currentCategory]);
+
+    // useEffect(() => {
+    //     dispatch({
+    //         type: RESET_KEYWORD_POSTS,
+    //     });
+    //     dispatch({
+    //         type: LOAD_POSTS_REQUEST,
+    //         data: currentCategory,
+    //     });
+    // }, [currentCategory]);
 
     useEffect(() => {
         function onScroll() {
@@ -68,5 +78,24 @@ const Home = () => {
         </Fragment>
     );
 };
+
+export const getServerSideProps = wrapper.getServerSideProps(async (context) => {
+    context.store.dispatch({
+        type: LOAD_MY_INFO_REQUEST
+    });
+    context.store.dispatch({
+        type: LOAD_CATEGORIES_REQUEST
+    });
+    context.store.dispatch({
+        type: RESET_KEYWORD_POSTS,
+    });
+    context.store.dispatch({
+        type: LOAD_POSTS_REQUEST,
+        data: encodeURI("최신"),
+    });
+    context.store.dispatch(END)
+
+    await context.store.sagaTask.toPromise()
+});
 
 export default Home;

@@ -18,7 +18,7 @@ const LoginForm = () => {
 
     useEffect(() => {
         if(userInfo) {
-            Router.replace('/admin/upload');
+            Router.replace('/');
         }
     }, [userInfo]);
 

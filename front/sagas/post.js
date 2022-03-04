@@ -21,10 +21,10 @@ function* loadPosts(action) {
             data: result.data,
         })
     } catch (err) {
-        console.log(err);
+        console.log(err)
         yield put({
             type: LOAD_POSTS_FAILURE,
-            error: err.response.data
+            error: err.response
         })
     };
 };
