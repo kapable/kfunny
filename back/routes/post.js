@@ -70,6 +70,39 @@ router.post('/', isLoggedIn, upload.none(), async (req, res, next) => { // POST 
         next(error);
     }
 });
+// LOAD POST
+router.get(`/:postId`, async (req, res, next) => {
+    try {
+        const post = await Post.findOne({
+            where: { id: parseInt(req.params.postId, 10) },
+        });
+        if(!post) {
+            return res.status(404).send('존재하지 않는 게시글입니다ㅠㅠ');
+        };
+        const fullPost = await Post.findOne({
+            where: { id: parseInt(post.id) },
+            include: [{
+                model: Category,
+                attributes: ['id', 'label', 'enabled']
+            }, {
+                model: User,
+                attributes: ['id', 'nickname'],
+            }, {
+                model: Image,
+            }, {
+                model: Comment,
+                include: [{
+                    model: User,
+                    attributes: ['id', 'nickname'],
+                }]
+            }]
+        });
+        res.status(200).json(fullPost);
+    } catch (error) {
+        console.error(error);
+        next(error);
+    };
+});
 // REMOVE POST
 router.delete(`/:postId`, isLoggedIn, async (req, res, next) => { // DELETE /post/1
     try {

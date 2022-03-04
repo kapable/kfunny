@@ -137,6 +137,7 @@ export const initialState = {
     //     }
     // }],
     mainPosts: [],
+    singlePost: null,
     imagePaths: [],
     hasMorePosts: true,
     loadPostsLoading: false,
@@ -196,6 +197,10 @@ export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST';
 export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCESS';
 export const LOAD_POSTS_FAILURE = 'LOAD_POSTS_FAILURE';
 
+export const LOAD_POST_REQUEST = 'LOAD_POST_REQUEST';
+export const LOAD_POST_SUCCESS = 'LOAD_POST_SUCCESS';
+export const LOAD_POST_FAILURE = 'LOAD_POST_FAILURE';
+
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
 export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
@@ -223,7 +228,6 @@ const reducer = (state = initialState, action) => {
                 draft.loadPostsLoading = true;
                 draft.loadPostsDone = false;
                 draft.loadPostsError = null;
-                draft.addPostDone = false;
                 break;
             case LOAD_POSTS_SUCCESS:
                 draft.mainPosts = draft.mainPosts.concat(action.data);
@@ -232,6 +236,21 @@ const reducer = (state = initialState, action) => {
                 draft.hasMorePosts = action.data.length === 10;
                 break;
             case LOAD_POSTS_FAILURE:
+                draft.loadPostsLoading = false;
+                draft.loadPostsError = action.error;
+                break;
+            case LOAD_POST_REQUEST:
+                draft.loadPostLoading = true;
+                draft.loadPostDone = false;
+                draft.loadPostError = null;
+                break;
+            case LOAD_POST_SUCCESS:
+                draft.singlePost = action.data;
+                draft.loadPostDone = true;
+                draft.loadPostLoading = false;
+                draft.hasMorePosts = action.data.length === 10;
+                break;
+            case LOAD_POST_FAILURE:
                 draft.loadPostsLoading = false;
                 draft.loadPostsError = action.error;
                 break;

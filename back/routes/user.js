@@ -126,5 +126,6 @@ router.patch(`/description`, isLoggedIn, async (req, res, next) => { // PATCH /u
         next(error);
     };
 });
+// GET USER COMMENTS LENGTH
 
 module.exports = router;
