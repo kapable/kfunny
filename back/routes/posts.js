@@ -5,6 +5,7 @@ const { Post, User, Image, Comment, Category } = require('../models');
 
 router.get(`/:category`, async (req, res, next) => {
     try {
+        let globalWhere = {};
         let categoryWhere = {};
         if(req.params.category === "최신") {
             categoryWhere = {};
@@ -12,11 +13,10 @@ router.get(`/:category`, async (req, res, next) => {
             categoryWhere.label = req.params.category;
         }
         if (parseInt(req.query.lastId, 10)) {
-            console.log("=================", req.query.lastId);
-            categoryWhere.id = { [Op.lt]: parseInt(req.query.lastId, 10) };
+            globalWhere.id = { [Op.lt]: parseInt(req.query.lastId, 10) };
         };
-
         const posts = await Post.findAll({
+            where: globalWhere,
             limit: 10,
             order: [
                 ['createdAt', 'DESC'],

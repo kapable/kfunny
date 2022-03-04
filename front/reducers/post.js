@@ -226,7 +226,7 @@ const reducer = (state = initialState, action) => {
                 draft.addPostDone = false;
                 break;
             case LOAD_POSTS_SUCCESS:
-                draft.mainPosts = action.data;
+                draft.mainPosts = draft.mainPosts.concat(action.data);
                 draft.loadPostsDone = true;
                 draft.loadPostsLoading = false;
                 draft.hasMorePosts = action.data.length === 10;
@@ -281,7 +281,7 @@ const reducer = (state = initialState, action) => {
                 break;
             case RESET_KEYWORD_POSTS:
                 draft.loadPostsLoading = true;
-                draft.keywordPosts = [];
+                draft.mainPosts = [];
             case UPLOAD_IMAGES_REQUEST:
                 draft.uploadImagesLoading = true;
                 draft.uploadImagesDone = false;
