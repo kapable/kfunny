@@ -13,7 +13,10 @@ const LoginForm = () => {
     useEffect(() => {
         dispatch({
             type: LOAD_MY_INFO_REQUEST
-        })
+        });
+    }, []);
+    useEffect(() => {
+        
         if(userInfo) {
             Router.replace('/');
         }

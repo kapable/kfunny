@@ -58,11 +58,10 @@ function removePostAPI(data) {
 
 function* removePost(action) {
     try {
-        // const result = yield call(removePostAPI, action.data);
-        yield delay(1000);
+        const result = yield call(removePostAPI, action.data);
         yield put({
             type: REMOVE_POST_SUCCESS,
-            data: action.data
+            data: result.data
         })
         // yield put({
         //     type: REMOVE_POST_OF_ME,
@@ -84,6 +83,7 @@ function addCommentAPI(data) {
 function* addComment(action) {
     try {
         const result = yield call(addCommentAPI, action.data);
+        console.log('SAGA', result);
         yield put({
             type: ADD_COMMENT_SUCCESS,
             data: result.data,

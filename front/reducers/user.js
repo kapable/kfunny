@@ -25,6 +25,9 @@ export const initialState = {
     changeNicknameLoading: false,
     changeNicknameDone: false,
     changeNicknameError: false,
+    changeDescriptionLoading: false,
+    changeDescriptionDone: false,
+    changeDescriptionError: false,
     userInfo: null,
     signUpData: {},
     loginData: {},
@@ -49,6 +52,10 @@ export const LOAD_MY_INFO_FAILURE = 'LOAD_MY_INFO_FAILURE';
 export const CHANGE_NICKNAME_REQUEST = 'CHANGE_NICKNAME_REQUEST';
 export const CHANGE_NICKNAME_SUCCESS = 'CHANGE_NICKNAME_SUCCESS';
 export const CHANGE_NICKNAME_FAILURE = 'CHANGE_NICKNAME_FAILURE';
+
+export const CHANGE_DESCRIPTION_REQUEST = 'CHANGE_DESCRIPTION_REQUEST';
+export const CHANGE_DESCRIPTION_SUCCESS = 'CHANGE_DESCRIPTION_SUCCESS';
+export const CHANGE_DESCRIPTION_FAILURE = 'CHANGE_DESCRIPTION_FAILURE';
 
 export const ADD_POST_TO_ME = 'ADD_POST_TO_ME';
 export const REMOVE_POST_OF_ME = 'REMOVE_POST_OF_ME';
@@ -122,12 +129,27 @@ const reducer = (state = initialState, action) => {
             case CHANGE_NICKNAME_SUCCESS:
                 draft.changeNicknameLoading = false;
                 draft.changeNicknameDone = true;
-                draft.nickname = action.data;
+                draft.nickname = action.data.data;
                 break;
             case CHANGE_NICKNAME_FAILURE:
                 draft.changeNicknameLoading = false;
                 draft.changeNicknameDone = false;
                 draft.changeNicknameError = action.error;
+                break;
+            case CHANGE_DESCRIPTION_REQUEST:
+                draft.changeDescriptionLoading = true;
+                draft.changeDescriptionDone = false;
+                draft.changeDescriptionError = null;
+                break;
+            case CHANGE_DESCRIPTION_SUCCESS:
+                draft.changeDescriptionLoading = false;
+                draft.changeDescriptionDone = true;
+                draft.description = action.data.data;
+                break;
+            case CHANGE_DESCRIPTION_SUCCESS:
+                draft.changeDescriptionLoading = false;
+                draft.changeDescriptionDone = false;
+                draft.changeDescriptionError = action.error;
                 break;
             case ADD_POST_TO_ME:
                 draft.userInfo.Posts.unshift({ id: action.data });

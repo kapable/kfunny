@@ -94,5 +94,37 @@ router.post('/', isNotLoggedIn, async (req, res, next) => { // POST /user
         next(error);
     };
 });
+// CHANGE NICKNAME
+router.patch(`/nickname`, isLoggedIn, async (req, res, next) => { // PATCH /user/nickname
+    try {
+        User.update({
+            nickname: req.body.nickname,
+        }, {
+            where: {
+                id: req.user.id
+            }
+        });
+        res.status(200).json({ nickname: req.body.nickname });
+    } catch (error) {
+        console.error(error);
+        next(error);
+    };
+});
+// CHANGE DESCRIPTION
+router.patch(`/description`, isLoggedIn, async (req, res, next) => { // PATCH /user/description
+    try {
+        User.update({
+            description: req.body.description,
+        }, {
+            where: {
+                id: req.user.id
+            }
+        });
+        res.status(200).json({ description: req.body.description });
+    } catch (error) {
+        console.error(error);
+        next(error);
+    };
+});
 
 module.exports = router;

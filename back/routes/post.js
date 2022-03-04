@@ -50,11 +50,27 @@ router.post('/', isLoggedIn, async (req, res, next) => { // POST /post
         next(error);
     }
 });
+// REMOVE POST
+router.delete(`/:postId`, isLoggedIn, async (req, res, next) => { // DELETE /post/1
+    try {
+        console.log(req.user);
+        await Post.destroy({
+            where: {
+                id: req.params.postId,
+                UserId: req.user.id
+            },
+        });
+        res.status(200).json({ PostId: parseInt(req.params.postId, 10) });
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+});
 // ADD COMMENT
 router.post(`/:postId/comment`, isLoggedIn, async (req, res, next) => { // POST /1/comment
     try {
         const post = await Post.findOne({
-            where: { id: req.params.postId },
+            where: { id: parseInt(req.params.postId, 10) },
         });
         if(!post) {
             return res.status(403).send('존재하지 않는 게시글입니다.');

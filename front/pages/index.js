@@ -19,7 +19,7 @@ const Home = () => {
     }, []);
 
     const dispatch = useDispatch();
-    const { keywordPosts, hasMorePosts, loadPostsLoading } = useSelector((state) => state.post);
+    const { mainPosts, hasMorePosts, loadPostsLoading } = useSelector((state) => state.post);
     const { postCategories } = useSelector((state) => state.category);
     const [currentCategory, setCurrentCategory] = useState('최신');
     const onCategoryChange = useCallback((category) => {
@@ -39,7 +39,7 @@ const Home = () => {
         function onScroll() {
             if(window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight - 500) {
                 if(hasMorePosts && !loadPostsLoading) {
-                    const lastId = keywordPosts[keywordPosts.length - 1]?.id;
+                    const lastId = mainPosts[mainPosts.length - 1]?.id;
                     dispatch({
                         type: LOAD_POSTS_REQUEST,
                         data: currentCategory,
@@ -52,7 +52,7 @@ const Home = () => {
         return () => {
             window.removeEventListener('scroll', onScroll);
         };
-    }, [hasMorePosts, loadPostsLoading, keywordPosts, currentCategory]);
+    }, [hasMorePosts, loadPostsLoading, mainPosts, currentCategory]);
     
     return (
         <Fragment>
@@ -60,7 +60,7 @@ const Home = () => {
                 {postCategories.map((category, _) => {
                     if(category.enabled) {
                         return (<TabPane key={category.label} tab={`${category.label}`}>
-                                    <HomeCardForm posts={keywordPosts} keyword={`${category.label}`}/>
+                                    <HomeCardForm posts={mainPosts} keyword={`${category.label}`}/>
                                 </TabPane>)
                     }
                 })}

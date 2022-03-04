@@ -38,7 +38,7 @@ const PostList = () => {
     
     const onRemovePost = useCallback((id) => {
         if (confirm("정말로 삭제하시겠습니까?\n삭제된 게시물은 복구가 불가능합니다.") === true) {
-            return dispatch({
+            dispatch({
                 type: REMOVE_POST_REQUEST,
                 data: id,
             });

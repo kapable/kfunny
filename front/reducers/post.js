@@ -3,140 +3,140 @@ import shortId from 'shortid';
 import faker from '@withshepherd/faker';
 
 export const initialState = {
-    mainPosts: [{
-        id: 1,
-        User: {
-            id:1,
-            nickname: "Seeyong",
-        },
-        title: "The first title",
-        content: 'First comment #Hash #Express',
-        createdAt: "2022-01-01",
-        Images: [{
-            id:shortId.generate(),
-            src: 'https://images.unsplash.com/photo-1587813368357-9e58f27691b2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80'
-        }, {
-            id:shortId.generate(),
-            src: 'https://images.unsplash.com/photo-1591347887817-173e3d5c4891?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1507&q=80'
-        }, {
-            id:shortId.generate(),
-            src: 'https://images.unsplash.com/photo-1536173375199-161929d85af2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1471&q=80'
-        }],
-        Comments: [{
-            id:shortId.generate(),
-            User: {
-                id:shortId.generate(),
-                nickname: 'abcd',
-            },
-            content: 'Wow',
-        }, {
-            id:shortId.generate(),
-            User: {
-                id:shortId.generate(),
-                nickname: 'qwer',
-            },
-            content: 'This one!'
-        }],
-        Category: {
-            id:shortId.generate(),
-            label: "경제"
-        }
-    }, {
-        id: 2,
-        User: {
-            id:1,
-            nickname: "Seeyong",
-        },
-        title: "The Second title",
-        content: 'Second comment #Hash #Express',
-        createdAt: "2022-01-01",
-        Images: [{
-            id:shortId.generate(),
-            src: 'https://images.unsplash.com/photo-1587813368357-9e58f27691b2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80'
-        }, {
-            id:shortId.generate(),
-            src: 'https://images.unsplash.com/photo-1591347887817-173e3d5c4891?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1507&q=80'
-        }, {
-            id:shortId.generate(),
-            src: 'https://images.unsplash.com/photo-1536173375199-161929d85af2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1471&q=80'
-        }],
-        Comments: [{
-            id:shortId.generate(),
-            User: {
-                id:shortId.generate(),
-                nickname: 'abcd',
-            },
-            content: 'Wow',
-        }, {
-            id:shortId.generate(),
-            User: {
-                id:shortId.generate(),
-                nickname: 'qwer',
-            },
-            content: 'This one!'
-        },{
-            id:shortId.generate(),
-            User: {
-                id:shortId.generate(),
-                nickname: 'abcd',
-            },
-            content: 'Wow',
-        }, {
-            id:shortId.generate(),
-            User: {
-                id:shortId.generate(),
-                nickname: 'qwer',
-            },
-            content: 'This one!'
-        },{
-            id:shortId.generate(),
-            User: {
-                id:shortId.generate(),
-                nickname: 'abcd',
-            },
-            content: 'Wow',
-        }, {
-            id:shortId.generate(),
-            User: {
-                id:shortId.generate(),
-                nickname: 'qwer',
-            },
-            content: 'This one!'
-        },{
-            id:shortId.generate(),
-            User: {
-                id:shortId.generate(),
-                nickname: 'abcd',
-            },
-            content: 'Wow',
-        }, {
-            id:shortId.generate(),
-            User: {
-                id:shortId.generate(),
-                nickname: 'qwer',
-            },
-            content: 'This one!'
-        },{
-            id:shortId.generate(),
-            User: {
-                id:shortId.generate(),
-                nickname: 'abcd',
-            },
-            content: 'Wow',
-        }, {
-            id:shortId.generate(),
-            User: {
-                id:shortId.generate(),
-                nickname: 'qwer',
-            },
-            content: 'This one!'
-        }],
-        Category: {
-            id:shortId.generate(),
-            label: "경제"
-        }
-    }],
-    keywordPosts: [],
+    // mainPosts: [{
+    //     id: 1,
+    //     User: {
+    //         id:1,
+    //         nickname: "Seeyong",
+    //     },
+    //     title: "The first title",
+    //     content: 'First comment #Hash #Express',
+    //     createdAt: "2022-01-01",
+    //     Images: [{
+    //         id:shortId.generate(),
+    //         src: 'https://images.unsplash.com/photo-1587813368357-9e58f27691b2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80'
+    //     }, {
+    //         id:shortId.generate(),
+    //         src: 'https://images.unsplash.com/photo-1591347887817-173e3d5c4891?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1507&q=80'
+    //     }, {
+    //         id:shortId.generate(),
+    //         src: 'https://images.unsplash.com/photo-1536173375199-161929d85af2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1471&q=80'
+    //     }],
+    //     Comments: [{
+    //         id:shortId.generate(),
+    //         User: {
+    //             id:shortId.generate(),
+    //             nickname: 'abcd',
+    //         },
+    //         content: 'Wow',
+    //     }, {
+    //         id:shortId.generate(),
+    //         User: {
+    //             id:shortId.generate(),
+    //             nickname: 'qwer',
+    //         },
+    //         content: 'This one!'
+    //     }],
+    //     Category: {
+    //         id:shortId.generate(),
+    //         label: "경제"
+    //     }
+    // }, {
+    //     id: 2,
+    //     User: {
+    //         id:1,
+    //         nickname: "Seeyong",
+    //     },
+    //     title: "The Second title",
+    //     content: 'Second comment #Hash #Express',
+    //     createdAt: "2022-01-01",
+    //     Images: [{
+    //         id:shortId.generate(),
+    //         src: 'https://images.unsplash.com/photo-1587813368357-9e58f27691b2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80'
+    //     }, {
+    //         id:shortId.generate(),
+    //         src: 'https://images.unsplash.com/photo-1591347887817-173e3d5c4891?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1507&q=80'
+    //     }, {
+    //         id:shortId.generate(),
+    //         src: 'https://images.unsplash.com/photo-1536173375199-161929d85af2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1471&q=80'
+    //     }],
+    //     Comments: [{
+    //         id:shortId.generate(),
+    //         User: {
+    //             id:shortId.generate(),
+    //             nickname: 'abcd',
+    //         },
+    //         content: 'Wow',
+    //     }, {
+    //         id:shortId.generate(),
+    //         User: {
+    //             id:shortId.generate(),
+    //             nickname: 'qwer',
+    //         },
+    //         content: 'This one!'
+    //     },{
+    //         id:shortId.generate(),
+    //         User: {
+    //             id:shortId.generate(),
+    //             nickname: 'abcd',
+    //         },
+    //         content: 'Wow',
+    //     }, {
+    //         id:shortId.generate(),
+    //         User: {
+    //             id:shortId.generate(),
+    //             nickname: 'qwer',
+    //         },
+    //         content: 'This one!'
+    //     },{
+    //         id:shortId.generate(),
+    //         User: {
+    //             id:shortId.generate(),
+    //             nickname: 'abcd',
+    //         },
+    //         content: 'Wow',
+    //     }, {
+    //         id:shortId.generate(),
+    //         User: {
+    //             id:shortId.generate(),
+    //             nickname: 'qwer',
+    //         },
+    //         content: 'This one!'
+    //     },{
+    //         id:shortId.generate(),
+    //         User: {
+    //             id:shortId.generate(),
+    //             nickname: 'abcd',
+    //         },
+    //         content: 'Wow',
+    //     }, {
+    //         id:shortId.generate(),
+    //         User: {
+    //             id:shortId.generate(),
+    //             nickname: 'qwer',
+    //         },
+    //         content: 'This one!'
+    //     },{
+    //         id:shortId.generate(),
+    //         User: {
+    //             id:shortId.generate(),
+    //             nickname: 'abcd',
+    //         },
+    //         content: 'Wow',
+    //     }, {
+    //         id:shortId.generate(),
+    //         User: {
+    //             id:shortId.generate(),
+    //             nickname: 'qwer',
+    //         },
+    //         content: 'This one!'
+    //     }],
+    //     Category: {
+    //         id:shortId.generate(),
+    //         label: "경제"
+    //     }
+    // }],
+    mainPosts: [],
     imagePaths: [
         'https://images.unsplash.com/photo-1587813368357-9e58f27691b2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80',
         'https://images.unsplash.com/photo-1591347887817-173e3d5c4891?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1507&q=80', 
@@ -196,38 +196,6 @@ export const generateDuummyPost = (category_label) => {
     }
 }
 
-// initialState.mainPosts = initialState.mainPosts.concat(
-//     Array(20).fill().map(() => ({
-//         id: Math.floor(Math.random() * 100),
-//         title: faker.lorem.sentence(),
-//         content: faker.lorem.sentences(),
-//         User: {
-//             id: Math.floor(Math.random() * 100),
-//             nickname: faker.name.firstName(),
-//         },
-//         Images: [{
-//             id: shortId.generate(),
-//             src: faker.image.imageUrl()
-//         }, {
-//             id: shortId.generate(),
-//             src: faker.image.imageUrl()
-//         }, {
-//             id: shortId.generate(),
-//             src: faker.image.imageUrl()
-//         }],
-//         Comments: Array(15).fill().map(() => ({
-//             id:shortId.generate(),
-//             User: {
-//                 id:shortId.generate(),
-//                 nickname: "GOOD",
-//             },
-//             content: faker.lorem.sentence(),
-//         })),
-//         createdAt: "2020-12-31",
-//         Category: initialState.postCategories[Math.floor(Math.random() * initialState.postCategories.length)],
-//     }))
-// );
-
 export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST';
 export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCESS';
 export const LOAD_POSTS_FAILURE = 'LOAD_POSTS_FAILURE';
@@ -246,27 +214,6 @@ export const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
 
 export const RESET_KEYWORD_POSTS = 'RESET_KEYWORD_POSTS';
 
-const dummyPost = (data) => ({
-    id: data.id,
-    title: data.title,
-    content: '더미 콘텐트',
-    User: {
-        id: 2,
-        nickname: 'abcd',
-    },
-    Images: [{
-        id:shortId.generate(),
-        src: 'https://images.unsplash.com/photo-1536173375199-161929d85af2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1471&q=80'
-    }],
-    Comments: [],
-    createdAt: "2022-01-02",
-    Category: {
-        id:shortId.generate(),
-        value:"economics",
-        label: "경제"
-    },
-});
-
 const reducer = (state = initialState, action) => {
     return produce(state, (draft) => {
         switch (action.type) {
@@ -276,10 +223,6 @@ const reducer = (state = initialState, action) => {
                 draft.loadPostsError = null;
                 break;
             case LOAD_POSTS_SUCCESS:
-                const randomPosts = generateDuummyPost(action.data);
-                // draft.keywordPosts = draft.keywordPosts.concat(randomPosts).filter(n => n);
-                // draft.mainPosts = draft.mainPosts.concat(randomPosts).filter(n => n);
-                draft.keywordPosts = action.data;
                 draft.mainPosts = action.data;
                 draft.loadPostsDone = true;
                 draft.loadPostsLoading = false;
@@ -310,7 +253,7 @@ const reducer = (state = initialState, action) => {
                 draft.removePostError = null;
                 break;
             case REMOVE_POST_SUCCESS:
-                draft.mainPosts = draft.mainPosts.filter((v) => v.id !== action.data);
+                draft.mainPosts = draft.mainPosts.filter((v) => v.id !== action.data.PostId);
                 draft.removePostDone = true;
                 draft.removePostLoading = false;
                 break;
@@ -324,15 +267,8 @@ const reducer = (state = initialState, action) => {
                 draft.addCommentError = null;
                 break;
             case ADD_COMMENT_SUCCESS:
-                const post = draft.mainPosts.find((v) => v.id === parseInt(action.data.postId, 10));
-                post.Comments.unshift({
-                    id: action.data.postId,
-                    User: {
-                        id: action.data.userId,
-                        nickname: faker.name.firstName(),
-                    },
-                    content: action.data.content
-                });
+                const post = draft.mainPosts.find((v) => v.id === action.data.PostId);
+                post.Comments.unshift(action.data);
                 draft.addCommentDone = true;
                 draft.addCommentLoading = false;
                 break;

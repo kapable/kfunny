@@ -2,7 +2,7 @@ import React, { Fragment, useCallback, useState, useEffect } from 'react';
 import { Avatar, Button, Card, Form, Input } from 'antd'
 import { EditOutlined } from '@ant-design/icons';
 import useInput from '../hooks/useInput';
-import { CHANGE_NICKNAME_REQUEST, LOG_OUT_REQUEST } from '../reducers/user';
+import { CHANGE_DESCRIPTION_REQUEST, CHANGE_NICKNAME_REQUEST, LOG_OUT_REQUEST } from '../reducers/user';
 import { useDispatch, useSelector } from 'react-redux';
 import Router from 'next/router';
 import moment from 'moment';
@@ -12,18 +12,12 @@ moment.locale('ko');
 const UserProfile = () => {
     // for LogIn and LogOut check
     const dispatch = useDispatch();
-    const { logInError, userInfo, logOutLoading, changeNicknameDone, changeNicknameLoading } = useSelector((state) => state.user);
+    const { logInError, userInfo, logOutLoading, changeNicknameDone, changeNicknameLoading, changeDescriptionDone, changeDescriptionLoading } = useSelector((state) => state.user);
     useEffect(() => {
         if(!(userInfo && userInfo.id)) {
             Router.replace('/');
         }
     }, [userInfo && userInfo.id]);
-
-    useEffect(() => {
-        if(changeNicknameDone) {
-            alert("닉네임 수정이 반영되었습니다!");
-        }
-    }, [changeNicknameDone]);
 
     useEffect(() => {
         if (logInError) {
@@ -57,13 +51,26 @@ const UserProfile = () => {
             });
             setInfoEditMode(false);
         };
+        if(changeNicknameDone) {
+            alert("닉네임 수정이 반영되었습니다!");
+        };
     }, [nickname]);
 
     const onDescriptionSubmit = useCallback(() => {
         if(description.length > 50) {
             alert('소개는 50자 이내로 적어주세요!');
+        } else if (!description) {
+            alert('소개를 적어주세요!')
+        } else {
+            dispatch({
+                type: CHANGE_DESCRIPTION_REQUEST,
+                data: description,
+            });
         };
         setInfoEditMode(false);
+        if(changeDescriptionDone) {
+            alert("소개 수정이 반영되었습니다!");
+        }
     }, [description]);
 
     return (
@@ -103,6 +110,7 @@ const UserProfile = () => {
                         addonBefore="소개"
                         enterButton="수정"
                         onSearch={onDescriptionSubmit}
+                        loading={changeDescriptionLoading}
                     />
                 </Form>
             )
