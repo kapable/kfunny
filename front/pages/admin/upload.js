@@ -13,6 +13,7 @@ import wrapper from '../../store/configureStore';
 import Head from 'next/head';
 import { backUrl } from '../../config/config';
 
+
 const { Option } = Select;
 
 const Upload = () => {
