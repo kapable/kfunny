@@ -6,13 +6,14 @@ import ArticleCardForm from '../../components/ArticleCardForm';
 import { END } from 'redux-saga';
 import axios from 'axios';
 import { LOAD_MY_INFO_REQUEST } from '../../reducers/user';
-import { LOAD_POST_REQUEST } from '../../reducers/post';
+import { LOAD_POSTS_REQUEST, LOAD_POST_REQUEST } from '../../reducers/post';
 import wrapper from '../../store/configureStore';
 
 const Post = () => {
     const router = useRouter();
-    const { singlePost } = useSelector((state) => state.post);
     const { id } = router.query;
+    let { singlePost } = useSelector((state) => state.post);
+
     return (
         <Fragment>
             <Head>
@@ -40,6 +41,10 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
     context.store.dispatch({
         type: LOAD_POST_REQUEST,
         data: context.params.id,
+    });
+    context.store.dispatch({
+        type: LOAD_POSTS_REQUEST,
+        data: encodeURI("최신"),
     });
     context.store.dispatch(END)
 

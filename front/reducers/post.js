@@ -137,7 +137,45 @@ export const initialState = {
     //     }
     // }],
     mainPosts: [],
-    singlePost: null,
+    singlePost: {
+        id: 1,
+        User: {
+            id:1,
+            nickname: "Seeyong",
+        },
+        title: "The first title",
+        content: 'First comment #Hash #Express',
+        createdAt: "2022-01-01",
+        Images: [{
+            id:shortId.generate(),
+            src: 'https://images.unsplash.com/photo-1587813368357-9e58f27691b2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80'
+        }, {
+            id:shortId.generate(),
+            src: 'https://images.unsplash.com/photo-1591347887817-173e3d5c4891?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1507&q=80'
+        }, {
+            id:shortId.generate(),
+            src: 'https://images.unsplash.com/photo-1536173375199-161929d85af2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1471&q=80'
+        }],
+        Comments: [{
+            id:shortId.generate(),
+            User: {
+                id:shortId.generate(),
+                nickname: 'abcd',
+            },
+            content: 'Wow',
+        }, {
+            id:shortId.generate(),
+            User: {
+                id:shortId.generate(),
+                nickname: 'qwer',
+            },
+            content: 'This one!'
+        }],
+        Category: {
+            id:shortId.generate(),
+            label: "경제"
+        }
+    },
     imagePaths: [],
     hasMorePosts: true,
     loadPostsLoading: false,

@@ -2,7 +2,7 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { Tabs } from 'antd';
 import HomeCardForm from '../components/HomeCardForm';
 import { useDispatch, useSelector } from 'react-redux';
-import { LOAD_POSTS_REQUEST, RESET_KEYWORD_POSTS } from '../reducers/post';
+import { LOAD_POSTS_REQUEST, LOAD_POST_REQUEST, RESET_KEYWORD_POSTS } from '../reducers/post';
 import { LOAD_CATEGORIES_REQUEST } from '../reducers/category';
 import { LOAD_MY_INFO_REQUEST } from '../reducers/user';
 import { END } from 'redux-saga';

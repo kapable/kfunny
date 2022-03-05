@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { Card } from 'antd';
@@ -8,18 +8,16 @@ moment.locale('ko');
 
 const HomeCards = ({ posts }) => {
     return (
-        posts.map((p) => {
-            return (
-                <Link href={`/post/${p.id}`} key={`${p.id}_link`}>
-                    <a key={`${p.id}_a`}>
-                        <Card className='home-card-form' key={`${p.id}_card`}>
-                            <div key={`${p.id}_title`}>{p.title}</div>
-                            <div className='home-card-form-date' key={`${p.id}_date`}>{moment(p.createdAt).format('YYYY-MM-DD')}</div>
-                        </Card>
-                    </a>
-                </Link>
-            );
-    })
+        posts.map((post) => (
+            <Link href={`/post/${post.id}`} key={`${post.id}_link`}>
+                <a key={`${post.id}_a`}>
+                    <Card className='home-card-form' key={`${post.id}_card`}>
+                        <div key={`${post.id}_title`}>{post.title}</div>
+                        <div className='home-card-form-date' key={`${post.id}_date`}>{moment(post.createdAt).format('YYYY-MM-DD')}</div>
+                    </Card>
+                </a>
+            </Link>
+        ))
     );
 };
 
