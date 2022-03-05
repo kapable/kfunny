@@ -10,8 +10,8 @@ import ArticleNewsForm from './ArticleNewsForm';
 
 moment.locale('ko');
 
-const ArticleCardForm = ({ singlePost }) => {
-    const { logInDone } = useSelector((state) => state.user);
+const ArticleCardForm = () => {
+    let { singlePost } = useSelector((state) => state.post);
     const onShareButtonClick = useCallback(() => {
         alert('링크가 복사되었습니다!');
     }, []);
@@ -46,7 +46,7 @@ const ArticleCardForm = ({ singlePost }) => {
             )
             }
             <Divider dashed />
-            <CommentForm singlePost={singlePost} logInDone={logInDone} />
+            <CommentForm singlePost={singlePost} />
             <div className='article-comment-list-div'>
                 <List
                     className='article-comment-list'
@@ -61,6 +61,7 @@ const ArticleCardForm = ({ singlePost }) => {
                                     <Avatar>{item.User.nickname[0]}</Avatar>
                                 )}
                                 content={item.content}
+                                datetime={moment(item.createdAt).format('YYYY-MM-DD')}
                             />
                         </li>
                     )}

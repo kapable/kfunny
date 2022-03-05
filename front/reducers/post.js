@@ -1,178 +1,30 @@
 import produce from '../util/produce';
-import shortId from 'shortid';
-import faker from '@withshepherd/faker';
 
 export const initialState = {
-    // mainPosts: [{
-    //     id: 1,
-    //     User: {
-    //         id:1,
-    //         nickname: "Seeyong",
-    //     },
-    //     title: "The first title",
-    //     content: 'First comment #Hash #Express',
-    //     createdAt: "2022-01-01",
-    //     Images: [{
-    //         id:shortId.generate(),
-    //         src: 'https://images.unsplash.com/photo-1587813368357-9e58f27691b2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80'
-    //     }, {
-    //         id:shortId.generate(),
-    //         src: 'https://images.unsplash.com/photo-1591347887817-173e3d5c4891?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1507&q=80'
-    //     }, {
-    //         id:shortId.generate(),
-    //         src: 'https://images.unsplash.com/photo-1536173375199-161929d85af2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1471&q=80'
-    //     }],
-    //     Comments: [{
-    //         id:shortId.generate(),
-    //         User: {
-    //             id:shortId.generate(),
-    //             nickname: 'abcd',
-    //         },
-    //         content: 'Wow',
-    //     }, {
-    //         id:shortId.generate(),
-    //         User: {
-    //             id:shortId.generate(),
-    //             nickname: 'qwer',
-    //         },
-    //         content: 'This one!'
-    //     }],
-    //     Category: {
-    //         id:shortId.generate(),
-    //         label: "경제"
-    //     }
-    // }, {
-    //     id: 2,
-    //     User: {
-    //         id:1,
-    //         nickname: "Seeyong",
-    //     },
-    //     title: "The Second title",
-    //     content: 'Second comment #Hash #Express',
-    //     createdAt: "2022-01-01",
-    //     Images: [{
-    //         id:shortId.generate(),
-    //         src: 'https://images.unsplash.com/photo-1587813368357-9e58f27691b2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80'
-    //     }, {
-    //         id:shortId.generate(),
-    //         src: 'https://images.unsplash.com/photo-1591347887817-173e3d5c4891?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1507&q=80'
-    //     }, {
-    //         id:shortId.generate(),
-    //         src: 'https://images.unsplash.com/photo-1536173375199-161929d85af2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1471&q=80'
-    //     }],
-    //     Comments: [{
-    //         id:shortId.generate(),
-    //         User: {
-    //             id:shortId.generate(),
-    //             nickname: 'abcd',
-    //         },
-    //         content: 'Wow',
-    //     }, {
-    //         id:shortId.generate(),
-    //         User: {
-    //             id:shortId.generate(),
-    //             nickname: 'qwer',
-    //         },
-    //         content: 'This one!'
-    //     },{
-    //         id:shortId.generate(),
-    //         User: {
-    //             id:shortId.generate(),
-    //             nickname: 'abcd',
-    //         },
-    //         content: 'Wow',
-    //     }, {
-    //         id:shortId.generate(),
-    //         User: {
-    //             id:shortId.generate(),
-    //             nickname: 'qwer',
-    //         },
-    //         content: 'This one!'
-    //     },{
-    //         id:shortId.generate(),
-    //         User: {
-    //             id:shortId.generate(),
-    //             nickname: 'abcd',
-    //         },
-    //         content: 'Wow',
-    //     }, {
-    //         id:shortId.generate(),
-    //         User: {
-    //             id:shortId.generate(),
-    //             nickname: 'qwer',
-    //         },
-    //         content: 'This one!'
-    //     },{
-    //         id:shortId.generate(),
-    //         User: {
-    //             id:shortId.generate(),
-    //             nickname: 'abcd',
-    //         },
-    //         content: 'Wow',
-    //     }, {
-    //         id:shortId.generate(),
-    //         User: {
-    //             id:shortId.generate(),
-    //             nickname: 'qwer',
-    //         },
-    //         content: 'This one!'
-    //     },{
-    //         id:shortId.generate(),
-    //         User: {
-    //             id:shortId.generate(),
-    //             nickname: 'abcd',
-    //         },
-    //         content: 'Wow',
-    //     }, {
-    //         id:shortId.generate(),
-    //         User: {
-    //             id:shortId.generate(),
-    //             nickname: 'qwer',
-    //         },
-    //         content: 'This one!'
-    //     }],
-    //     Category: {
-    //         id:shortId.generate(),
-    //         label: "경제"
-    //     }
-    // }],
     mainPosts: [],
     singlePost: {
-        id: 1,
+        id: -10,
         User: {
-            id:1,
-            nickname: "Seeyong",
+            id: "Kfunny",
+            nickname: "Kfunny",
         },
         title: "The first title",
         content: 'First comment #Hash #Express',
         createdAt: "2022-01-01",
         Images: [{
-            id:shortId.generate(),
+            id:"Kfunny",
             src: 'https://images.unsplash.com/photo-1587813368357-9e58f27691b2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80'
-        }, {
-            id:shortId.generate(),
-            src: 'https://images.unsplash.com/photo-1591347887817-173e3d5c4891?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1507&q=80'
-        }, {
-            id:shortId.generate(),
-            src: 'https://images.unsplash.com/photo-1536173375199-161929d85af2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1471&q=80'
-        }],
+        }, ],
         Comments: [{
-            id:shortId.generate(),
+            id:"Kfunny",
             User: {
-                id:shortId.generate(),
+                id:"Kfunny",
                 nickname: 'abcd',
             },
             content: 'Wow',
-        }, {
-            id:shortId.generate(),
-            User: {
-                id:shortId.generate(),
-                nickname: 'qwer',
-            },
-            content: 'This one!'
-        }],
+        }, ],
         Category: {
-            id:shortId.generate(),
+            id:"Kfunny",
             label: "경제"
         }
     },
@@ -191,45 +43,6 @@ export const initialState = {
     addCommentDone: false,
     addCommentError: false,
 };
-
-export const generateDuummyPost = (category_label) => {
-    if(category_label !== "최신") {
-        return (
-            Array(10).fill().map(() => ({
-                id: Math.floor(Math.random() * 100),
-                title: faker.lorem.sentence(),
-                content: faker.lorem.sentences(),
-                User: {
-                    id: Math.floor(Math.random() * 100),
-                    nickname: faker.name.firstName(),
-                },
-                Images: [{
-                    id: shortId.generate(),
-                    src: faker.image.imageUrl()
-                }, {
-                    id: shortId.generate(),
-                    src: faker.image.imageUrl()
-                }, {
-                    id: shortId.generate(),
-                    src: faker.image.imageUrl()
-                }],
-                Comments: Array(15).fill().map(() => ({
-                    id:shortId.generate(),
-                    User: {
-                        id:shortId.generate(),
-                        nickname: faker.name.firstName(),
-                    },
-                    content: faker.lorem.sentence(),
-                })),
-                createdAt: "2020-12-31",
-                Category: {
-                    id:shortId.generate(),
-                    label: category_label,
-                },
-            }))
-        )
-    }
-}
 
 export const LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST';
 export const LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCESS';
@@ -327,6 +140,7 @@ const reducer = (state = initialState, action) => {
                 draft.addCommentError = null;
                 break;
             case ADD_COMMENT_SUCCESS:
+                draft.singlePost.Comments.unshift(action.data);
                 const post = draft.mainPosts.find((v) => v.id === action.data.PostId);
                 post.Comments.unshift(action.data);
                 draft.addCommentDone = true;

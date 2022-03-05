@@ -24,7 +24,7 @@ const Post = () => {
                 <meta property='og:image' content={singlePost.Images[0].src}/>
                 <meta property='og:url' content={`https://niair.xyz/post/${id}`}/>
             </Head>
-            <ArticleCardForm singlePost={singlePost} />
+            <ArticleCardForm />
         </Fragment>
     );
 };

@@ -5,10 +5,11 @@ import useInput from '../hooks/useInput';
 import { useDispatch, useSelector } from 'react-redux';
 import { ADD_COMMENT_REQUEST } from '../reducers/post';
 
-const CommentForm = ({ singlePost, logInDone }) => {
+const CommentForm = ({ singlePost }) => {
     const dispatch = useDispatch();
     const userId = useSelector((state) => state.user.userInfo? state.user.userInfo.id: null);
     const { addCommentDone, addCommentLoading } = useSelector((state) => state.post);
+    const { userInfo } = useSelector((state) => state.user);
     const [commentText, onChangeCommentText, setCommentText] = useInput('');
 
     useEffect(() => {
@@ -33,21 +34,21 @@ const CommentForm = ({ singlePost, logInDone }) => {
             <Form onFinish={onSubmitComment}>
             <Form.Item className='comment-form-items'>
                 <Input.TextArea
-                    placeholder={logInDone ? '댓글을 입력해주세요(최대 140자).' : '로그인 후 댓글 입력이 가능합니다.'}
+                    placeholder={userInfo ? '댓글을 입력해주세요(최대 140자).' : '로그인 후 댓글 입력이 가능합니다.'}
                     allowClear={true}
                     maxLength={140}
                     showCount={true}
                     className='comment-form-textarea'
                     value={commentText}
                     onChange={onChangeCommentText}
-                    autoSize={{maxRows: 8}}
-                    disabled={logInDone ? false : true}
+                    autoSize={{maxRows: 3}}
+                    disabled={userInfo ? false : true}
                     />
                 <Button
                     className='comment-form-submit-btn'
                     type="primary"
                     htmlType="submit"
-                    disabled={logInDone ? false : true}
+                    disabled={userInfo ? false : true}
                     loading={addCommentLoading}
                     >등록</Button>
             </Form.Item>
