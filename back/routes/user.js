@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');
-const { User, Post, Image, Comment } = require('../models');
+const { User, Post, Comment } = require('../models');
 const passport = require('passport');
 const router = express.Router();
 const { isLoggedIn, isNotLoggedIn } = require('./middlewares');

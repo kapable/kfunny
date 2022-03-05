@@ -3,6 +3,7 @@ import moment from 'moment';
 import Link from 'next/link';
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { backUrl } from '../config/config';
 
 const { Meta } = Card;
 
@@ -21,7 +22,7 @@ const ArticleNewsForm = () => {
                                 <img
                                     key={`${post.title}_cover`}
                                     className='article-news-form-cover-img'
-                                    src={`http://localhost:3065/${post.Images[0]?.src}`}
+                                    src={`${backUrl}/${post.Images[0]?.src}`}
                                     alt={post.title}/>
                                 </div>}
                     >

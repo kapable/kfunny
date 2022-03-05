@@ -7,6 +7,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useSelector } from 'react-redux';
 import CommentForm from './CommentForm';
 import ArticleNewsForm from './ArticleNewsForm';
+import { backUrl } from '../config/config'
 
 moment.locale('ko');
 
@@ -34,7 +35,7 @@ const ArticleCardForm = () => {
                 singlePost.Images.map((image, index) => {
                     return (
                         <div className='article-image-div' key={`${singlePost.title}-image${index}-div`}>
-                            <Image src={`http://localhost:3065/${image.src}`} key={`${singlePost.title}-image${index}`} />
+                            <Image src={`${backUrl}/${image.src}`} key={`${singlePost.title}-image${index}`} />
                         </div>
                     )
                 })

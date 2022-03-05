@@ -11,7 +11,7 @@ import { END } from 'redux-saga';
 import axios from 'axios';
 import wrapper from '../../store/configureStore';
 import Head from 'next/head';
-
+import { backUrl } from '../../config/config';
 
 const { Option } = Select;
 
@@ -105,7 +105,7 @@ const Upload = () => {
           <div>
               {imagePaths.map((v, i) => (
                   <div key={v} className='admin-upload-img-preview-div'>
-                      <img src={`http://localhost:3065/${v}`} className='admin-upload-img-preview' alt={v} />
+                      <img src={`${backUrl}/${v}`} className='admin-upload-img-preview' alt={v} />
                       <div className='admin-upload-img-delete-btn-div'>
                           <Button className='admin-upload-img-delete-btn' onClick={onRemoveImage(i)}>Delete</Button>
                       </div>

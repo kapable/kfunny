@@ -11,6 +11,7 @@ import { LOAD_MY_INFO_REQUEST } from '../../reducers/user';
 import wrapper from '../../store/configureStore';
 import moment from 'moment';
 import Head from 'next/head';
+import { backUrl } from '../../config/config';
 
 moment.locale('ko');
 const { Column, ColumnGroup } = Table;
@@ -77,7 +78,7 @@ const PostList = () => {
                     )}
                 />
                 <Column title="미리보기" key="preview" render={(_, post) => (
-                    <Image width={70} src={`http://localhost:3065/${post.Images[0]?.src}` || null} alt={post.title} />
+                    <Image width={70} src={`${backUrl}/${post.Images[0]?.src}` || null} alt={post.title} />
                 )}/>
                 <ColumnGroup title="수정/삭제">
                     <Column
