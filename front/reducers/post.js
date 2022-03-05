@@ -151,7 +151,7 @@ const reducer = (state = initialState, action) => {
                 draft.addCommentError = action.error;
                 break;
             case RESET_KEYWORD_POSTS:
-                draft.loadPostsLoading = true;
+                draft.loadPostsLoading = false;
                 draft.mainPosts = [];
             case UPLOAD_IMAGES_REQUEST:
                 draft.uploadImagesLoading = true;

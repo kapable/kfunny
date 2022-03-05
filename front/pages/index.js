@@ -19,6 +19,9 @@ const Home = () => {
     const [currentCategory, setCurrentCategory] = useState('최신');
     const onCategoryChange = useCallback((category) => {
         setCurrentCategory(category);
+    }, []);
+
+    useEffect(() => {
         dispatch({
             type: RESET_KEYWORD_POSTS,
         });
