@@ -21,7 +21,7 @@ const Post = () => {
                 <meta name='desciprtion' content={singlePost.title}/>
                 <meta property='og:title' content={singlePost.title}/>
                 <meta property='og:description' content={singlePost.title}/>
-                <meta property='og:image' content={singlePost.Images[0].src}/>
+                <meta property='og:image' content={singlePost.Images[0]?.src}/>
                 <meta property='og:url' content={`https://niair.xyz/post/${id}`}/>
             </Head>
             <ArticleCardForm />

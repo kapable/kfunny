@@ -1,13 +1,13 @@
 import React, { Fragment, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { Image, Divider, List, Comment, Avatar, BackTop } from 'antd';
+import { Image, Divider, List, Comment, Avatar, BackTop, Empty } from 'antd';
 import { LinkOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useSelector } from 'react-redux';
 import CommentForm from './CommentForm';
 import ArticleNewsForm from './ArticleNewsForm';
-import { backUrl } from '../config/config'
+import { backUrl } from '../config/config';
 
 moment.locale('ko');
 
@@ -42,7 +42,7 @@ const ArticleCardForm = () => {
             )
             : (
                 <div className='article-image-div' key={`${singlePost.title}-image${index}-div`}>
-                    <Image src={`'https://images.unsplash.com/photo-1606823616058-541d59dadcb2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80'`} key={`${singlePost.title}-image${index}`} />
+                    <Empty description={false} />
                 </div>
             )
             }

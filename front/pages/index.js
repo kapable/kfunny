@@ -17,19 +17,17 @@ const Home = () => {
     const { mainPosts, hasMorePosts, loadPostsLoading } = useSelector((state) => state.post);
     const { postCategories } = useSelector((state) => state.category);
     const [currentCategory, setCurrentCategory] = useState('최신');
-    const onCategoryChange = useCallback((category) => {
-        setCurrentCategory(category);
-    }, []);
 
-    useEffect(() => {
+    const onChangeCategory = useCallback((category) => {
+        setCurrentCategory(category);
         dispatch({
             type: RESET_KEYWORD_POSTS,
         });
         dispatch({
             type: LOAD_POSTS_REQUEST,
-            data: currentCategory,
+            data: category,
         });
-    }, [currentCategory]);
+    }, []);
 
     useEffect(() => {
         function onScroll() {
@@ -52,7 +50,7 @@ const Home = () => {
     
     return (
         <Fragment>
-            <Tabs tabPosition='top' size='default' type='line' onChange={onCategoryChange}>
+            <Tabs tabPosition='top' size='default' type='line' onChange={onChangeCategory}>
                 {postCategories.map((category, _) => {
                     if(category.enabled) {
                         return (<TabPane key={category.label} tab={`${category.label}`}>
@@ -71,6 +69,9 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
     if(context.req && cookie) {
         axios.defaults.headers.Cookie = cookie;
     }
+    context.store.dispatch({
+        type: RESET_KEYWORD_POSTS,
+    });
     context.store.dispatch({
         type: LOAD_MY_INFO_REQUEST
     });
