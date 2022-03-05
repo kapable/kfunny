@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { Menu, Layout } from 'antd';
@@ -10,12 +10,18 @@ const { Header, Content, Footer } = Layout;
 const AppLayout = ({ children }) => {
     // for LogIn and LogOut check
     const dispatch = useDispatch();
-    const { userInfo } = useSelector((state) => state.user);
+    const { userInfo, logOutDone } = useSelector((state) => state.user);
     const onLogout = useCallback(() => {
         dispatch({
             type: LOG_OUT_REQUEST
         });
     }, [LOG_OUT_REQUEST]);
+
+    useEffect(() => {
+        if(logOutDone) {
+            alert('로그아웃 되었습니다!');
+        };
+    }, [logOutDone]);
 
     return (
         <Layout className='applayout'>
