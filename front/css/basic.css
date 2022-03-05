@@ -123,6 +123,20 @@
   float: right;
 }
 
+/* 404 */
+.main-404-div {
+  width: 15rem;
+  margin: 10rem auto;
+  text-align: center;
+}
+
+.main-404-button {
+  margin: 1rem auto;
+  height: 5rem;
+  width: 13rem;
+  font-size: 1rem;
+}
+
 @media only screen and (min-width: 600px) {
   .home-card-form {
     width: 47.5%;

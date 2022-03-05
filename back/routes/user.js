@@ -16,6 +16,13 @@ router.get(`/`, async (req, res, next) => { // GET /user
                 attributes: {
                     exclude: ['password'],
                 },
+                include: [{
+                    model: Post,
+                    attributes: ['id'],
+                },{
+                    model: Comment,
+                    attributes: ['id'],
+                }]
             });
             return res.status(200).json(fullUserWithoutPassword);
         } else {
@@ -49,7 +56,10 @@ router.post(`/login`, isNotLoggedIn, (req, res, next) => { // POST /user/login
                 include: [{
                     model: Post,
                     attributes: ['id'],
-                },]
+                },{
+                    model: Comment,
+                    attributes: ['id'],
+                }]
             });
             return res.status(200).json(fullUserWithoutPassword);
         });

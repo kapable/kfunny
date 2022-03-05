@@ -10,6 +10,11 @@ import Router from 'next/router';
 
 const Signup = () => {
     const { userInfo } = useSelector((state) => state.user);
+    useEffect(() => {
+        if(userInfo) {
+            Router.push('/');
+        }
+    }, [userInfo]);
     return (
         <Fragment>
             <Head>

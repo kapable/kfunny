@@ -54,7 +54,7 @@ const UserProfile = () => {
         if(changeNicknameDone) {
             alert("닉네임 수정이 반영되었습니다!");
         };
-    }, [nickname]);
+    }, [nickname, changeNicknameDone]);
 
     const onDescriptionSubmit = useCallback(() => {
         if(description.length > 50) {
@@ -71,7 +71,7 @@ const UserProfile = () => {
         if(changeDescriptionDone) {
             alert("소개 수정이 반영되었습니다!");
         }
-    }, [description]);
+    }, [description, changeDescriptionDone]);
 
     return (
         <Fragment>
@@ -79,7 +79,7 @@ const UserProfile = () => {
                 className='user-profile-card'
                 actions={[
                     <div key="register-date">가입일자<br />{moment(userInfo?.createdAt).format('YYYY-MM-DD') || ''}</div>,
-                    <div key="comment">내가 쓴 댓글<br />0</div>,
+                    <div key="comment">내가 쓴 댓글<br />{userInfo?.Comments.length || 0}</div>,
                     <div key="edit" onClick={onInfoEditMode}>수정하기<br /><EditOutlined className="user-profile-card-edit"  /></div>
                     
                 ]}

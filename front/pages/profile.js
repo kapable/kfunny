@@ -10,6 +10,11 @@ import Router from 'next/router';
 
 const Profile = () => {
     const { userInfo } = useSelector((state) => state.user);
+    useEffect(() => {
+        if(!(userInfo && userInfo.id)) {
+            Router.replace('/');
+        }
+    }, [userInfo && userInfo.id]);
     return (
         <Fragment>
             <Head>
