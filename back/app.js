@@ -34,7 +34,7 @@ if (process.env.NODE_ENV === 'production') {
         cookie: {
             httpOnly: true,
             secure: true,
-            domain: process.env.NODE_ENV === 'production' && '.jellinggame.net'
+            domain: process.env.NODE_ENV === 'production' && '.niair.xyz'
         }
     }));
 } else {
