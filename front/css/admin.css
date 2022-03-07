@@ -34,6 +34,13 @@
   background-color: lightgray;
 }
 
+.admin-upload-thumbnail-btn {
+  display: block;
+  margin: 1rem auto;
+  width: 100%;
+  height: 2.5rem;
+}
+
 .admin-upload-category-select {
   width: 100%;
   margin: 1rem auto;
@@ -84,6 +91,12 @@
     display: block;
     width: 35rem;
     margin: 0 auto;
+  }
+
+  .admin-upload-thumbnail-btn {
+    display: block;
+    width: 35rem;
+    margin: 1rem auto;
   }
 
   .admin-upload-img-preview-div {

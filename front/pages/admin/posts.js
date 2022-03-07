@@ -22,6 +22,7 @@ const PostList = () => {
     const { userInfo } = useSelector((state) => state.user);
 
     useEffect(() => {
+        console.log(mainPosts[0]);
         if(!userInfo?.admin) {
             alert('관리자 로그인이 필요합니다!');
             Router.replace('/login');
@@ -78,7 +79,7 @@ const PostList = () => {
                     )}
                 />
                 <Column title="미리보기" key="preview" render={(_, post) => (
-                    <Image width={70} src={`${backUrl}/${post.Images[0]?.src}` || null} alt={post.title} />
+                    <Image width={70} src={post.Thumbnails.length ? `${backUrl}/${post.Thumbnails[0]?.src}` : `${backUrl}/${post.Images[0]?.src}`} alt={post.title} />
                 )}/>
                 <ColumnGroup title="수정/삭제">
                     <Column

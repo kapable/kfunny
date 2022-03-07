@@ -6,6 +6,7 @@ import {
     ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS, ADD_COMMENT_FAILURE,
     REMOVE_POST_REQUEST, REMOVE_POST_SUCCESS, REMOVE_POST_FAILURE,
     UPLOAD_IMAGES_SUCCESS, UPLOAD_IMAGES_FAILURE, UPLOAD_IMAGES_REQUEST,
+    UPLOAD_THUMBNAIL_SUCCESS, UPLOAD_THUMBNAIL_FAILURE, UPLOAD_THUMBNAIL_REQUEST,
     LOAD_POST_REQUEST, LOAD_POST_SUCCESS, LOAD_POST_FAILURE,
 } from '../reducers/post';
 import { ADD_POST_TO_ME, REMOVE_POST_OF_ME } from '../reducers/user';
@@ -138,6 +139,26 @@ function* uploadImages(action) {
     };
 };
 
+function uploadThumbnailAPI(data) {
+    return axios.post(`/post/thumbnail`, data);
+};
+
+function* uploadThumbnail(action) {
+    try {
+        const result = yield call(uploadThumbnailAPI, action.data);
+        yield put({
+            type: UPLOAD_THUMBNAIL_SUCCESS,
+            data: result.data,
+        })
+    } catch (err) {
+        console.log(err);
+        yield put({
+            type: UPLOAD_THUMBNAIL_FAILURE,
+            error: err.response.data
+        })
+    };
+};
+
 function* watchLoadPosts() {
     yield takeLatest(LOAD_POSTS_REQUEST, loadPosts);
 }
@@ -162,6 +183,10 @@ function* watchUploadImages() {
     yield takeLatest(UPLOAD_IMAGES_REQUEST, uploadImages);
 }
 
+function* watchUploadThumbnail() {
+    yield takeLatest(UPLOAD_THUMBNAIL_REQUEST, uploadThumbnail);
+}
+
 export default function* postSaga() {
     yield all([
         fork(watchLoadPosts),
@@ -170,5 +195,6 @@ export default function* postSaga() {
         fork(watchRemovePost),
         fork(watchAddComment),
         fork(watchUploadImages),
+        fork(watchUploadThumbnail),
     ])
 }

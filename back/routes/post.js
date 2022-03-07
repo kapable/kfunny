@@ -2,7 +2,7 @@ const express = require('express');
 const multer = require('multer')
 const path = require('path');
 const fs = require('fs');
-const { Post, Comment, Image, User, Category } = require('../models');
+const { Post, Comment, Image, User, Category, Thumbnail } = require('../models');
 const { isLoggedIn } = require('./middlewares');
 const router = express.Router();
 
@@ -46,6 +46,10 @@ router.post('/', isLoggedIn, upload.none(), async (req, res, next) => { // POST 
                 await post.addImages(image);
             }
         }
+        if (req.body.thumbnail) {
+            const thumbnail = await Thumbnail.create({ src: req.body.thumbnail });
+            await post.addThumbnails(thumbnail);
+        }
         const fullPost = await Post.findOne({
             where: { id: post.id },
             include: [{
@@ -54,6 +58,8 @@ router.post('/', isLoggedIn, upload.none(), async (req, res, next) => { // POST 
             },{
                 model: Image,
             }, {
+                model: Thumbnail,
+            },{
                 model: Comment,
                 include: [{
                     model: User,
@@ -90,6 +96,8 @@ router.get(`/:postId`, async (req, res, next) => {
             }, {
                 model: Image,
             }, {
+                model: Thumbnail,
+            },{
                 model: Comment,
                 include: [{
                     model: User,
@@ -148,6 +156,15 @@ router.post(`/:postId/comment`, isLoggedIn, async (req, res, next) => { // POST 
 });
 // ADD IMAGES
 router.post(`/images`, isLoggedIn, upload.array('image'), async (req, res, next) => { // POST /post/images
+    try {
+        res.status(200).json(req.files.map((v) => v.filename));
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+});
+// ADD THUMBNAIL
+router.post(`/thumbnail`, isLoggedIn, upload.array('thumbnail'), async (req, res, next) => { // POST /post/thumbnail
     try {
         res.status(200).json(req.files.map((v) => v.filename));
     } catch (error) {

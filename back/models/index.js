@@ -2,6 +2,7 @@ const user = require('./user');
 const post = require('./post');
 const comment = require('./comment');
 const image = require('./image');
+const thumbnail = require('./thumbnail');
 const category = require('./category');
 
 const Sequelize = require('sequelize');
@@ -15,6 +16,7 @@ db.User = user;
 db.Post = post;
 db.Comment = comment;
 db.Image = image;
+db.Thumbnail = thumbnail;
 db.Category = category;
 
 Object.keys(db).forEach(modelName => {

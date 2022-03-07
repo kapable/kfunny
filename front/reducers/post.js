@@ -15,6 +15,10 @@ export const initialState = {
             id:"Kfunny",
             src: '1_1646486661931.png'
         }, ],
+        Thumbnails: [{
+            id:"Kfunny",
+            src: '1_1646486661931.png'
+        }, ],
         Comments: [{
             id:"Kfunny",
             User: {
@@ -29,6 +33,7 @@ export const initialState = {
         }
     },
     imagePaths: [],
+    thumbnailPath: [],
     hasMorePosts: true,
     loadPostsLoading: false,
     loadPostsDone: false,
@@ -68,9 +73,14 @@ export const UPLOAD_IMAGES_REQUEST = 'UPLOAD_IMAGES_REQUEST';
 export const UPLOAD_IMAGES_SUCCESS = 'UPLOAD_IMAGES_SUCCESS';
 export const UPLOAD_IMAGES_FAILURE = 'UPLOAD_IMAGES_FAILURE';
 
+export const UPLOAD_THUMBNAIL_REQUEST = 'UPLOAD_THUMBNAIL_REQUEST';
+export const UPLOAD_THUMBNAIL_SUCCESS = 'UPLOAD_THUMBNAIL_SUCCESS';
+export const UPLOAD_THUMBNAIL_FAILURE = 'UPLOAD_THUMBNAIL_FAILURE';
+
 export const RESET_KEYWORD_POSTS = 'RESET_KEYWORD_POSTS';
 
 export const REMOVE_IMAGE = 'REMOVE_IMAGE';
+export const REMOVE_THUMBNAIL = 'REMOVE_THUMBNAIL';
 
 const reducer = (state = initialState, action) => {
     return produce(state, (draft) => {
@@ -167,8 +177,25 @@ const reducer = (state = initialState, action) => {
                 draft.uploadImagesLoading = false;
                 draft.uploadImagesError = action.error;
                 break;
+            case UPLOAD_THUMBNAIL_REQUEST:
+                draft.uploadThumbnailLoading = true;
+                draft.uploadThumbnailDone = false;
+                draft.uploadThumbnailError = null;
+                break;
+            case UPLOAD_THUMBNAIL_SUCCESS:
+                draft.thumbnailPath = draft.thumbnailPath.concat(action.data);
+                draft.uploadThumbnailDone = true;
+                draft.uploadThumbnailLoading = false;
+                break;
+            case UPLOAD_THUMBNAIL_FAILURE:
+                draft.uploadThumbnailLoading = false;
+                draft.uploadThumbnailError = action.error;
+                break;
             case REMOVE_IMAGE:
                 draft.imagePaths = draft.imagePaths.filter((v, i) => i !== action.data);
+                break;
+            case REMOVE_THUMBNAIL:
+                draft.thumbnailPath = draft.thumbnailPath.filter((v, i) => i !== action.data);
                 break;
             default:
                 break;

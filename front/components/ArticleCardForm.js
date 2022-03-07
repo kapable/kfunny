@@ -85,6 +85,7 @@ ArticleCardForm.propTypes = {
         createdAt: PropTypes.string,
         Comments: PropTypes.arrayOf(PropTypes.object),
         Images: PropTypes.arrayOf(PropTypes.object),
+        Thumbnails: PropTypes.arrayOf(PropTypes.object),
     })
 }
 

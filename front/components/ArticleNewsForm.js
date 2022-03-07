@@ -22,7 +22,7 @@ const ArticleNewsForm = () => {
                                 <img
                                     key={`${post.title}_cover`}
                                     className='article-news-form-cover-img'
-                                    src={`${backUrl}/${post.Images[0]?.src}`}
+                                    src={post.Thumbnails.length ? `${backUrl}/${post.Thumbnails[0]?.src}` :`${backUrl}/${post.Images[0]?.src}`}
                                     alt={post.title}/>
                                 </div>}
                     >

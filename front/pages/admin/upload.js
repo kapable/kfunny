@@ -1,8 +1,8 @@
 import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { Button, Form, Select, Input, Divider } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { PlusOutlined } from '@ant-design/icons';
-import { ADD_POST_REQUEST, REMOVE_IMAGE, UPLOAD_IMAGES_REQUEST } from '../../reducers/post';
+import { PlusOutlined, UploadOutlined } from '@ant-design/icons';
+import { ADD_POST_REQUEST, REMOVE_IMAGE, REMOVE_THUMBNAIL, UPLOAD_IMAGES_REQUEST, UPLOAD_THUMBNAIL_REQUEST } from '../../reducers/post';
 import { LOAD_CATEGORIES_REQUEST } from '../../reducers/category';
 import useInput from '../../hooks/useInput';
 import Router from 'next/router';
@@ -18,12 +18,13 @@ const { Option } = Select;
 
 const Upload = () => {
   const dispatch = useDispatch();
-  const { imagePaths, addPostLoading, addPostDone } = useSelector((state) => state.post);
+  const { imagePaths, thumbnailPath, addPostLoading, addPostDone } = useSelector((state) => state.post);
   const { postCategories } = useSelector((state) => state.category);
   const { userInfo } = useSelector((state) => state.user);
   const [category, setCategory] = useState('');
   const [title, onChangeTitle] = useInput('');
   const imageInput = useRef(null);
+  const thumbnailInput = useRef(null);
 
   useEffect(() => {
     if(addPostDone) {
@@ -61,6 +62,31 @@ const Upload = () => {
     });
 }, []);
 
+  const onClickThumbnailUpload = useCallback(() => {
+    thumbnailInput.current.click();
+    }, [thumbnailInput.current]);
+
+  const onChangeThumbnail = useCallback((e) => {
+    if(Object.keys(e.target.files).length > 1) {
+      return alert('썸네일 이미지는 최대 하나만 등록할 수 있습니다!');
+    }
+    const thumbnailFormData = new FormData();
+    [].forEach.call(e.target.files, (f) => {
+        thumbnailFormData.append('thumbnail', f);
+    });
+    dispatch({
+      type: UPLOAD_THUMBNAIL_REQUEST,
+      data: thumbnailFormData,
+    });
+  }, []);
+
+  const onRemoveThumbnail = useCallback((index) => () => {
+    dispatch({
+        type: REMOVE_THUMBNAIL,
+        data: index,
+    });
+}, []);
+
   const onSubmit = useCallback(() => {
     if(!userInfo) {
       return alert('관리자 로그인이 필요합니다!');
@@ -80,13 +106,16 @@ const Upload = () => {
     imagePaths.forEach((p) => {
       formData.append('image', p);
     });
-
+    thumbnailPath.forEach((t) => {
+      formData.append('thumbnail', t);
+    });
+    
     dispatch({
       type: ADD_POST_REQUEST,
       // data: { title, category, imagePaths },
       data: formData
     });
-  }, [userInfo, title, category, imagePaths]);
+  }, [userInfo, title, category, imagePaths, thumbnailPath]);
 
   return (
     <Fragment>
@@ -96,12 +125,15 @@ const Upload = () => {
       </Head>
       
       <Form className='admin-upload-form' encType="multipart/form-data" onFinish={onSubmit}>
+          {/* TITLE */}
           <Input className='admin-upload-title-input' value={title} showCount maxLength={30} onChange={onChangeTitle} placeholder="제목을 써주세요!" allowClear={true} />
           <h1 className='admin-upload-title-preview'>{title}</h1>
           <Divider dashed />
+
+          {/* IMAGES UPLOAD */}
           <div>
               <input key={imagePaths.join()} type="file" name='image' multiple hidden ref={imageInput} onChange={onChangeImages} />
-              <Button className='admin-upload-img-btn' onClick={onClickImageUpload}><PlusOutlined  /><br />사진 업로드</Button>
+              <Button className='admin-upload-img-btn' onClick={onClickImageUpload}><PlusOutlined  /><br />본문 사진 업로드</Button>
           </div>
           <div>
               {imagePaths.map((v, i) => (
@@ -113,6 +145,8 @@ const Upload = () => {
                   </div>
               ))}
           </div>
+
+          {/* CATEGORY SELECT */}
           <Select
             className='admin-upload-category-select'
             placeholder="카테고리를 골라주세요"
@@ -125,6 +159,25 @@ const Upload = () => {
               </Option>
             ))}
           </Select>
+
+          {/* THUMBNAIL UPLOAD */}
+          {thumbnailPath.length
+          ? (thumbnailPath.map((v, i) => (
+            <div key={v} className='admin-upload-img-preview-div'>
+                <img src={`${backUrl}/${v}`} className='admin-upload-img-preview' alt={v} />
+                <div className='admin-upload-img-delete-btn-div'>
+                    <Button className='admin-upload-img-delete-btn' onClick={onRemoveThumbnail(i)}>Delete</Button>
+                </div>
+            </div>
+          )))
+          : (
+            <div>
+              <input type="file" name='image' multiple hidden ref={thumbnailInput} onChange={onChangeThumbnail} />
+              <Button icon={<UploadOutlined />} className='admin-upload-thumbnail-btn' onClick={onClickThumbnailUpload}>썸네일 업로드</Button>
+            </div>
+          )
+          }
+
           <Button className='admin-upload-submit-btn' type="primary" htmlType="submit" loading={addPostLoading} >Post!</Button>
       </Form>
     </Fragment>

@@ -1,7 +1,7 @@
 const express = require('express');
 const { Op } = require('sequelize');
 const router = express.Router();
-const { Post, User, Image, Comment, Category } = require('../models');
+const { Post, User, Image, Comment, Category, Thumbnail } = require('../models');
 
 router.get(`/:category`, async (req, res, next) => {
     try {
@@ -32,6 +32,8 @@ router.get(`/:category`, async (req, res, next) => {
             }, {
                 model: Image,
             }, {
+                model: Thumbnail,
+            },{
                 model: Comment,
                 include: [{
                     model: User,

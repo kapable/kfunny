@@ -31,6 +31,7 @@ HomeCards.propTypes = {
         createdAt: PropTypes.string.isRequired,
         Comments: PropTypes.arrayOf(PropTypes.object),
         Images: PropTypes.arrayOf(PropTypes.object),
+        Thumbnails: PropTypes.arrayOf(PropTypes.object),
     })).isRequired
 };
 
