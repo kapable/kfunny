@@ -61,7 +61,7 @@ const Signup = () => {
                 <meta property="twitter:image:alt" content="핫이슈가 모인 최신 미디어, 케이퍼니" />
                 <meta property='og:site_name' content="회원가입 | 케이퍼니" />
             </Head>
-            {console.log('FRONG', userinfo)}
+            {!userinfo ? <div>GOOD!</div> : <div>NO SSR</div>}
             <SignupForm />
         </Fragment>
     );
