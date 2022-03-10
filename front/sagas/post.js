@@ -129,7 +129,7 @@ function* uploadImages(action) {
         console.log('SAGA', result);
         yield put({
             type: UPLOAD_IMAGES_SUCCESS,
-            data: result.data.location,
+            data: result.data,
         })
     } catch (err) {
         console.log(err);
