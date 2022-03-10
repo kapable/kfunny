@@ -53,7 +53,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 passportConfig();
 app.use(cors({
-    origin: ['http://15.164.232.102'],
+    origin: true,
     credentials: true,
 }));
 
