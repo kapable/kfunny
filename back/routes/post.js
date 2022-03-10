@@ -31,13 +31,12 @@ const upload = multer({
     //     },
     // }),
     storage: multerS3({
+        contentType: multerS3.AUTO_CONTENT_TYPE,
         s3: new AWS.S3(),
         bucket: 'kfunny-image-s3',
         key(req, file, cb) {
             cb(null, `original/${Date.now()}_${path.basename(file.originalname)}`)
         },
-        contentType: multerS3.AUTO_CONTENT_TYPE,
-        acl: "public-read-write",
     }),
     limits: { fileSize: 20 * 1024 * 1024 },
 });
