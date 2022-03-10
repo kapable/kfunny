@@ -5,10 +5,16 @@ import { END } from 'redux-saga';
 import axios from 'axios';
 import { LOAD_MY_INFO_REQUEST } from '../reducers/user';
 import wrapper from '../store/configureStore';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Router from 'next/router';
 
 const Signup = () => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch({
+            type: LOAD_MY_INFO_REQUEST
+        });
+    }, []);
     const { userInfo } = useSelector((state) => state.user);
     useEffect(() => {
         if(userInfo) {
@@ -61,9 +67,9 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
     if(context.req && cookie) {
         axios.defaults.headers.Cookie = cookie;
     }
-    context.store.dispatch({
-        type: LOAD_MY_INFO_REQUEST
-    });
+    // context.store.dispatch({
+    //     type: LOAD_MY_INFO_REQUEST
+    // });
     context.store.dispatch(END)
 
     await context.store.sagaTask.toPromise()
