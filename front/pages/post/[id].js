@@ -23,6 +23,7 @@ const Post = () => {
                 <meta property='og:description' content={singlePost.title}/>
                 <meta property='og:image' content={singlePost.Thumbnails.length ? singlePost.Thumbnails[0]?.src : singlePost.Images[0]?.src}/>
                 <meta property='og:url' content={`https://niair.xyz/post/${id}`}/>
+                <meta property='twitter:image' content={singlePost.Thumbnails.length ? singlePost.Thumbnails[0]?.src : singlePost.Images[0]?.src}/>
                 
                 {/* <title>{singlePost.title} | 케이퍼니</title>
                 <meta charSet='utf-8'/>
@@ -33,7 +34,7 @@ const Post = () => {
                 <meta name="keywords" content="핫이슈, 뉴스, 최신 트렌드, 정보, 웃긴, 돈되는, 케이퍼니, 케이퍼티" /> */}
 
                 {/* <!-- Open Graph / Facebook --> */}
-                {/* <meta property='og:title' content={`${singlePost.title} | 케이퍼니`}/>
+                <meta property='og:title' content={`${singlePost.title} | 케이퍼니`}/>
                 <meta property='og:description' content={singlePost.title}/>
                 <meta property='og:image' content={singlePost.Thumbnails.length ? singlePost.Thumbnails[0]?.src : singlePost.Images[0]?.src}/>
                 <meta property='og:url' content={`https://niair.xyz/post/${id}`}/>
@@ -41,10 +42,10 @@ const Post = () => {
                 <meta property="og:image:width" content="800"/>
                 <meta property="og:image:height" content="400"/>
                 <meta property="og:image:alt" content="핫이슈가 모인 최신 미디어, 케이퍼니" />
-                <meta property='og:site_name' content={`${singlePost.title} | 케이퍼니`} /> */}
+                <meta property='og:site_name' content={`${singlePost.title} | 케이퍼니`} />
 
                 {/* <!-- Twitter --> */}
-                {/* <meta property="twitter:card" content="summary_large_image"/>
+                <meta property="twitter:card" content="summary_large_image"/>
                 <meta property='twitter:title' content={`${singlePost.title} | 케이퍼니`}/>
                 <meta property='twitter:description' content={singlePost.title}/>
                 <meta property='twitter:image' content={singlePost.Thumbnails.length ? singlePost.Thumbnails[0]?.src : singlePost.Images[0]?.src}/>
@@ -53,7 +54,7 @@ const Post = () => {
                 <meta property="twitter:image:width" content="800"/>
                 <meta property="twitter:image:height" content="400"/>
                 <meta property="twitter:image:alt" content="핫이슈가 모인 최신 미디어, 케이퍼니" />
-                <meta property='twitter:site_name' content={`${singlePost.title} | 케이퍼니`} /> */}
+                <meta property='twitter:site_name' content={`${singlePost.title} | 케이퍼니`} />
             </Head>
             <ArticleCardForm />
         </Fragment>
