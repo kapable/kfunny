@@ -9,7 +9,6 @@ const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
 dotenv.config();
 // GET USER
 router.get(`/`, async (req, res, next) => { // GET /user
-    console.log(req);
     try {
         if(req.user) {
             const fullUserWithoutPassword = await User.findOne({
