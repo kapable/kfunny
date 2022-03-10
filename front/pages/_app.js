@@ -24,10 +24,10 @@ const App = ({ Component }) => {
                 {/* <!-- Open Graph / Facebook --> */}
                 {/* <meta property="og:type" content="website"/>
                 <meta property="og:url" content='https://niair.xyz' />
-                <meta property="og:title" content='케이퍼니'/>
+                <meta property="og:title" content='케이퍼니'/> */}
                 <meta property="og:description" content="핫이슈가 모인 최신 미디어, 케이퍼니"/>
                 <meta property="og:image" content="https://ktestone.com/static/media/main-header.21ffb6bb.png"/>
-                <meta property="og:image:width" content="800"/>
+                {/* <meta property="og:image:width" content="800"/>
                 <meta property="og:image:height" content="400"/>
                 <meta property="og:image:alt" content="핫이슈가 모인 최신 미디어, 케이퍼니" />
                 <meta property='og:site_name' content='케이퍼니' /> */}
