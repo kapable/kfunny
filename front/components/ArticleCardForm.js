@@ -7,7 +7,6 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useSelector } from 'react-redux';
 import CommentForm from './CommentForm';
 import ArticleNewsForm from './ArticleNewsForm';
-import { backUrl } from '../config/config';
 
 moment.locale('ko');
 

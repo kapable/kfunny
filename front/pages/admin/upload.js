@@ -46,6 +46,7 @@ const Upload = () => {
 
   const onChangeImages = useCallback((e) => {
     const imageFormData = new FormData();
+    console.log('FRONT', e.target);
     [].forEach.call(e.target.files, (f) => {
         imageFormData.append('image', f);
     });
