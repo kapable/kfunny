@@ -11,7 +11,6 @@ import { LOAD_MY_INFO_REQUEST } from '../../reducers/user';
 import wrapper from '../../store/configureStore';
 import moment from 'moment';
 import Head from 'next/head';
-import { backUrl } from '../../config/config';
 
 moment.locale('ko');
 const { Column, ColumnGroup } = Table;

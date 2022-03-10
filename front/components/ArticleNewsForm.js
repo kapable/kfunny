@@ -3,7 +3,6 @@ import moment from 'moment';
 import Link from 'next/link';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { backUrl } from '../config/config';
 
 const { Meta } = Card;
 
