@@ -9,12 +9,12 @@ import { useSelector } from 'react-redux';
 import Router from 'next/router';
 
 const Signup = () => {
-    // const { userInfo } = useSelector((state) => state.user);
-    // useEffect(() => {
-    //     if(userInfo) {
-    //         Router.push('/');
-    //     }
-    // }, [userInfo]);
+    const { userInfo } = useSelector((state) => state.user);
+    useEffect(() => {
+        if(userInfo) {
+            Router.push('/');
+        }
+    }, [userInfo]);
     return (
         <Fragment>
             <Head>
@@ -61,9 +61,9 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
     if(context.req && cookie) {
         axios.defaults.headers.Cookie = cookie;
     }
-    // context.store.dispatch({
-    //     type: LOAD_MY_INFO_REQUEST
-    // });
+    context.store.dispatch({
+        type: LOAD_MY_INFO_REQUEST
+    });
     context.store.dispatch(END)
 
     await context.store.sagaTask.toPromise()

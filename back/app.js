@@ -19,6 +19,11 @@ passportConfig();
 dotenv.config();
 
 const app = express();
+db.sequelize.sync()
+    .then(() => {
+        console.log('DB Connected...');
+    })
+    .catch(console.error);
 
 if (process.env.NODE_ENV === 'production') {
     // app.enable('trust proxy');
@@ -30,12 +35,12 @@ if (process.env.NODE_ENV === 'production') {
         saveUninitialized: false,
         resave: false,
         secret: process.env.COOKIE_SECRET,
-        proxy: true,
-        cookie: {
-            httpOnly: true,
-            secure: true,
-            domain: process.env.NODE_ENV === 'production' && '.niair.xyz'
-        }
+        // proxy: true,
+        // cookie: {
+        //     httpOnly: true,
+        //     secure: true,
+        //     domain: process.env.NODE_ENV === 'production' && '.niair.xyz'
+        // }
     }));
 } else {
     app.use(morgan('dev'));
@@ -58,12 +63,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(passport.initialize());
 app.use(passport.session());
-
-db.sequelize.sync()
-    .then(() => {
-        console.log('DB Connected...');
-    })
-    .catch(console.error);
 
 app.get('/', (req, res) => {
     res.send('Welcome to K-Funny Backend!');
