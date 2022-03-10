@@ -46,7 +46,6 @@ const Upload = () => {
 
   const onChangeImages = useCallback((e) => {
     const imageFormData = new FormData();
-    console.log('FRONT', e.target);
     [].forEach.call(e.target.files, (f) => {
         imageFormData.append('image', f);
     });
@@ -161,7 +160,7 @@ const Upload = () => {
 
           {/* IMAGES UPLOAD */}
           <div>
-              <input key={imagePaths.join()} type="file" name='image' multiple hidden ref={imageInput} onChange={onChangeImages} />
+              <input key={imagePaths.join()} type="file" name='image' accept="image/png, image/gif, image/jpeg, image/jpg" multiple hidden ref={imageInput} onChange={onChangeImages} />
               <Button className='admin-upload-img-btn' onClick={onClickImageUpload}><PlusOutlined  /><br />본문 사진 업로드</Button>
           </div>
           <div>

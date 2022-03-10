@@ -126,7 +126,6 @@ function uploadImagesAPI(data) {
 function* uploadImages(action) {
     try {
         const result = yield call(uploadImagesAPI, action.data);
-        console.log('SAGA', result);
         yield put({
             type: UPLOAD_IMAGES_SUCCESS,
             data: result.data,
