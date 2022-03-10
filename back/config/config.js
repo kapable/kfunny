@@ -18,11 +18,16 @@ module.exports = {
     "dialect": "mysql"
   },
   "production": {
-    "username": process.env.RDS_USERNAME,
+    // "username": process.env.RDS_USERNAME,
+    // "password": process.env.RDS_PASSWORD,
+    // "database": process.env.RDS_DATABASE,
+    // "host": process.env.RDS_HOST,
+    // "dialect": "mysql",
+    // "port":process.env.RDS_PORT
+    "username": "root",
     "password": process.env.RDS_PASSWORD,
     "database": process.env.RDS_DATABASE,
-    "host": process.env.RDS_HOST,
-    "dialect": "mysql",
-    "port":process.env.RDS_PORT
+    "host": "127.0.0.1",
+    "dialect": "mysql"
   }
 }
