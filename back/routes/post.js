@@ -40,7 +40,6 @@ const upload = multer({
             const extension = path.extname(file.originalname).replace('.','');
             cb(null, `image/${extension}`);
         },
-        acl: 'public-read-write'
     }),
     limits: { fileSize: 20 * 1024 * 1024 },
 });
