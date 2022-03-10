@@ -36,7 +36,7 @@ const PostList = () => {
                     const lastId = mainPosts[mainPosts.length - 1]?.id;
                     dispatch({
                         type: LOAD_POSTS_REQUEST,
-                        data: encodeURI('최신'),
+                        data: encodeURI('HOT 이슈'),
                         lastId
                     });
                 };
@@ -155,7 +155,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
     });
     context.store.dispatch({
         type: LOAD_POSTS_REQUEST,
-        data: encodeURI("최신"),
+        data: encodeURI("HOT 이슈"),
     });
     context.store.dispatch(END)
 

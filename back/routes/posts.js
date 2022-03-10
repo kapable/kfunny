@@ -7,7 +7,7 @@ router.get(`/:category`, async (req, res, next) => {
     try {
         let globalWhere = {};
         let categoryWhere = {};
-        if(req.params.category === "최신") {
+        if(req.params.category === "HOT 이슈") {
             categoryWhere = {};
         } else {
             categoryWhere.label = req.params.category;

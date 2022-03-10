@@ -4,7 +4,7 @@ import shortId from 'shortid';
 export const initialState = {
     // postCategories: [{
     //     id:shortId.generate(),
-    //     label: "최신",
+    //     label: "HOT 이슈",
     //     enabled: true,
     // }, {
     //     id:shortId.generate(),

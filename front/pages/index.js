@@ -16,7 +16,7 @@ const Home = () => {
     const dispatch = useDispatch();
     const { mainPosts, hasMorePosts, loadPostsLoading } = useSelector((state) => state.post);
     const { postCategories } = useSelector((state) => state.category);
-    const [currentCategory, setCurrentCategory] = useState('최신');
+    const [currentCategory, setCurrentCategory] = useState('HOT 이슈');
 
     const onChangeCategory = useCallback((category) => {
         setCurrentCategory(category);
@@ -83,7 +83,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
     });
     context.store.dispatch({
         type: LOAD_POSTS_REQUEST,
-        data: encodeURI("최신"),
+        data: encodeURI("HOT 이슈"),
     });
     context.store.dispatch(END)
 
