@@ -7,14 +7,19 @@ import { LOAD_MY_INFO_REQUEST } from '../reducers/user';
 import wrapper from '../store/configureStore';
 import { useDispatch, useSelector } from 'react-redux';
 import Router from 'next/router';
+import useSWR from 'swr';
+import { backUrl } from '../config/config';
+
+const fetcher = (url) => axios.get(url, { withCredentials: true }).then((result) => result.data);
 
 const Signup = () => {
     const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch({
-            type: LOAD_MY_INFO_REQUEST
-        });
-    }, []);
+    // useEffect(() => {
+    //     dispatch({
+    //         type: LOAD_MY_INFO_REQUEST
+    //     });
+    // }, []);
+    const { data: userinfo, error: usererror} = useSWR(`${backUrl}/user`, fetcher);
     const { userInfo } = useSelector((state) => state.user);
     useEffect(() => {
         if(userInfo) {
@@ -56,6 +61,7 @@ const Signup = () => {
                 <meta property="twitter:image:alt" content="핫이슈가 모인 최신 미디어, 케이퍼니" />
                 <meta property='og:site_name' content="회원가입 | 케이퍼니" />
             </Head>
+            {console.log('FRONG', userinfo)}
             <SignupForm />
         </Fragment>
     );
