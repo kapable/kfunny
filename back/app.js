@@ -36,11 +36,11 @@ if (process.env.NODE_ENV === 'production') {
         resave: false,
         secret: process.env.COOKIE_SECRET,
         // proxy: true,
-        // cookie: {
-        //     httpOnly: true,
-        //     secure: true,
-        //     domain: process.env.NODE_ENV === 'production' && '.niair.xyz'
-        // }
+        cookie: {
+            httpOnly: true,
+            secure: true,
+            domain: process.env.NODE_ENV === 'production' && '.niair.xyz'
+        }
     }));
 } else {
     app.use(morgan('dev'));
