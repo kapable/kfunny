@@ -37,6 +37,7 @@ const upload = multer({
             cb(null, `original/${Date.now()}_${path.basename(file.originalname)}`)
         },
         contentType: multerS3.AUTO_CONTENT_TYPE,
+        acl: "public-read-write",
     }),
     limits: { fileSize: 20 * 1024 * 1024 },
 });

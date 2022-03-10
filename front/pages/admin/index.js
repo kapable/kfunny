@@ -66,7 +66,7 @@ const Admin = () => {
                     <Link href='/admin/category'><a><TagsOutlined /><br />카테고리 편집</a></Link>
                 </Col>
                 <Col className='admin-index-col' xs={24} sm={24} md={12} lg={12}>
-                    <QuestionOutlined /><br />기존 리스트 보기
+                    <QuestionOutlined /><br />텅 빈 버튼
                 </Col>
             </Row>
         </Fragment>
