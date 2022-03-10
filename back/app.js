@@ -42,7 +42,7 @@ if (process.env.NODE_ENV === 'production') {
         // proxy: true,
         cookie: {
             httpOnly: true,
-            secure: true,
+            // secure: true,
             domain: '.niair.xyz'
         }
     }));
