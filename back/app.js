@@ -24,6 +24,10 @@ db.sequelize.sync()
         console.log('DB Connected...');
     })
     .catch(console.error);
+app.use('/', express.static(path.join(__dirname, 'uploads')));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser(process.env.COOKIE_SECRET));
 
 if (process.env.NODE_ENV === 'production') {
     // app.enable('trust proxy');
@@ -56,11 +60,6 @@ app.use(cors({
     origin: true,
     credentials: true,
 }));
-
-app.use('/', express.static(path.join(__dirname, 'uploads')));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(passport.initialize());
 app.use(passport.session());
 
