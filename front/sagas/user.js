@@ -76,7 +76,7 @@ function* loadMyInfo(action) {
         const result = yield call(loadMyInfoAPI, action.data);
         yield put({
             type: LOAD_MY_INFO_SUCCESS,
-            data: result.data
+            data: result?.data || null
         })
     } catch (err) {
         console.log(err);
