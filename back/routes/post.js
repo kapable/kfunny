@@ -184,7 +184,7 @@ router.post(`/images`, isLoggedIn, upload.array('image'), async (req, res, next)
 // ADD THUMBNAIL
 router.post(`/thumbnail`, isLoggedIn, upload.array('thumbnail'), async (req, res, next) => { // POST /post/thumbnail
     try {
-        res.status(200).json(req.files.map((v) => v.location));
+        res.status(200).json(req.files.map((v) => `https://images.niair.xyz/${v.key}`));
     } catch (error) {
         console.error(error);
         next(error);
