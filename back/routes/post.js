@@ -175,7 +175,7 @@ router.post(`/:postId/comment`, isLoggedIn, async (req, res, next) => { // POST 
 // ADD IMAGES
 router.post(`/images`, isLoggedIn, upload.array('image'), async (req, res, next) => { // POST /post/images
     try {
-        res.status(200).json(req.files.map((v) => v.location));
+        res.status(200).json(req.files.map((v) => {console.log(v); v.location}));
     } catch (error) {
         console.error(error);
         next(error);
