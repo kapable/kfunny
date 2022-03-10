@@ -26,25 +26,25 @@ if (process.env.NODE_ENV === 'production') {
     app.use(helmet());
     app.use(hpp());
 
-    // app.use(session({
-    //     saveUninitialized: false,
-    //     resave: false,
-    //     secret: process.env.COOKIE_SECRET,
-    //     proxy: true,
-    //     cookie: {
-    //         httpOnly: true,
-    //         secure: true,
-    //         domain: process.env.NODE_ENV === 'production' && '.niair.xyz'
-    //     }
-    // }));
+    app.use(session({
+        saveUninitialized: false,
+        resave: false,
+        secret: process.env.COOKIE_SECRET,
+        proxy: true,
+        cookie: {
+            httpOnly: true,
+            secure: true,
+            domain: process.env.NODE_ENV === 'production' && '.niair.xyz'
+        }
+    }));
 } else {
     app.use(morgan('dev'));
 
-    // app.use(session({
-    //     saveUninitialized: false,
-    //     resave: false,
-    //     secret: process.env.COOKIE_SECRET,
-    // }));
+    app.use(session({
+        saveUninitialized: false,
+        resave: false,
+        secret: process.env.COOKIE_SECRET,
+    }));
 }
 passportConfig();
 app.use(cors({
