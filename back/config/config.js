@@ -5,8 +5,8 @@ dotenv.config();
 module.exports = {
   "development": {
     "username": "root",
-    "password": process.env.DB_PASSWORD,
-    "database": "kfunny_development",
+    "password": process.env.RDS_PASSWORD,
+    "database": process.env.RDS_DATABASE,
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
