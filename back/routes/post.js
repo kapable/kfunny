@@ -37,7 +37,7 @@ const upload = multer({
             cb(null, `original/${Date.now()}_${path.basename(file.originalname)}`)
         },
         contentType(req, file, cb) {
-            const extension = path.extname(file.originalname);
+            const extension = path.extname(file.originalname).replace('.','');
             cb(null, `image/${extension}`);
         }
     }),
