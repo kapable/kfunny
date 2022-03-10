@@ -2,6 +2,8 @@ const express = require('express');
 const multer = require('multer')
 const path = require('path');
 const fs = require('fs');
+const multerS3 = require('multer-s3');
+const AWS = require('aws-sdk');
 const { Post, Comment, Image, User, Category, Thumbnail } = require('../models');
 const { isLoggedIn } = require('./middlewares');
 const router = express.Router();
@@ -12,16 +14,28 @@ try {
     console.log('uploads 폴더가 존재하지 않아 생성합니다');
     fs.mkdirSync('uploads');
 };
+AWS.config.update({
+    accessKeyId: process.env.S3_ACCESS_KEY_ID,
+    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+    region: 'ap-northeast-2',
+});
 const upload = multer({
-    storage: multer.diskStorage({
-        destination(req, file, done) {
-            done(null, 'uploads');
-        },
-        filename(req, file, done) {
-            const ext = path.extname(file.originalname);
-            const basename = path.basename(file.originalname, ext);
-            done(null, basename + '_' + new Date().getTime() + ext);
-        },
+    // storage: multer.diskStorage({
+    //     destination(req, file, done) {
+    //         done(null, 'uploads');
+    //     },
+    //     filename(req, file, done) {
+    //         const ext = path.extname(file.originalname);
+    //         const basename = path.basename(file.originalname, ext);
+    //         done(null, basename + '_' + new Date().getTime() + ext);
+    //     },
+    // }),
+    storage: multerS3({
+        s3: new AWS.S3(),
+        bucket: 'kfunny-image-s3',
+        key(req, file, cb) {
+            cb(null, `original/${Date.now()}_${path.basename(file.originalname)}`)
+        }
     }),
     limits: { fileSize: 20 * 1024 * 1024 },
 });
@@ -157,7 +171,7 @@ router.post(`/:postId/comment`, isLoggedIn, async (req, res, next) => { // POST 
 // ADD IMAGES
 router.post(`/images`, isLoggedIn, upload.array('image'), async (req, res, next) => { // POST /post/images
     try {
-        res.status(200).json(req.files.map((v) => v.filename));
+        res.status(200).json(req.files.map((v) => v.location));
     } catch (error) {
         console.error(error);
         next(error);
@@ -166,7 +180,7 @@ router.post(`/images`, isLoggedIn, upload.array('image'), async (req, res, next)
 // ADD THUMBNAIL
 router.post(`/thumbnail`, isLoggedIn, upload.array('thumbnail'), async (req, res, next) => { // POST /post/thumbnail
     try {
-        res.status(200).json(req.files.map((v) => v.filename));
+        res.status(200).json(req.files.map((v) => v.location));
     } catch (error) {
         console.error(error);
         next(error);

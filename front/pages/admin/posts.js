@@ -108,7 +108,7 @@ const PostList = () => {
                     )}
                 />
                 <Column title="미리보기" key="preview" render={(_, post) => (
-                    <Image width={70} src={post.Thumbnails.length ? `${backUrl}/${post.Thumbnails[0]?.src}` : `${backUrl}/${post.Images[0]?.src}`} alt={post.title} />
+                    <Image width={70} src={post.Thumbnails.length ? post.Thumbnails[0]?.src : post.Images[0]?.src} alt={post.title} />
                 )}/>
                 <ColumnGroup title="수정/삭제">
                     <Column
