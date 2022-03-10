@@ -204,7 +204,7 @@ const Upload = () => {
             </div>
           )
           }
-
+          {/* SUBMIT BUTTON */}
           <Button className='admin-upload-submit-btn' type="primary" htmlType="submit" loading={addPostLoading} >Post!</Button>
       </Form>
     </Fragment>

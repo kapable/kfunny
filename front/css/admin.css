@@ -91,6 +91,8 @@
     display: block;
     width: 35rem;
     margin: 0 auto;
+    left: 25%;
+    margin-top: 3rem;
   }
 
   .admin-upload-thumbnail-btn {
