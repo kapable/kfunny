@@ -28,6 +28,7 @@ const ArticleCardForm = () => {
 
     return (
         <Fragment>
+            {console.log('FRONT', managingUrls)}
             <div className='article-info-div'>
                 <div className='article-image-title'>{singlePost.title}</div>
                 <div className='article-share-btn-div'>
