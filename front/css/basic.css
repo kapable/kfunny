@@ -43,6 +43,19 @@
   float: right;
 }
 
+
+/* SignupForm */
+.signup-form {
+  padding: 10px;
+  margin: 2rem auto 0;
+  width: 100%;
+}
+
+.signup-form-button-group {
+  margin-top: 1rem;
+  float: right;
+}
+
 /* UserProfile */
 
 .user-profile-logout-btn {
@@ -56,12 +69,6 @@
 
 .user-profile-edit-input {
   margin: 0.5rem auto;
-}
-
-/* SignupForm */
-.signup-form-button-group {
-  margin-top: 1rem;
-  float: right;
 }
 
 /* HomeCardForm */
