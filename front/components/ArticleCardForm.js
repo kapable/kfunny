@@ -1,41 +1,28 @@
-import React, { Fragment, useCallback, useEffect, useState } from 'react';
+import React, { Fragment, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Image, Divider, List, Comment, Avatar, BackTop, Empty } from 'antd';
 import { ArrowDownOutlined, LinkOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import moment from 'moment';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import CommentForm from './CommentForm';
 import ArticleNewsForm from './ArticleNewsForm';
-import { LOAD_URLS_REQUEST } from '../reducers/url';
 
 moment.locale('ko');
 
 const ArticleCardForm = () => {
-    const dispatch = useDispatch();
-    // useEffect(() => {
-    //     dispatch({
-    //         type: LOAD_URLS_REQUEST
-    //     });
-    // }, []);
     const [isOpened, setIsOpened] = useState(false);
     const adProb = Math.random() < 0.5;
     let { singlePost } = useSelector((state) => state.post);
     const { managingUrls } = useSelector((state) => state.url);
-    const coupangLink = managingUrls.find((l) => l.name === '쿠팡파트너스')?.link;
-    // const openToLink = useCallback(() => {
-    //     setIsOpened(true);
-    //     console.log(coupangLink);
-    //     return window.open(coupangLink);
-    // }, [coupangLink]);
+    const coupangLink = managingUrls.find((l) => l.name === '쿠팡파트너스')?.link
     const onShareButtonClick = useCallback(() => {
         alert('링크가 복사되었습니다!');
     }, []);
 
     return (
         <Fragment>
-            {console.log('FRONT', managingUrls)}
             <div className='article-info-div'>
                 <div className='article-image-title'>{singlePost.title}</div>
                 <div className='article-share-btn-div'>
