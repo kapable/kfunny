@@ -14,21 +14,21 @@ moment.locale('ko');
 
 const ArticleCardForm = () => {
     const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch({
-            type: LOAD_URLS_REQUEST
-        });
-    }, []);
+    // useEffect(() => {
+    //     dispatch({
+    //         type: LOAD_URLS_REQUEST
+    //     });
+    // }, []);
     const [isOpened, setIsOpened] = useState(false);
     const adProb = Math.random() < 0.5;
     let { singlePost } = useSelector((state) => state.post);
     const { managingUrls } = useSelector((state) => state.url);
     const coupangLink = managingUrls.find((l) => l.name === '쿠팡파트너스')?.link;
-    const openToLink = useCallback(() => {
-        setIsOpened(true);
-        console.log(coupangLink);
-        return window.open(coupangLink);
-    }, [coupangLink]);
+    // const openToLink = useCallback(() => {
+    //     setIsOpened(true);
+    //     console.log(coupangLink);
+    //     return window.open(coupangLink);
+    // }, [coupangLink]);
     const onShareButtonClick = useCallback(() => {
         alert('링크가 복사되었습니다!');
     }, []);
@@ -67,9 +67,9 @@ const ArticleCardForm = () => {
                             <div className='article-adCover-div-2'>
                                 {adProb
                                 ? 
-                                // <a href={coupangLink} target="_blank" rel='noreferrer noopener'>
-                                    <Button type="primary" shape='round' style={{ width: '15rem'}} onClick={openToLink}>쿠팡 갔다 펼쳐보기</Button>
-                                // </a>
+                                <a href={coupangLink} target="_blank" rel='noreferrer noopener'>
+                                    <Button type="primary" shape='round' style={{ width: '15rem'}} onClick={setIsOpened}>쿠팡 갔다 펼쳐보기</Button>
+                                </a>
                                 : <Button type="primary" shape='round' style={{ width: '15rem'}} onClick={setIsOpened}>전체 내용 펼쳐보기<ArrowDownOutlined /></Button>}
                             </div>
                         </div>

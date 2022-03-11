@@ -43,7 +43,7 @@ router.patch(`/`, isLoggedIn, async (req, res, next) => { // PATCH /urls
 });
 
 // LOAD URLS
-router.get(`/`, isLoggedIn, async (req, res, next) => { // GET /urls
+router.get(`/`, async (req, res, next) => { // GET /urls
     try {
         const url = await Url.findAll({
             where: {},
