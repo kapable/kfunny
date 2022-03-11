@@ -19,7 +19,8 @@ const ArticleCardForm = () => {
     const coupangLink = managingUrls.find((l) => l.name === '쿠팡파트너스')?.link;
     const openToLink = useCallback(() => {
         setIsOpened(true);
-        window.open(coupangLink);
+        console.log(coupangLink);
+        return window.open(coupangLink);
     }, [coupangLink]);
     const onShareButtonClick = useCallback(() => {
         alert('링크가 복사되었습니다!');
@@ -58,10 +59,10 @@ const ArticleCardForm = () => {
                             <div className='article-adCover-div-2'>
                                 {adProb
                                 ? 
-                                <a href={coupangLink} target="_blank" rel='noreferrer noopener'>
-                                    <Button type="primary" shape='round' style={{ width: '15rem'}} onClick={setIsOpened}>쿠팡 갔다 펼쳐보기</Button>
-                                </a>
-                                : <Button type="primary" shape='round' style={{ width: '15rem'}} onClick={openToLink}>전체 내용 펼쳐보기<ArrowDownOutlined /></Button>}
+                                // <a href={coupangLink} target="_blank" rel='noreferrer noopener'>
+                                    <Button type="primary" shape='round' style={{ width: '15rem'}} onClick={openToLink}>쿠팡 갔다 펼쳐보기</Button>
+                                // </a>
+                                : <Button type="primary" shape='round' style={{ width: '15rem'}} onClick={setIsOpened}>전체 내용 펼쳐보기<ArrowDownOutlined /></Button>}
                             </div>
                         </div>
                     </>
