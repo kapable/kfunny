@@ -72,6 +72,6 @@ app.use('/posts', postsRouter);
 app.use('/user', userRouter);
 app.use('/category', categoryRouter);
 
-app.listen(80, () => {
+app.listen(3065, () => {
     console.log('Server is running...');
 });

@@ -1,7 +1,7 @@
 export let backUrl;
 
 if(process.env.NODE_ENV === 'development') {
-    backUrl = 'http://localhost:80';
+    backUrl = 'http://localhost:3065';
 } else {
-    backUrl = 'http://api.niair.xyz';
+    backUrl = 'https://api.niair.xyz';
 }
