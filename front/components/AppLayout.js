@@ -27,7 +27,7 @@ const AppLayout = ({ children }) => {
         <Layout className='applayout'>
             <Header className='applayout-header'>
                 <Menu mode='horizontal' triggerSubMenuAction="click" theme='light'>
-                    <Menu.Item key="home"><Link href='/'><a>케이퍼니</a></Link></Menu.Item>
+                    <Menu.Item key="home"><Link href='/'><a><img className='applayout-nav-kfunny-main-logo' src='https://images.niair.xyz/basic/kfunny_logo.png' alt='케이퍼니' /></a></Link></Menu.Item>
                     <Menu.Item key="divider" disabled={true}>|</Menu.Item>
                     {userInfo 
                     ? (
