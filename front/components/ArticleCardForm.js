@@ -1,17 +1,24 @@
-import React, { Fragment, useCallback, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Image, Divider, List, Comment, Avatar, BackTop, Empty } from 'antd';
 import { ArrowDownOutlined, LinkOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import moment from 'moment';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import CommentForm from './CommentForm';
 import ArticleNewsForm from './ArticleNewsForm';
+import { LOAD_URLS_REQUEST } from '../reducers/url';
 
 moment.locale('ko');
 
 const ArticleCardForm = () => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch({
+            type: LOAD_URLS_REQUEST
+        });
+    }, []);
     const [isOpened, setIsOpened] = useState(false);
     const adProb = Math.random() < 0.5;
     let { singlePost } = useSelector((state) => state.post);
