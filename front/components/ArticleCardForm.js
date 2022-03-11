@@ -17,6 +17,10 @@ const ArticleCardForm = () => {
     let { singlePost } = useSelector((state) => state.post);
     const { managingUrls } = useSelector((state) => state.url);
     const coupangLink = managingUrls.find((l) => l.name === '쿠팡파트너스')?.link;
+    const openToLink = useCallback(() => {
+        setIsOpened(true);
+        window.open(coupangLink);
+    }, [coupangLink]);
     const onShareButtonClick = useCallback(() => {
         alert('링크가 복사되었습니다!');
     }, []);
@@ -47,14 +51,17 @@ const ArticleCardForm = () => {
                 )
                 : (
                     <>
-                        <div style={{ position: 'relative', height: '13rem', overflowY: 'hidden'}} className='article-image-div' key={`${singlePost.title}-image-div`}>
+                        <div className='article-adCover-image-div' key={`${singlePost.title}-image-div`}>
                             <Image preview={false} src={singlePost.Images[0].src} key={`${singlePost.title}-image`} />
                         </div>
-                        <div style={{position: 'relative',backgroundColor: 'rgba(255,255,255,0.7)', height: '3rem', top: '-3rem'}}>
-                            <div style={{position: 'relative', height: '13rem' , width: '15rem', height: '3rem', margin: '0 auto', top: '0rem'}}>
+                        <div className='article-adCover-div-1'>
+                            <div className='article-adCover-div-2'>
                                 {adProb
-                                ? <a href={coupangLink} target="_blank" rel='noreferrer noopener'><Button type="primary" shape='round' style={{ width: '15rem'}} onClick={setIsOpened}>쿠팡 보고 펼쳐보기</Button></a>
-                                : <Button type="primary" shape='round' style={{ width: '15rem'}} onClick={setIsOpened}>전체 내용 펼쳐보기<ArrowDownOutlined /></Button>}
+                                ? 
+                                <a href={coupangLink} target="_blank" rel='noreferrer noopener'>
+                                    <Button type="primary" shape='round' style={{ width: '15rem'}} onClick={setIsOpened}>쿠팡 갔다 펼쳐보기</Button>
+                                </a>
+                                : <Button type="primary" shape='round' style={{ width: '15rem'}} onClick={openToLink}>전체 내용 펼쳐보기<ArrowDownOutlined /></Button>}
                             </div>
                         </div>
                     </>
