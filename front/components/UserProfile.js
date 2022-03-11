@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback, useState, useEffect } from 'react';
-import { Avatar, Button, Card, Form, Input } from 'antd'
+import { Avatar, Button, Card, Form, Input } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import useInput from '../hooks/useInput';
 import { CHANGE_DESCRIPTION_REQUEST, CHANGE_NICKNAME_REQUEST, LOG_OUT_REQUEST } from '../reducers/user';

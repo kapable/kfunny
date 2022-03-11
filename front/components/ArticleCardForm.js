@@ -1,7 +1,8 @@
-import React, { Fragment, useCallback } from 'react';
+import React, { Fragment, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Image, Divider, List, Comment, Avatar, BackTop, Empty } from 'antd';
-import { LinkOutlined } from '@ant-design/icons';
+import { ArrowDownOutlined, LinkOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
 import moment from 'moment';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useSelector } from 'react-redux';
@@ -11,7 +12,11 @@ import ArticleNewsForm from './ArticleNewsForm';
 moment.locale('ko');
 
 const ArticleCardForm = () => {
+    const [isOpened, setIsOpened] = useState(false);
+    const adProb = Math.random() < 0.5;
     let { singlePost } = useSelector((state) => state.post);
+    const { managingUrls } = useSelector((state) => state.url);
+    const coupangLink = managingUrls.find((l) => l.name === '쿠팡파트너스')?.link;
     const onShareButtonClick = useCallback(() => {
         alert('링크가 복사되었습니다!');
     }, []);
@@ -29,22 +34,36 @@ const ArticleCardForm = () => {
                 <div className='article-date'>{moment(singlePost.createdAt).format('YYYY-MM-DD')}</div>
             </div>
             <Divider dashed />
-            {singlePost.Images[0].src
-            ? (
-                singlePost.Images.map((image, index) => {
-                    return (
-                        <div className='article-image-div' key={`${singlePost.title}-image${index}-div`}>
-                            <Image preview={false} src={image.src} key={`${singlePost.title}-image${index}`} />
+            <div>
+                {isOpened
+                ? (
+                    singlePost.Images.map((image, index) => {
+                        return (
+                            <div className='article-image-div' key={`${singlePost.title}-image${index}-div`}>
+                                <Image preview={false} src={image.src} key={`${singlePost.title}-image${index}`} />
+                            </div>
+                        )
+                    })
+                )
+                : (
+                    <>
+                        <div style={{ position: 'relative', height: '13rem', overflowY: 'hidden'}} className='article-image-div' key={`${singlePost.title}-image-div`}>
+                            <Image preview={false} src={singlePost.Images[0].src} key={`${singlePost.title}-image`} />
                         </div>
-                    )
-                })
-            )
-            : (
-                <div className='article-image-div' key={`${singlePost.title}-image${index}-div`}>
+                        <div style={{position: 'relative',backgroundColor: 'rgba(255,255,255,0.7)', height: '3rem', top: '-3rem'}}>
+                            <div style={{position: 'relative', height: '13rem' , width: '15rem', height: '3rem', margin: '0 auto', top: '0rem'}}>
+                                {adProb
+                                ? <a href={coupangLink} target="_blank" rel='noreferrer noopener'><Button type="primary" shape='round' style={{ width: '15rem'}} onClick={setIsOpened}>쿠팡 보고 펼쳐보기</Button></a>
+                                : <Button type="primary" shape='round' style={{ width: '15rem'}} onClick={setIsOpened}>전체 내용 펼쳐보기<ArrowDownOutlined /></Button>}
+                            </div>
+                        </div>
+                    </>
+                )
+                }
+                {/* <div className='article-image-div' key={`${singlePost.title}-image${index}-div`}>
                     <Empty description={false} />
-                </div>
-            )
-            }
+                </div> */}
+            </div>
             <Divider dashed />
             <CommentForm singlePost={singlePost} />
             <div className='article-comment-list-div'>

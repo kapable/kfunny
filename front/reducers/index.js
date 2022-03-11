@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import user from './user';
 import post from './post';
 import category from './category';
+import url from './url';
 
 const rootReducer = (state, action) => {
     switch (action.type) {
@@ -13,6 +14,7 @@ const rootReducer = (state, action) => {
                 user,
                 post,
                 category,
+                url,
             });
             return combineReducer(state, action);
         }

@@ -4,6 +4,7 @@ const postRouter = require('./routes/post');
 const postsRouter = require('./routes/posts');
 const userRouter = require('./routes/user');
 const categoryRouter = require('./routes/category');
+const urlsRouter = require('./routes/urls');
 const db = require('./models');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
@@ -71,6 +72,7 @@ app.use('/post', postRouter);
 app.use('/posts', postsRouter);
 app.use('/user', userRouter);
 app.use('/category', categoryRouter);
+app.use('/urls', urlsRouter);
 
 app.listen(3065, () => {
     console.log('Server is running...');

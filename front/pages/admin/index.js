@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import { Row, Col } from 'antd';
-import { EditOutlined, OrderedListOutlined, TagsOutlined, QuestionOutlined } from '@ant-design/icons';
+import { EditOutlined, OrderedListOutlined, TagsOutlined, QuestionOutlined, ChromeOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import Router from 'next/router';
@@ -64,6 +64,9 @@ const Admin = () => {
                 </Col>
                 <Col className='admin-index-col' xs={24} sm={24} md={12} lg={12}>
                     <Link href='/admin/category'><a><TagsOutlined /><br />카테고리 편집</a></Link>
+                </Col>
+                <Col className='admin-index-col' xs={24} sm={24} md={12} lg={12}>
+                    <Link href='/admin/urls'><a><ChromeOutlined /><br />URL 관리</a></Link>
                 </Col>
                 <Col className='admin-index-col' xs={24} sm={24} md={12} lg={12}>
                     <QuestionOutlined /><br />텅 빈 버튼
