@@ -109,6 +109,7 @@
 /* ArticleCardForm-AD COVER */
 
 .article-adCover-image-div {
+  width: 30rem;
   margin: 0 auto;
   position: relative;
   height: 13rem;
