@@ -20,6 +20,28 @@ AWS.config.update({
     region: 'ap-northeast-2',
 });
 const upload = multer({
+    storage:
+    process.env.NODE_ENV === 'production'
+        ? multerS3({
+        s3: new AWS.S3(),
+        bucket: 'kfunny-image-s3',
+        key(req, file, cb) {
+            cb(null, `original/${Date.now()}_${path.basename(file.originalname)}`)
+        },
+        contentType(req, file, cb) {
+            const extension = path.extname(file.originalname).replace('.','');
+            cb(null, `image/${extension}`);
+        },
+    }) : multer.diskStorage({
+        destination(req, file, done) {
+            done(null, 'uploads');
+        },
+        filename(req, file, done) {
+            const ext = path.extname(file.originalname);
+            const basename = path.basename(file.originalname, ext);
+            done(null, basename + '_' + new Date().getTime() + ext);
+        },
+    }),
     // storage: multer.diskStorage({
     //     destination(req, file, done) {
     //         done(null, 'uploads');
@@ -30,17 +52,17 @@ const upload = multer({
     //         done(null, basename + '_' + new Date().getTime() + ext);
     //     },
     // }),
-    storage: multerS3({
-        s3: new AWS.S3(),
-        bucket: 'kfunny-image-s3',
-        key(req, file, cb) {
-            cb(null, `original/${Date.now()}_${path.basename(file.originalname)}`)
-        },
-        contentType(req, file, cb) {
-            const extension = path.extname(file.originalname).replace('.','');
-            cb(null, `image/${extension}`);
-        },
-    }),
+    // storage: multerS3({
+    //     s3: new AWS.S3(),
+    //     bucket: 'kfunny-image-s3',
+    //     key(req, file, cb) {
+    //         cb(null, `original/${Date.now()}_${path.basename(file.originalname)}`)
+    //     },
+    //     contentType(req, file, cb) {
+    //         const extension = path.extname(file.originalname).replace('.','');
+    //         cb(null, `image/${extension}`);
+    //     },
+    // }),
     limits: { fileSize: 20 * 1024 * 1024 },
 });
 
@@ -175,7 +197,7 @@ router.post(`/:postId/comment`, isLoggedIn, async (req, res, next) => { // POST 
 // ADD IMAGES
 router.post(`/images`, isLoggedIn, upload.array('image'), async (req, res, next) => { // POST /post/images
     try {
-        res.status(200).json(req.files.map((v) => `https://images.niair.xyz/${v.key}`));
+        res.status(200).json(req.files.map((v) => process.env.NODE_ENV === 'production' ? `https://images.niair.xyz/${v.key}` : `${process.env.DEV_BACKURL}/${v.filename}`));
     } catch (error) {
         console.error(error);
         next(error);
@@ -184,7 +206,7 @@ router.post(`/images`, isLoggedIn, upload.array('image'), async (req, res, next)
 // ADD THUMBNAIL
 router.post(`/thumbnail`, isLoggedIn, upload.array('thumbnail'), async (req, res, next) => { // POST /post/thumbnail
     try {
-        res.status(200).json(req.files.map((v) => `https://images.niair.xyz/${v.key}`));
+        res.status(200).json(req.files.map((v) => process.env.NODE_ENV === 'production' ? `https://images.niair.xyz/${v.key}` : `${process.env.DEV_BACKURL}/${v.filename}`));
     } catch (error) {
         console.error(error);
         next(error);
