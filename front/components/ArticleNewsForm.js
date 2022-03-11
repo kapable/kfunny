@@ -12,7 +12,7 @@ const ArticleNewsForm = () => {
         <div className='article-news-form-div'>
             <h3 className='article-news-form-title'>최신 기사</h3>
             {mainPosts.map((post) => (
-                <Link href={`/post/${post.id}`} key={`${post.id}_link`}><a key={`${post.title}_a`}>
+                <Link prefetch={false} href={`/post/${post.id}`} key={`${post.id}_link`}><a key={`${post.title}_a`}>
                     <Card
                         key={`${post.title}_title`}
                         className='article-news-form-card'

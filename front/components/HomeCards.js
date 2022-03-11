@@ -9,7 +9,7 @@ moment.locale('ko');
 const HomeCards = ({ posts }) => {
     return (
         posts.map((post) => (
-            <Link href={`/post/${post.id}`} key={`${post.id}_link`}>
+            <Link prefetch={false} href={`/post/${post.id}`} key={`${post.id}_link`}>
                 <a key={`${post.id}_a`}>
                     <Card className='home-card-form' key={`${post.id}_card`}>
                         <div key={`${post.id}_title`}>{post.title}</div>
