@@ -214,6 +214,7 @@
   .article-share-btn-div {
     float: right;
     margin: 0 auto;
+    cursor: pointer;
   }
 
   .article-date {
