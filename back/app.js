@@ -31,7 +31,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
 if (process.env.NODE_ENV === 'production') {
-    app.enable('trust proxy');
+    // app.enable('trust proxy');
     app.use(morgan('combined'));
     app.use(helmet());
     app.use(hpp());
@@ -40,7 +40,7 @@ if (process.env.NODE_ENV === 'production') {
         saveUninitialized: false,
         resave: false,
         secret: process.env.COOKIE_SECRET,
-        proxy: true,
+        // proxy: true,
         cookie: {
             httpOnly: true,
             secure: true,
@@ -58,7 +58,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 passportConfig();
 app.use(cors({
-    origin: true,
+    origin: [process.env.SERVICE_FRONT_URL, process.env.DEV_FRONT_URL],
     credentials: true,
 }));
 app.use(passport.initialize());
