@@ -195,6 +195,7 @@ router.post(`/:postId/comment`, isLoggedIn, async (req, res, next) => { // POST 
 // ADD IMAGES
 router.post(`/images`, isLoggedIn, upload.array('image'), async (req, res, next) => { // POST /post/images
     try {
+        console.log('BACK req', req);
         res.status(200).json(req.files.map((v) => process.env.NODE_ENV === 'production' ? `https://images.niair.xyz/${v.key}` : `${process.env.DEV_BACKURL}/${v.filename}`));
     } catch (error) {
         console.error(error);

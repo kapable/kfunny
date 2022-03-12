@@ -120,12 +120,14 @@ function* addComment(action) {
 };
 
 function uploadImagesAPI(data) {
+    console.log('SAGA req', data);
     return axios.post(`/post/images`, data);
 };
 
 function* uploadImages(action) {
     try {
         const result = yield call(uploadImagesAPI, action.data);
+        console.log('FROM BK', result);
         yield put({
             type: UPLOAD_IMAGES_SUCCESS,
             data: result.data,
