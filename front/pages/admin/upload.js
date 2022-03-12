@@ -159,7 +159,7 @@ const Upload = () => {
 
           {/* IMAGES UPLOAD */}
           <div>
-              <input key={imagePaths.join()} type="file" name='image' accept="image/png, image/gif, image/jpeg, image/jpg, image/webp" multiple hidden ref={imageInput} onChange={onChangeImages} />
+              <input key={imagePaths.join()} type="file" name='image' accept="image/*" multiple hidden ref={imageInput} onChange={onChangeImages} />
               <Button className='admin-upload-img-btn' onClick={onClickImageUpload}><PlusOutlined  /><br />본문 사진 업로드</Button>
           </div>
           <div>
