@@ -40,7 +40,7 @@ if (process.env.NODE_ENV === 'production') {
         saveUninitialized: false,
         resave: false,
         secret: process.env.COOKIE_SECRET,
-        // proxy: true,
+        proxy: true,
         cookie: {
             httpOnly: true,
             secure: true,
