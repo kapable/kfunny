@@ -154,7 +154,6 @@ router.get(`/:postId`, async (req, res, next) => {
 // REMOVE POST
 router.delete(`/:postId`, isLoggedIn, async (req, res, next) => { // DELETE /post/1
     try {
-        console.log(req.user);
         await Post.destroy({
             where: {
                 id: req.params.postId,
