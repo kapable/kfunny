@@ -31,7 +31,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
 if (process.env.NODE_ENV === 'production') {
-    // app.enable('trust proxy');
+    app.enable('trust proxy');
     app.use(morgan('combined'));
     app.use(helmet());
     app.use(hpp());
