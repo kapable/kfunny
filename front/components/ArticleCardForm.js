@@ -37,20 +37,35 @@ const ArticleCardForm = () => {
     }, []);
 
     useEffect(() => {
-        let ins = document.createElement('ins');
-        let scr = document.createElement('script');
+        let ins1 = document.createElement('ins');
+        let scr1 = document.createElement('script');
 
-        ins.className = 'kakao_ad_area';
-        ins.style = "display:none; width:100%;";
-        scr.async = 'true';
-        scr.type = "text/javascript";
-        scr.src = "//t1.daumcdn.net/kas/static/ba.min.js";
-        ins.setAttribute('data-ad-width', '320');
-        ins.setAttribute('data-ad-height', '100');
-        ins.setAttribute('data-ad-unit', 'DAN-wN8zCE2QtbLUdIdN');
+        ins1.className = 'kakao_ad_area';
+        ins1.style = "display:none; width:100%;";
+        scr1.async = 'true';
+        scr1.type = "text/javascript";
+        scr1.src = "//t1.daumcdn.net/kas/static/ba.min.js";
+        ins1.setAttribute('data-ad-width', '320');
+        ins1.setAttribute('data-ad-height', '100');
+        ins1.setAttribute('data-ad-unit', 'DAN-wN8zCE2QtbLUdIdN');
 
-        document.querySelector('.adfit').appendChild(ins);
-        document.querySelector('.adfit').appendChild(scr);
+        document.querySelector('.adfit1').appendChild(ins1);
+        document.querySelector('.adfit1').appendChild(scr1);
+
+        let ins2 = document.createElement('ins');
+        let scr2 = document.createElement('script');
+
+        ins2.className = 'kakao_ad_area';
+        ins2.style = "display:none; width:100%;";
+        scr2.async = 'true';
+        scr2.type = "text/javascript";
+        scr2.src = "//t1.daumcdn.net/kas/static/ba.min.js";
+        ins2.setAttribute('data-ad-width', '320');
+        ins2.setAttribute('data-ad-height', '250');
+        ins2.setAttribute('data-ad-unit', 'DAN-DYCEsAfKbdOgVEC9');
+
+        document.querySelector('.adfit1').appendChild(ins2);
+        document.querySelector('.adfit1').appendChild(scr2);
     }, []);
 
     return (
@@ -65,7 +80,7 @@ const ArticleCardForm = () => {
                 </div>
                 <div className='article-date'>{moment(singlePost.createdAt).format('YYYY-MM-DD')}</div>
             </div>
-            <div className="adfit" />
+            <div className="adfit1" />
             <Divider dashed />
             <div>
                 {isOpened
@@ -127,6 +142,7 @@ const ArticleCardForm = () => {
                 />
             </div>
             <Divider dashed />
+            <div className="adfit2" />
             <ArticleNewsForm />
             <BackTop />
         </Fragment>
