@@ -36,6 +36,23 @@ const ArticleCardForm = () => {
         gtag.event({ action: "Click open-article Button", category: "Opening", label: "article page" });
     }, []);
 
+    useEffect(() => {
+        let ins = document.createElement('ins');
+        let scr = document.createElement('script');
+
+        ins.className = 'kakao_ad_area';
+        ins.style = "display:none; width:100%;";
+        scr.async = 'true';
+        scr.type = "text/javascript";
+        scr.src = "//t1.daumcdn.net/kas/static/ba.min.js";
+        ins.setAttribute('data-ad-width', '320');
+        ins.setAttribute('data-ad-height', '100');
+        ins.setAttribute('data-ad-unit', 'DAN-wN8zCE2QtbLUdIdN');
+
+        document.querySelector('.adfit').appendChild(ins);
+        document.querySelector('.adfit').appendChild(scr);
+    }, []);
+
     return (
         <Fragment>
             <div className='article-info-div'>
@@ -48,6 +65,7 @@ const ArticleCardForm = () => {
                 </div>
                 <div className='article-date'>{moment(singlePost.createdAt).format('YYYY-MM-DD')}</div>
             </div>
+            <div className="adfit" />
             <Divider dashed />
             <div>
                 {isOpened
