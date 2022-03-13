@@ -1,7 +1,7 @@
 import React, { Fragment, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Image, Divider, List, Comment, Avatar, BackTop, Empty } from 'antd';
-import { ArrowDownOutlined, LinkOutlined } from '@ant-design/icons';
+import { ArrowDownOutlined, ArrowRightOutlined, LinkOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import moment from 'moment';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -55,7 +55,7 @@ const ArticleCardForm = () => {
                                 {adProb
                                 ? 
                                 <a href={coupangLink} target="_blank" rel='noreferrer noopener'>
-                                    <Button type="primary" shape='round' style={{ width: '15rem'}} onClick={setIsOpened}>쿠팡 갔다 펼쳐보기</Button>
+                                    <Button type="primary" shape='round' style={{ width: '15rem'}} onClick={setIsOpened}>쿠팡 보고 컨텐츠 펼쳐보기<ArrowRightOutlined /></Button>
                                 </a>
                                 : <Button type="primary" shape='round' style={{ width: '15rem'}} onClick={setIsOpened}>전체 내용 펼쳐보기<ArrowDownOutlined /></Button>}
                             </div>
