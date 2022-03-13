@@ -19,18 +19,18 @@ const ArticleCardForm = () => {
     const { managingUrls } = useSelector((state) => state.url);
     const coupangLink = managingUrls.find((l) => l.name === '쿠팡파트너스')?.link
     const onShareButtonClick = useCallback(() => {
-        gtag.event("Click link-share Button", "Sharing", "article page");
+        gtag.event({ action: "Click link-share Button", category: "Sharing", label: "article page"});
         alert('링크가 복사되었습니다!');
     }, []);
 
     const onCoupangButtonClick = useCallback(() => {
         setIsOpened(true);
-        gtag.event("Click go-to-Coupang Button", "Opening", "article page");
+        gtag.event({ action: "Click go-to-Coupang Button", category: "Opening", label: "article page" });
     }, []);
 
     const onCollapseButtonClick = useCallback(() => {
         setIsOpened(true);
-        gtag.event("Click open-article Button", "Opening", "article page");
+        gtag.event({ action: "Click open-article Button", category: "Opening", label: "article page" });
     }, []);
 
     return (
