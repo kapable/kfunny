@@ -1,36 +1,6 @@
 import produce from '../util/produce';
-import shortId from 'shortid';
 
 export const initialState = {
-    // postCategories: [{
-    //     id:shortId.generate(),
-    //     label: "HOT 이슈",
-    //     enabled: true,
-    // }, {
-    //     id:shortId.generate(),
-    //     label: "경제",
-    //     enabled: true,
-    // }, {
-    //     id:shortId.generate(),
-    //     label: "정치",
-    //     enabled: true,
-    // }, {
-    //     id:shortId.generate(),
-    //     label: "연예",
-    //     enabled: true,
-    // }, {
-    //     id:shortId.generate(),
-    //     label: "사회",
-    //     enabled: true,
-    // },{
-    //     id:shortId.generate(),
-    //     label: "문화",
-    //     enabled: true,
-    // },{
-    //     id:shortId.generate(),
-    //     label: "역사",
-    //     enabled: false,
-    // }],
     postCategories: [],
     setCategoryLoading: false,
     setCategoryDone: false,
