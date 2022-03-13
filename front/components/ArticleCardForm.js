@@ -9,7 +9,6 @@ import { useSelector } from 'react-redux';
 import CommentForm from './CommentForm';
 import ArticleNewsForm from './ArticleNewsForm';
 import * as gtag from '../lib/gtag';
-import AdfitWebComponent from 'react-adfit-web-component';
 
 moment.locale('ko');
 
@@ -49,9 +48,6 @@ const ArticleCardForm = () => {
                 </div>
                 <div className='article-date'>{moment(singlePost.createdAt).format('YYYY-MM-DD')}</div>
             </div>
-            <AdfitWebComponent
-                adUnit="DAN-wN8zCE2QtbLUdIdN"
-            />
             <Divider dashed />
             <div>
                 {isOpened
