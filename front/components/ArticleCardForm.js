@@ -60,6 +60,10 @@ const ArticleCardForm = () => {
                                 : <Button type="primary" shape='round' style={{ width: '15rem'}} onClick={setIsOpened}>전체 내용 펼쳐보기<ArrowDownOutlined /></Button>}
                             </div>
                         </div>
+                        {adProb
+                        ? <p className='article-adCover-coupang-comment'>이 포스팅은 쿠팡 파트너스 활동의 일환으로,<br />이에 따른 일정액의 수수료를 제공받습니다.</p>
+                        : null
+                        }
                     </>
                 )
                 }
