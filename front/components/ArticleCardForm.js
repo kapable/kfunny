@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Image, Divider, List, Comment, Avatar, BackTop, Empty } from 'antd';
 import { ArrowDownOutlined, ArrowRightOutlined, LinkOutlined } from '@ant-design/icons';
@@ -18,6 +18,9 @@ const ArticleCardForm = () => {
     let { singlePost } = useSelector((state) => state.post);
     const { managingUrls } = useSelector((state) => state.url);
     const coupangLink = managingUrls.find((l) => l.name === '쿠팡파트너스')?.link
+    useEffect(() => {
+        window.location.href.includes('fbclid') && window.history?.length > 1 ? setIsOpened(true) : null;
+    });
     const onShareButtonClick = useCallback(() => {
         gtag.event({ action: "Click link-share Button", category: "Sharing", label: "article page"});
         alert('링크가 복사되었습니다!');
