@@ -10,7 +10,7 @@ import * as gtag from '../lib/gtag'
 React.useLayoutEffect = React.useEffect;
 
 const App = ({ Component }) => {
-    const router = useRouter()
+    const router = useRouter();
     useEffect(() => {
         const handleRouteChange = (url) => { gtag.pageview(url) };
         router.events.on('routeChangeComplete', handleRouteChange);

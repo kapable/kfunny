@@ -8,6 +8,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useSelector } from 'react-redux';
 import CommentForm from './CommentForm';
 import ArticleNewsForm from './ArticleNewsForm';
+import * as gtag from '../lib/gtag';
 
 moment.locale('ko');
 
@@ -18,7 +19,18 @@ const ArticleCardForm = () => {
     const { managingUrls } = useSelector((state) => state.url);
     const coupangLink = managingUrls.find((l) => l.name === '쿠팡파트너스')?.link
     const onShareButtonClick = useCallback(() => {
+        gtag.event("Click link-share Button", "Sharing", "article page");
         alert('링크가 복사되었습니다!');
+    }, []);
+
+    const onCoupangButtonClick = useCallback(() => {
+        setIsOpened(true);
+        gtag.event("Click go-to-Coupang Button", "Opening", "article page");
+    }, []);
+
+    const onCollapseButtonClick = useCallback(() => {
+        setIsOpened(true);
+        gtag.event("Click open-article Button", "Opening", "article page");
     }, []);
 
     return (
@@ -55,9 +67,9 @@ const ArticleCardForm = () => {
                                 {adProb
                                 ? 
                                 <a href={coupangLink} target="_blank" rel='noreferrer noopener'>
-                                    <Button type="primary" shape='round' style={{ width: '15rem'}} onClick={setIsOpened}>쿠팡 보고 컨텐츠 펼쳐보기<ArrowRightOutlined /></Button>
+                                    <Button type="primary" shape='round' style={{ width: '15rem'}} onClick={onCoupangButtonClick}>쿠팡 보고 컨텐츠 펼쳐보기<ArrowRightOutlined /></Button>
                                 </a>
-                                : <Button type="primary" shape='round' style={{ width: '15rem'}} onClick={setIsOpened}>전체 내용 펼쳐보기<ArrowDownOutlined /></Button>}
+                                : <Button type="primary" shape='round' style={{ width: '15rem'}} onClick={onCollapseButtonClick}>전체 내용 펼쳐보기<ArrowDownOutlined /></Button>}
                             </div>
                         </div>
                         {adProb
