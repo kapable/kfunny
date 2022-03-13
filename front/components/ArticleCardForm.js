@@ -51,21 +51,6 @@ const ArticleCardForm = () => {
 
         document.querySelector('.adfit1').appendChild(ins1);
         document.querySelector('.adfit1').appendChild(scr1);
-
-        let ins2 = document.createElement('ins');
-        let scr2 = document.createElement('script');
-
-        ins2.className = 'kakao_ad_area';
-        ins2.style = "display:none; width:100%;";
-        scr2.async = 'true';
-        scr2.type = "text/javascript";
-        scr2.src = "//t1.daumcdn.net/kas/static/ba.min.js";
-        ins2.setAttribute('data-ad-width', '320');
-        ins2.setAttribute('data-ad-height', '250');
-        ins2.setAttribute('data-ad-unit', 'DAN-DYCEsAfKbdOgVEC9');
-
-        document.querySelector('.adfit1').appendChild(ins2);
-        document.querySelector('.adfit1').appendChild(scr2);
     }, []);
 
     return (
