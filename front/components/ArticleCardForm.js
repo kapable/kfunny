@@ -36,6 +36,11 @@ const ArticleCardForm = () => {
         gtag.event({ action: "Click open-article Button", category: "Opening", label: "article page" });
     }, []);
 
+    const onKtestBannerClick = useCallback(() => {
+        setIsOpened(true);
+        gtag.event({ action: "Click go-to-Ktest Banner", category: "Paging", label: "article page" });
+    }, []);
+
     return (
         <Fragment>
             {/* ARTICLE HEADER */}
@@ -51,7 +56,7 @@ const ArticleCardForm = () => {
             </div>
             {/* GO TO KTEST BANNER */}
             <a href={`https://ktestone.com/?utm_source=+%EC%BC%80%EC%9D%B4%ED%8D%BC%EB%8B%88%60&utm_medium=%EC%BC%80%EC%9D%B4%ED%8D%BC%EB%8B%88&utm_campaign=%EC%BC%80%EC%9D%B4%ED%8D%BC%EB%8B%88`} target="_blank" rel='noreferrer noopener'>
-                <img className='article-go-to-ktest-banner' src='https://images.niair.xyz/basic/to-ktest-banner.png' alt='GO TO KTEST' />
+                <img onClick={onKtestBannerClick} className='article-go-to-ktest-banner' src='https://images.niair.xyz/basic/to-ktest-banner.png' alt='GO TO KTEST' />
             </a>
             <Divider dashed />
             {/* ARTICLE CONTENTS */}
