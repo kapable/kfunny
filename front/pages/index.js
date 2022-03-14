@@ -9,17 +9,18 @@ import { END } from 'redux-saga';
 import wrapper from '../store/configureStore';
 import axios from 'axios';
 import Head from 'next/head';
+import * as gtag from '../lib/gtag';
 
 const { TabPane } = Tabs;
 
 const Home = () => {
-
     const dispatch = useDispatch();
     const { mainPosts, hasMorePosts, loadPostsLoading } = useSelector((state) => state.post);
     const { postCategories } = useSelector((state) => state.category);
     const [currentCategory, setCurrentCategory] = useState('HOT 이슈');
 
     const onChangeCategory = useCallback((category) => {
+        gtag.event({ action: "Click another-keyword Tab", category: "Paging", label: "Home page" });
         setCurrentCategory(category);
         dispatch({
             type: RESET_KEYWORD_POSTS,

@@ -37,7 +37,6 @@ const ArticleCardForm = () => {
     }, []);
 
     const onKtestBannerClick = useCallback(() => {
-        setIsOpened(true);
         gtag.event({ action: "Click go-to-Ktest Banner", category: "Paging", label: "article page" });
     }, []);
 

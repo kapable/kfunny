@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Menu, Layout } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { LOG_OUT_REQUEST } from '../reducers/user';
+import * as gtag from '../lib/gtag';
 
 const { Header, Content, Footer } = Layout;
 
@@ -12,6 +13,7 @@ const AppLayout = ({ children }) => {
     const dispatch = useDispatch();
     const { userInfo, logOutDone } = useSelector((state) => state.user);
     const onLogout = useCallback(() => {
+        gtag.event({ action: "Click Logout Button", category: "Paging", label: "navigation bar" });
         dispatch({
             type: LOG_OUT_REQUEST
         });
@@ -23,23 +25,39 @@ const AppLayout = ({ children }) => {
         };
     }, [logOutDone]);
 
+    const onHomeButtonClick = useCallback(() => {
+        gtag.event({ action: "Click Home logo Button", category: "Paging", label: "navigation bar" });
+    }, []);
+
+    const onSignupButtonClick = useCallback(() => {
+        gtag.event({ action: "Click go-to-Signup Button", category: "Paging", label: "navigation bar" });
+    }, []);
+
+    const onLoginButtonClick = useCallback(() => {
+        gtag.event({ action: "Click go-to-Login Button", category: "Paging", label: "navigation bar" });
+    }, []);
+
+    const onMyInfoButtonClick = useCallback(() => {
+        gtag.event({ action: "Click go-to-Myinfo Button", category: "Paging", label: "navigation bar" });
+    }, []);
+
     return (
         <Layout className='applayout'>
             <Header className='applayout-header'>
                 <Menu mode='horizontal' triggerSubMenuAction="click" theme='light'>
-                    <Menu.Item key="home"><Link href='/'><a><img className='applayout-nav-kfunny-main-logo' src='https://images.niair.xyz/basic/kfunny_logo.png' alt='케이퍼니' /></a></Link></Menu.Item>
+                    <Menu.Item key="home"><Link href='/'><a><img onClick={onHomeButtonClick} className='applayout-nav-kfunny-main-logo' src='https://images.niair.xyz/basic/kfunny_logo.png' alt='케이퍼니' /></a></Link></Menu.Item>
                     <Menu.Item key="divider" disabled={true}>|</Menu.Item>
                     {userInfo 
                     ? (
                     <>
-                        <Menu.Item key="profile"><Link href='/profile'><a>내 정보</a></Link></Menu.Item>
+                        <Menu.Item key="profile"><Link href='/profile'><a onClick={onMyInfoButtonClick}>내 정보</a></Link></Menu.Item>
                         <Menu.Item key='logout' onClick={onLogout}>로그아웃</Menu.Item>
                     </>
                     )
                     : (
                     <>
-                        <Menu.Item key="signup" ><Link href='/signup'><a>회원가입</a></Link></Menu.Item>
-                        <Menu.Item key="login" ><Link href='/login'><a>로그인</a></Link></Menu.Item>
+                        <Menu.Item key="signup" ><Link href='/signup'><a onClick={onSignupButtonClick}>회원가입</a></Link></Menu.Item>
+                        <Menu.Item key="login" ><Link href='/login'><a onClick={onLoginButtonClick}>로그인</a></Link></Menu.Item>
                     </>)}
                 </Menu>
             </Header>
