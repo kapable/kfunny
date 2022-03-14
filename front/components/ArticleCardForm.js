@@ -36,25 +36,9 @@ const ArticleCardForm = () => {
         gtag.event({ action: "Click open-article Button", category: "Opening", label: "article page" });
     }, []);
 
-    useEffect(() => {
-        let ins1 = document.createElement('ins');
-        let scr1 = document.createElement('script');
-
-        ins1.className = 'kakao_ad_area';
-        ins1.style = "display:none; width:100%;";
-        scr1.async = 'true';
-        scr1.type = "text/javascript";
-        scr1.src = "//t1.daumcdn.net/kas/static/ba.min.js";
-        ins1.setAttribute('data-ad-width', '320');
-        ins1.setAttribute('data-ad-height', '100');
-        ins1.setAttribute('data-ad-unit', 'DAN-wN8zCE2QtbLUdIdN');
-
-        document.querySelector('.adfit1').appendChild(ins1);
-        document.querySelector('.adfit1').appendChild(scr1);
-    }, []);
-
     return (
         <Fragment>
+            {/* ARTICLE HEADER */}
             <div className='article-info-div'>
                 <div className='article-image-title'>{singlePost.title}</div>
                 <div className='article-share-btn-div'>
@@ -65,8 +49,12 @@ const ArticleCardForm = () => {
                 </div>
                 <div className='article-date'>{moment(singlePost.createdAt).format('YYYY-MM-DD')}</div>
             </div>
-            <div className="adfit1" />
+            {/* GO TO KTEST BANNER */}
+            <a href={`https://ktestone.com/?utm_source=+%EC%BC%80%EC%9D%B4%ED%8D%BC%EB%8B%88%60&utm_medium=%EC%BC%80%EC%9D%B4%ED%8D%BC%EB%8B%88&utm_campaign=%EC%BC%80%EC%9D%B4%ED%8D%BC%EB%8B%88`} target="_blank" rel='noreferrer noopener'>
+                <img className='article-go-to-ktest-banner' src='https://images.niair.xyz/basic/to-ktest-banner.png' alt='GO TO KTEST' />
+            </a>
             <Divider dashed />
+            {/* ARTICLE CONTENTS */}
             <div>
                 {isOpened
                 ? (
@@ -105,6 +93,7 @@ const ArticleCardForm = () => {
                 </div> */}
             </div>
             <Divider dashed />
+            {/* COMMENT FORM */}
             <CommentForm singlePost={singlePost} />
             <div className='article-comment-list-div'>
                 <List
@@ -127,7 +116,7 @@ const ArticleCardForm = () => {
                 />
             </div>
             <Divider dashed />
-            <div className="adfit2" />
+            {/* NEW ARTICLES LIST */}
             <ArticleNewsForm />
             <BackTop />
         </Fragment>

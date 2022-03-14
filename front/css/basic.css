@@ -106,6 +106,10 @@
   overflow-y: auto;
 }
 
+.article-go-to-ktest-banner {
+  width: 100%;
+}
+
 /* ArticleCardForm-AD COVER */
 
 .article-adCover-image-div {
@@ -226,6 +230,11 @@
 
   .article-date {
     color: lightgray;
+  }
+
+  .article-go-to-ktest-banner {
+    width: 30rem;
+    margin: 0 -5.2rem;
   }
 
   .article-comment-list-div {
