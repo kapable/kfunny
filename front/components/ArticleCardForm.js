@@ -14,7 +14,7 @@ moment.locale('ko');
 
 const ArticleCardForm = () => {
     const [isOpened, setIsOpened] = useState(false);
-    const adProb = Math.random() < 0.7;
+    const adProb = Math.random() < 0.5;
     let { singlePost } = useSelector((state) => state.post);
     const { managingUrls } = useSelector((state) => state.url);
     const coupangLink = managingUrls.find((l) => l.name === '쿠팡파트너스')?.link
