@@ -58,8 +58,9 @@ const ArticleCardForm = () => {
                 <img onClick={onKtestBannerClick} className='article-go-to-ktest-banner' src='https://images.niair.xyz/basic/to-ktest-banner.png' alt='GO TO KTEST' />
             </a>
             {/* ADPLUS VIDEO ADS */}
-            {/* <div id="protag-in_article_video"></div>
-            <script type="text/javascript">
+            <div id="protag-in_article_video"></div>
+            <script
+                type="text/javascript"
                 dangerouslySetInnerHTML={{
                     __html:`
                     window.googletag = window.googletag || { cmd: [] };
@@ -68,8 +69,8 @@ const ArticleCardForm = () => {
                         window.protag.display("protag-in_article_video");
                     });
                     `
-                }}
-            </script> */}
+            }}/>
+                
             <Divider dashed />
             {/* ARTICLE CONTENTS */}
             <div>
