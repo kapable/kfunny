@@ -57,6 +57,19 @@ const ArticleCardForm = () => {
             <a href={`https://ktestone.com/?utm_source=+%EC%BC%80%EC%9D%B4%ED%8D%BC%EB%8B%88%60&utm_medium=%EC%BC%80%EC%9D%B4%ED%8D%BC%EB%8B%88&utm_campaign=%EC%BC%80%EC%9D%B4%ED%8D%BC%EB%8B%88`} target="_blank" rel='noreferrer noopener'>
                 <img onClick={onKtestBannerClick} className='article-go-to-ktest-banner' src='https://images.niair.xyz/basic/to-ktest-banner.png' alt='GO TO KTEST' />
             </a>
+            {/* ADPLUS VIDEO ADS */}
+            <div id="protag-in_article_video"></div>
+            <script type="text/javascript">
+                dangerouslySetInnerHTML={{
+                    __html:`
+                    window.googletag = window.googletag || { cmd: [] };
+                    window.protag = window.protag || { cmd: [] };
+                    window.protag.cmd.push(function () {
+                        window.protag.display("protag-in_article_video");
+                    });
+                    `
+                }}
+            </script>
             <Divider dashed />
             {/* ARTICLE CONTENTS */}
             <div>
