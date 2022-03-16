@@ -58,7 +58,7 @@ const ArticleCardForm = () => {
                 <img onClick={onKtestBannerClick} className='article-go-to-ktest-banner' src='https://images.niair.xyz/basic/to-ktest-banner.png' alt='GO TO KTEST' />
             </a>
             {/* ADPLUS VIDEO ADS */}
-            <div id="protag-in_article_video"></div>
+            {/* <div id="protag-in_article_video"></div>
             <script type="text/javascript">
                 dangerouslySetInnerHTML={{
                     __html:`
@@ -69,7 +69,7 @@ const ArticleCardForm = () => {
                     });
                     `
                 }}
-            </script>
+            </script> */}
             <Divider dashed />
             {/* ARTICLE CONTENTS */}
             <div>
