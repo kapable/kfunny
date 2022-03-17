@@ -9,6 +9,8 @@ import { useSelector } from 'react-redux';
 import CommentForm from './CommentForm';
 import ArticleNewsForm from './ArticleNewsForm';
 import * as gtag from '../lib/gtag';
+import Mobon from '../lib/Mobon';
+import AdPlus from '../lib/AdPlus';
 
 moment.locale('ko');
 
@@ -36,10 +38,6 @@ const ArticleCardForm = () => {
         gtag.event({ action: "Click open-article Button", category: "Opening", label: "article page" });
     }, []);
 
-    const onKtestBannerClick = useCallback(() => {
-        gtag.event({ action: "Click go-to-Ktest Banner", category: "Paging", label: "article page" });
-    }, []);
-
     return (
         <Fragment>
             {/* ARTICLE HEADER */}
@@ -53,24 +51,10 @@ const ArticleCardForm = () => {
                 </div>
                 <div className='article-date'>{moment(singlePost.createdAt).format('YYYY-MM-DD')}</div>
             </div>
-            {/* GO TO KTEST BANNER */}
-            <a href={`https://ktestone.com/?utm_source=+%EC%BC%80%EC%9D%B4%ED%8D%BC%EB%8B%88%60&utm_medium=%EC%BC%80%EC%9D%B4%ED%8D%BC%EB%8B%88&utm_campaign=%EC%BC%80%EC%9D%B4%ED%8D%BC%EB%8B%88`} target="_blank" rel='noreferrer noopener'>
-                <img onClick={onKtestBannerClick} className='article-go-to-ktest-banner' src='https://images.niair.xyz/basic/to-ktest-banner.png' alt='GO TO KTEST' />
-            </a>
+            {/* MOBON ADS SCRIPT */}
+            <Mobon />
             {/* ADPLUS VIDEO ADS */}
-            <div id="protag-in_article_video"></div>
-            <script
-                type="text/javascript"
-                dangerouslySetInnerHTML={{
-                    __html:`
-                    window.googletag = window.googletag || { cmd: [] };
-                    window.protag = window.protag || { cmd: [] };
-                    window.protag.cmd.push(function () {
-                        window.protag.display("protag-in_article_video");
-                    });
-                    `
-            }}/>
-                
+            <AdPlus />
             <Divider dashed />
             {/* ARTICLE CONTENTS */}
             <div>
