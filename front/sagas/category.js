@@ -1,4 +1,4 @@
-import { all, fork, delay, put, takeLatest, call } from 'redux-saga/effects';
+import { all, fork, put, takeLatest, call } from 'redux-saga/effects';
 import {
     SET_CATEGORY_REQUEST, SET_CATEGORY_SUCCESS, SET_CATEGORY_FAILURE,
     ADD_CATEGORY_SUCCESS, ADD_CATEGORY_FAILURE, ADD_CATEGORY_REQUEST, LOAD_CATEGORIES_REQUEST, LOAD_CATEGORIES_SUCCESS, LOAD_CATEGORIES_FAILURE,
