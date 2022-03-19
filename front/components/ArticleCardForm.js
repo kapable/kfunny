@@ -45,7 +45,7 @@ const ArticleCardForm = () => {
                 <div className='article-image-title'>{singlePost.title}</div>
                 <div className='article-share-btn-div'>
                     <CopyToClipboard
-                        text={userInfo.admin ? `https://niair.xyz/post/${singlePost.id}?ref_id=${userInfo.id}` : `https://niair.xyz/post/${singlePost.id}`} // in case of 1.for Admin refferer tracking 2. ordinary user
+                        text={userInfo?.admin ? `https://niair.xyz/post/${singlePost.id}?ref_id=${userInfo.id}` : `https://niair.xyz/post/${singlePost.id}`} // in case of 1.for Admin refferer tracking 2. ordinary user
                         onCopy={onShareButtonClick}
                     ><div><LinkOutlined /> 링크 복사하기</div></CopyToClipboard>
                 </div>

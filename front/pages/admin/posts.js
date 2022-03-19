@@ -101,7 +101,7 @@ const PostList = () => {
                     title="링크" key="link-copy"
                     render={(_, post) => (
                         <CopyToClipboard
-                            text={userInfo.admin ? `https://niair.xyz/post/${post.id}?ref_id=${userInfo.id}` : `https://niair.xyz/post/${post.id}`} // in case of 1.for Admin refferer tracking 2. ordinary user
+                            text={userInfo?.admin ? `https://niair.xyz/post/${post.id}?ref_id=${userInfo.id}` : `https://niair.xyz/post/${post.id}`} // in case of 1.for Admin refferer tracking 2. ordinary user
                             onCopy={onShareButtonClick}
                         ><div><LinkOutlined /></div></CopyToClipboard>
                     )}
