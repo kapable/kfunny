@@ -9,7 +9,6 @@ import { useSelector } from 'react-redux';
 import CommentForm from './CommentForm';
 import ArticleNewsForm from './ArticleNewsForm';
 import * as gtag from '../lib/gtag';
-import Mobon from '../lib/Mobon';
 import AdPlus from '../lib/AdPlus';
 
 moment.locale('ko');
@@ -51,8 +50,6 @@ const ArticleCardForm = () => {
                 </div>
                 <div className='article-date'>{moment(singlePost.createdAt).format('YYYY-MM-DD')}</div>
             </div>
-            {/* MOBON ADS SCRIPT */}
-            <Mobon />
             {/* ADPLUS VIDEO ADS */}
             <AdPlus />
             <Divider dashed />

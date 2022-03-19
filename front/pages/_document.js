@@ -47,6 +47,8 @@ export default class MyDocument extends Document {
                         });
                     `,
                 }}/>
+            <script async src="//cmp.optad360.io/items/ffa06b17-51f0-42df-b756-cb8ce7945986.min.js"></script>
+            <script async src="//get.optad360.io/sf/220513d0-b3fa-450b-8eec-34169517d936/plugin.min.js"></script>
                 <body>
                     <Main />
                     {/* <script src='https://polyfill.io/v3/polyfill.min.js?features=default%2Ces2015%2Ces2016%2Ces2017%2Ces2018%2Ces2019' /> */}
