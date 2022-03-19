@@ -11,6 +11,7 @@ import { LOAD_MY_INFO_REQUEST } from '../../reducers/user';
 import wrapper from '../../store/configureStore';
 import moment from 'moment';
 import Head from 'next/head';
+import Link from 'next/link';
 
 moment.locale('ko');
 const { Column, ColumnGroup } = Table;
@@ -21,7 +22,6 @@ const PostList = () => {
     const { userInfo } = useSelector((state) => state.user);
 
     useEffect(() => {
-        console.log(mainPosts[0]);
         if(!userInfo?.admin) {
             alert('관리자 로그인이 필요합니다!');
             Router.replace('/login');
@@ -112,9 +112,10 @@ const PostList = () => {
                 <ColumnGroup title="수정/삭제">
                     <Column
                         title="" key="edit"
-                        render={() => (
+                        dataIndex="id"
+                        render={(id) => (
                             <Space size="middle">
-                                <a>수정</a>
+                                <Link href={`/admin/editPost/${id}`}><a>수정</a></Link>
                             </Space>
                         )}
                     />
