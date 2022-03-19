@@ -16,6 +16,7 @@ moment.locale('ko');
 const ArticleCardForm = () => {
     const [isOpened, setIsOpened] = useState(false);
     const adProb = Math.random() < 0.5;
+    const { userInfo } = useSelector((state) => state.user);
     let { singlePost } = useSelector((state) => state.post);
     const { managingUrls } = useSelector((state) => state.url);
     const coupangLink = managingUrls.find((l) => l.name === '쿠팡파트너스')?.link
@@ -39,12 +40,13 @@ const ArticleCardForm = () => {
 
     return (
         <Fragment>
+            {console.log('TI',userInfo)}
             {/* ARTICLE HEADER */}
             <div className='article-info-div'>
                 <div className='article-image-title'>{singlePost.title}</div>
                 <div className='article-share-btn-div'>
                     <CopyToClipboard
-                        text={`https://niair.xyz/post/${singlePost.id}`}
+                        text={userInfo.admin ? `https://niair.xyz/post/${singlePost.id}?ref_id=${userInfo.id}` : `https://niair.xyz/post/${singlePost.id}`} // in case of 1.for Admin refferer tracking 2. ordinary user
                         onCopy={onShareButtonClick}
                     ><div><LinkOutlined /> 링크 복사하기</div></CopyToClipboard>
                 </div>
