@@ -40,7 +40,6 @@ const ArticleCardForm = () => {
 
     return (
         <Fragment>
-            {console.log('TI',userInfo)}
             {/* ARTICLE HEADER */}
             <div className='article-info-div'>
                 <div className='article-image-title'>{singlePost.title}</div>
