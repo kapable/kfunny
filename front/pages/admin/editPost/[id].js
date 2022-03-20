@@ -1,19 +1,20 @@
 import Router, { useRouter } from 'next/router';
 import Head from 'next/head';
 import React, { Fragment, useCallback, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { END } from 'redux-saga';
 import axios from 'axios';
 import { Button, Divider, Form, Input } from 'antd';
 import { LOAD_MY_INFO_REQUEST } from '../../../reducers/user';
-import { LOAD_POST_REQUEST } from '../../../reducers/post';
+import { LOAD_POST_REQUEST, SET_POST_TITLE_REQUEST } from '../../../reducers/post';
 import wrapper from '../../../store/configureStore';
 import useInput from '../../../hooks/useInput';
 
 const editPost = () => {
     const router = useRouter();
+    const dispatch = useDispatch();
     const { id } = router.query;
-    const { singlePost } = useSelector((state) => state.post);
+    const { singlePost, setPostTitleDone } = useSelector((state) => state.post);
     const { userInfo } = useSelector((state) => state.user);
     const [title, onChangeTitle, setTitle] = useInput('');
 
@@ -24,12 +25,22 @@ const editPost = () => {
         }
     }, [userInfo]);
 
+    useEffect(() => {
+        if(setPostTitleDone) {
+            alert("제목 수정이 반영되엇습니다!");
+            return setTitle('');
+        }
+    }, [setPostTitleDone]);
+
     const onTitleSubmit = useCallback(() => {
         if(!title) {
             return alert("제목란을 채워주세요!");
         };
-        console.log("TITLE SUBMIT");
-    }, [title]);
+        dispatch({
+            type: SET_POST_TITLE_REQUEST,
+            data: { id, title }
+        });
+    }, [id, title]);
 
     return (
         <Fragment>

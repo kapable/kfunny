@@ -44,6 +44,9 @@ export const initialState = {
     removePostLoading: false,
     removePostDone: false,
     removePostError: false,
+    setPostTitleLoading: false,
+    setPostTitleDone: false,
+    setPostTitleError: false,
     addCommentLoading: false,
     addCommentDone: false,
     addCommentError: false,
@@ -64,6 +67,10 @@ export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
 export const REMOVE_POST_REQUEST = 'REMOVE_POST_REQUEST';
 export const REMOVE_POST_SUCCESS = 'REMOVE_POST_SUCCESS';
 export const REMOVE_POST_FAILURE = 'REMOVE_POST_FAILURE';
+
+export const SET_POST_TITLE_REQUEST = 'SET_POST_TITLE_REQUEST';
+export const SET_POST_TITLE_SUCCESS = 'SET_POST_TITLE_SUCCESS';
+export const SET_POST_TITLE_FAILURE = 'SET_POST_TITLE_FAILURE';
 
 export const ADD_COMMENT_REQUEST = 'ADD_COMMENT_REQUEST';
 export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
@@ -143,6 +150,20 @@ const reducer = (state = initialState, action) => {
             case REMOVE_POST_FAILURE:
                 draft.removePostLoading = false;
                 draft.removePostError = action.error;
+                break;
+            case SET_POST_TITLE_REQUEST:
+                draft.setPostTitleLoading = true;
+                draft.setPostTitleDone = false;
+                draft.setPostTitleError = null;
+                break;
+            case SET_POST_TITLE_SUCCESS:
+                draft.singlePost.title = action.data.title;
+                draft.setPostTitleDone = true;
+                draft.setPostTitleLoading = false;
+                break;
+            case SET_POST_TITLE_FAILURE:
+                draft.setPostTitleLoading = false;
+                draft.setPostTitleError = action.error;
                 break;
             case ADD_COMMENT_REQUEST:
                 draft.addCommentLoading = true;

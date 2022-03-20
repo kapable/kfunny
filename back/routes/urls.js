@@ -28,7 +28,7 @@ router.post(`/`, isLoggedIn, async (req, res, next) => { // POST /urls
 // CHANGE URL
 router.patch(`/`, isLoggedIn, async (req, res, next) => { // PATCH /urls
     try {
-        Url.update({
+        await Url.update({
             link: req.body.link,
         }, {
             where: {

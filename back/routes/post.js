@@ -165,6 +165,29 @@ router.delete(`/:postId`, isLoggedIn, async (req, res, next) => { // DELETE /pos
         next(error);
     }
 });
+// SET POST TITLE
+router.patch(`/title`, isLoggedIn, async(req, res, next) => { // PATCH /post/title?postId=1
+    try {
+        const post = await Post.findOne({
+            where: { id: parseInt(req.body.id, 10) }
+        });
+        if(!post) {
+            return res.status(404).send('존재하지 않는 게시글입니다ㅠㅠ');
+        };
+        await Post.update({
+            title: req.body.title
+        }, {
+            where: {
+                id: parseInt(req.body.id, 10)
+            }
+        });
+        res.status(200).json({ id: parseInt(req.body.id, 10), title: req.body.title });
+    } catch (error) {
+        console.error(error);
+        next(error);
+    };
+});
+
 // ADD COMMENT
 router.post(`/:postId/comment`, isLoggedIn, async (req, res, next) => { // POST /1/comment
     try {
