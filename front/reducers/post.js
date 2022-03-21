@@ -27,10 +27,10 @@ export const initialState = {
             },
             content: 'Wow',
         }, ],
-        Category: {
+        Categories: [{
             id:"Kfunny",
-            label: "경제"
-        }
+            label: "economics"
+        }]
     },
     imagePaths: [],
     thumbnailPath: [],

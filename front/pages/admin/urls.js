@@ -61,7 +61,7 @@ const urls = () => {
 
     return (
         <Fragment>
-            <h3>기존 등록된 Url</h3>
+            <h3 style={{ width: '30rem', margin: '1rem auto' }}>기존 등록된 Url</h3>
             {managingUrls.map((v) => {
                 return (
                     <Form key={`${v.link}_form_item`} onFinish={onLinkSubmit} layout="vertical" className='user-profile-edit-form'>

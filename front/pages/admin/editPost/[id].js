@@ -76,9 +76,9 @@ const editPost = () => {
                 <meta property="twitter:image:alt" content="핫이슈가 모인 최신 미디어, 케이퍼니" />
                 <meta property='og:site_name' content="게시물 수정 | 케이퍼니" />
             </Head>
-            <p>*현재 제목 편집과 카테고리 편집만 가능합니다.<br />(추후 콘텐츠 편집 기능 추가 예정)</p>
             {/* TITLE EDITING */}
             <Form onFinish={onTitleSubmit} layout="vertical" className='user-profile-edit-form'>
+                <p>*현재 제목 편집만 가능합니다.<br />(추후 콘텐츠 편집 기능 추가 예정)</p>
                 <h3>기존 제목</h3>
                 <h1 className='admin-upload-title-preview'>{singlePost.title}</h1>
                 <div>

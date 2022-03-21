@@ -3,7 +3,7 @@ import React from 'react';
 const Mobon = () => {
     return (
         <>
-            <script src='//img.mobon.net/js/common/HawkEyesMaker.js'></script>
+            {/* <script src='//img.mobon.net/js/common/HawkEyesMaker.js'></script>
             <script
                 dangerouslySetInnerHTML={{
                     __html: `
@@ -15,7 +15,7 @@ const Mobon = () => {
                         "width":"320","height":"100",
                         "settings":{"cntsr":"4","mChk":"100"}});
                     `,
-                }}/>
+                }}/> */}
             <script src='//img.mobon.net/js/common/HawkEyesMaker.js'></script>
             <script
                 dangerouslySetInnerHTML={{

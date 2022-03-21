@@ -166,7 +166,7 @@ router.delete(`/:postId`, isLoggedIn, async (req, res, next) => { // DELETE /pos
     }
 });
 // SET POST TITLE
-router.patch(`/title`, isLoggedIn, async(req, res, next) => { // PATCH /post/title?postId=1
+router.patch(`/title`, isLoggedIn, async (req, res, next) => { // PATCH /post/title
     try {
         const post = await Post.findOne({
             where: { id: parseInt(req.body.id, 10) }
@@ -187,7 +187,6 @@ router.patch(`/title`, isLoggedIn, async(req, res, next) => { // PATCH /post/tit
         next(error);
     };
 });
-
 // ADD COMMENT
 router.post(`/:postId/comment`, isLoggedIn, async (req, res, next) => { // POST /1/comment
     try {

@@ -10,6 +10,7 @@ import CommentForm from './CommentForm';
 import ArticleNewsForm from './ArticleNewsForm';
 import * as gtag from '../lib/gtag';
 import AdPlus from '../lib/AdPlus';
+import Mobon from '../lib/Mobon';
 
 moment.locale('ko');
 
@@ -53,6 +54,8 @@ const ArticleCardForm = () => {
             </div>
             {/* ADPLUS VIDEO ADS */}
             <AdPlus />
+            {/* MOBION ADS */}
+            <Mobon />
             <Divider dashed />
             {/* ARTICLE CONTENTS */}
             <div>
