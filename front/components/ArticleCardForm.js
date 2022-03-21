@@ -20,7 +20,11 @@ const ArticleCardForm = () => {
     const { userInfo } = useSelector((state) => state.user);
     let { singlePost } = useSelector((state) => state.post);
     const { managingUrls } = useSelector((state) => state.url);
-    const coupangLink = managingUrls.find((l) => l.name === '쿠팡파트너스')?.link
+
+    const coupangLinks = managingUrls.filter((l) => l.name.includes("쿠팡"))
+    const coupangProbIndex = Math.floor(Math.random() * coupangLinks.length);
+    const coupangLink = coupangLinks[coupangProbIndex].link;
+
     useEffect(() => {
         window.location.href.includes('fbclid') && window.history?.length > 1 ? setIsOpened(true) : null;
     });

@@ -11,6 +11,9 @@ export const initialState = {
     loadUrlsLoading: false,
     loadUrlsDone: false,
     loadUrlsError: false,
+    deleteUrlLoading: false,
+    deleteUrlDone: false,
+    deleteUrlError: false,
 };
 
 export const SET_URL_REQUEST = 'SET_URL_REQUEST';
@@ -24,6 +27,10 @@ export const ADD_URL_FAILURE = 'ADD_URL_FAILURE';
 export const LOAD_URLS_REQUEST = 'LOAD_URLS_REQUEST';
 export const LOAD_URLS_SUCCESS = 'LOAD_URLS_SUCCESS';
 export const LOAD_URLS_FAILURE = 'LOAD_URLS_FAILURE';
+
+export const DELETE_URL_REQUEST = 'DELETE_URL_REQUEST';
+export const DELETE_URL_SUCCESS = 'DELETE_URL_SUCCESS';
+export const DELETE_URL_FAILURE = 'DELETE_URL_FAILURE';
 
 const reducer = (state = initialState, action) => {
     return produce(state, (draft) => {
@@ -69,6 +76,20 @@ const reducer = (state = initialState, action) => {
             case LOAD_URLS_FAILURE:
                 draft.loadUrlsLoading = false;
                 draft.loadUrlsError = action.error;
+                break;
+            case DELETE_URL_REQUEST:
+                draft.deleteUrlLoading = true;
+                draft.deleteUrlDone = false;
+                draft.deleteUrlError = null;
+                break;
+            case DELETE_URL_SUCCESS:
+                draft.managingUrls = draft.managingUrls.filter((v) => v.id !== action.data.urlId);
+                draft.deleteUrlDone = true;
+                draft.deleteUrlLoading = false;
+                break;
+            case DELETE_URL_FAILURE:
+                draft.deleteUrlLoading = false;
+                draft.deleteUrlError = action.error;
                 break;
             default:
                 break;

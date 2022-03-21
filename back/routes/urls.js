@@ -14,11 +14,11 @@ router.post(`/`, isLoggedIn, async (req, res, next) => { // POST /urls
         if(exUrl) {
             return res.status(403).send('이미 존재하는 이름의 Url 입니다.');
         };
-        await Url.create({
+        const newUrl = await Url.create({
             name: req.body.name,
             link: req.body.link,
         });
-        res.status(200).send('Url 등록에 성공했습니다!');
+        res.status(200).json(newUrl);
     } catch (error) {
         console.error(error);
         next(error);
@@ -49,7 +49,7 @@ router.get(`/`, async (req, res, next) => { // GET /urls
             where: {},
             attributes: ['id', 'name', 'link'],
             order: [
-                ['createdAt', 'ASC'],
+                ['createdAt', 'DESC'],
             ]
         });
         res.status(200).json(url);
@@ -59,4 +59,18 @@ router.get(`/`, async (req, res, next) => { // GET /urls
     }
 })
 
+// DELETE URL
+router.delete(`/:urlId`, isLoggedIn, async (req, res, next) => {
+    try {
+        await Url.destroy({
+            where: {
+                id: req.params.urlId,
+            },
+        });
+        res.status(200).json({ urlId: parseInt(req.params.urlId, 10)});
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+});
 module.exports = router;

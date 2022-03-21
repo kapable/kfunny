@@ -72,6 +72,26 @@
   width: 78px;
 }
 
+/* URLS */
+.admin-urls-default-title {
+  width: 100%;
+  margin: 1rem auto;
+}
+
+.admin-urls-delete-btn-div {
+
+  margin: 0 auto 3rem;
+}
+
+.admin-urls-delete-btn {
+  float: right;
+}
+
+.admin-url-form-button-group {
+  margin: 1rem auto;
+  float: right;
+}
+
 @media only screen and (min-width: 600px) {
   .admin-upload-title-input {
     display: flex;
@@ -117,5 +137,10 @@
 
   .admin-upload-img-delete-btn {
     margin-bottom: 1.5rem;
+  }
+
+  .admin-urls-default-title {
+    width: 30rem;
+    margin: 1rem auto;
   }
 }

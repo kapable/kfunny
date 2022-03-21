@@ -1,7 +1,7 @@
 import { all, fork, put, takeLatest, call } from 'redux-saga/effects';
 import {
     SET_URL_REQUEST, SET_URL_SUCCESS, SET_URL_FAILURE,
-    ADD_URL_SUCCESS, ADD_URL_FAILURE, ADD_URL_REQUEST, LOAD_URLS_REQUEST, LOAD_URLS_SUCCESS, LOAD_URLS_FAILURE,
+    ADD_URL_SUCCESS, ADD_URL_FAILURE, ADD_URL_REQUEST, LOAD_URLS_REQUEST, LOAD_URLS_SUCCESS, LOAD_URLS_FAILURE, DELETE_URL_REQUEST, DELETE_URL_SUCCESS, DELETE_URL_FAILURE,
 } from '../reducers/url';
 import axios from 'axios';
 
@@ -40,7 +40,7 @@ function* addUrl(action) {
         console.log(err);
         yield put({
             type: ADD_URL_FAILURE,
-            error: err.response
+            error: err.response.data
         })
     };
 };
@@ -65,6 +65,26 @@ function* loadUrls() {
     };
 };
 
+function deleteUrlAPI(data) {
+    return axios.delete(`/urls/${data}`);
+};
+
+function* deleteUrl(action) {
+    try {
+        const result = yield call(deleteUrlAPI, action.data);
+        yield put({
+            type: DELETE_URL_SUCCESS,
+            data: result.data,
+        })
+    } catch (err) {
+        console.log(err);
+        yield put({
+            type: DELETE_URL_FAILURE,
+            error: err.response.data
+        })
+    };
+};
+
 function* watchSetUrl() {
     yield takeLatest(SET_URL_REQUEST, setUrl);
 }
@@ -77,10 +97,15 @@ function* watchLoadUrls() {
     yield takeLatest(LOAD_URLS_REQUEST, loadUrls);
 }
 
+function* watchDeleteUrl() {
+    yield takeLatest(DELETE_URL_REQUEST, deleteUrl);
+}
+
 export default function* postSaga() {
     yield all([
         fork(watchSetUrl),
         fork(watchAddUrl),
         fork(watchLoadUrls),
+        fork(watchDeleteUrl),
     ])
 }
