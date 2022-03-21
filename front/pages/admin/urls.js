@@ -121,7 +121,9 @@ const urls = () => {
                                 <h3 key={`${v.link}_name`}>{v.name}</h3>
                                 기존 링크<br /><a href={v.link} target="_blank" rel='noreferrer noopener' key={`${v.link}_link`}>{v.link}</a>
                                 <div className='admin-urls-delete-btn-div'>
-                                    <Button onClick={onLinkDelete(v.id)} className='admin-urls-delete-btn' type="primary" danger >링크 삭제</Button>
+                                    <Button disabled={managingUrls.length === 1 ? true : false} onClick={onLinkDelete(v.id)} className='admin-urls-delete-btn' type="primary" danger >
+                                    {managingUrls.length === 1 ? '링크가 한 개일 경우 삭제 불가' : '링크 삭제'}
+                                    </Button>
                                 </div>
                                 <div key={`${v.link}_edit_form`}>
                                     <Form.Item key={`${v.link}_form_item`} htmlFor="user-nick" required label="새로운 링크 주소">
