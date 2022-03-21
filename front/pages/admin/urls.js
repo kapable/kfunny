@@ -15,8 +15,8 @@ const urls = () => {
     const dispatch = useDispatch();
     const { userInfo } = useSelector((state) => state.user);
     const { managingUrls, setUrlDone, addUrlError, deleteUrlDone, addUrlDone } = useSelector((state) => state.url);
-    const [newName, onChangeNewName] = useInput('');
-    const [newLink, onChangeNewLink] = useInput('');
+    const [newName, onChangeNewName, setNewName] = useInput('');
+    const [newLink, onChangeNewLink, setNewLink] = useInput('');
     const [name, onChangeName] = useInput(managingUrls[0]?.name || null);
     const [link, onChangeLink, setLink] = useInput('');
 
@@ -29,7 +29,9 @@ const urls = () => {
 
     useEffect(() => {
         if(addUrlDone) {
-            alert("새로운 링크가 등록되었습니다!");
+            setNewName('');
+            setNewLink('');
+            return alert("새로운 링크가 등록되었습니다!");
         };
     }, [addUrlDone]);
 
