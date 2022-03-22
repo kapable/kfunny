@@ -19,7 +19,7 @@ const ArticleCardContentsForm = () => {
     const coupangLink = coupangLinks[coupangProbIndex]?.link;
 
     const onCoupangButtonClick = useCallback(() => {
-        setIsOpened(true);
+        // setIsOpened(true);
         setCoupangCookie('coupang', true, { path: '/', maxAge: 30 }); // 30 sec
         gtag.event({ action: "Click go-to-Coupang Button", category: "Opening", label: "article page" });
     }, []);
@@ -40,13 +40,11 @@ const ArticleCardContentsForm = () => {
                 {/* IMAGE CONTENTS */}
                 {isOpened || coupangCookies?.coupang // if cover opened, show full images
                 ? (
-                    singlePost.Images.map((image, index) => {
-                        return (
-                            <div className='article-image-div' key={`${singlePost.title}-image${index}-div`}>
-                                <Image preview={false} src={image.src} key={`${singlePost.title}-image${index}`} />
-                            </div>
-                        )
-                    })
+                    singlePost.Images.map((image, index) => (
+                        <div className='article-image-div' key={`${singlePost.title}-image${index}-div`}>
+                            <Image preview={false} src={image.src} key={`${singlePost.title}-image${index}`} />
+                        </div>
+                    ))
                 )
                 : ( // if covered, show the Button
                     <>
