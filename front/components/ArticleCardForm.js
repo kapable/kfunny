@@ -24,7 +24,6 @@ const ArticleCardForm = () => {
     const coupangLinks = managingUrls.filter((l) => l.name.includes("쿠팡"))
     const coupangProbIndex = Math.floor(Math.random() * coupangLinks.length);
     const coupangLink = coupangLinks[coupangProbIndex]?.link;
-    console.log(coupangLink);
 
     useEffect(() => {
         window.location.href.includes('fbclid') && window.history?.length > 1 ? setIsOpened(true) : null;
