@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback, useEffect } from 'react';
-import { Button, Divider, Form, Input, Collapse } from 'antd';
+import { Button, Form, Input, Collapse } from 'antd';
 import useInput from '../../hooks/useInput';
 import { useDispatch, useSelector } from 'react-redux';
 import { ADD_URL_REQUEST, DELETE_URL_REQUEST, LOAD_URLS_REQUEST, SET_URL_REQUEST } from '../../reducers/url';
@@ -115,7 +115,6 @@ const urls = () => {
                         <br />
                     </Form>
                 </Panel>
-                {/* <h3 className='admin-urls-default-title'>기존 등록된 Url</h3> */}
                 {managingUrls.map((v) => {
                     return (
                         <Panel header={v.name} key={`${v.link}_fragment`}>
@@ -137,7 +136,6 @@ const urls = () => {
                                 </div>
                                 <br />
                             </Form>
-                            {/* <Divider key={`${v.link}_divider`} dashed /> */}
                         </Panel>
                     )
                 })}
