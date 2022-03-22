@@ -35,7 +35,7 @@ const ArticleCardContentsForm = () => {
                 {/* TEXT CONTENTS */}
                 {singlePost?.content
                 ? <p className='article-text'>{singlePost.content}</p>
-                : null
+                : <br />
                 }
 
                 {/* IMAGE CONTENTS */}
