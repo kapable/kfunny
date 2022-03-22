@@ -33,7 +33,7 @@ const ArticleCardContentsForm = () => {
     return (
         <div>
                 {/* TEXT CONTENTS */}
-                {singlePost?.content
+                {singlePost.content
                 ? <p className='article-text'>{singlePost.content}</p>
                 : <br />
                 }
