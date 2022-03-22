@@ -98,6 +98,11 @@
     margin: 0 auto;
     width: 35rem;
   }
+  .admin-upload-text-input {
+    display: flex;
+    margin: 2rem auto;
+    width: 35rem;
+  }
   .admin-upload-title-preview {
     margin: 1.5rem auto;
     width: 35rem;

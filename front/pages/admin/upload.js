@@ -12,7 +12,7 @@ import axios from 'axios';
 import wrapper from '../../store/configureStore';
 import Head from 'next/head';
 
-
+const { TextArea } = Input;
 const { Option } = Select;
 
 const Upload = () => {
@@ -22,6 +22,7 @@ const Upload = () => {
   const { userInfo } = useSelector((state) => state.user);
   const [category, setCategory] = useState('');
   const [title, onChangeTitle] = useInput('');
+  const [content, onChangeContent] = useInput(null);
   const imageInput = useRef(null);
   const thumbnailInput = useRef(null);
 
@@ -101,6 +102,7 @@ const Upload = () => {
     };
     const formData = new FormData();
     formData.append('title', title);
+    formData.append('content', content);
     formData.append('category', category);
     imagePaths.forEach((p) => {
       formData.append('image', p);
@@ -111,10 +113,9 @@ const Upload = () => {
     
     dispatch({
       type: ADD_POST_REQUEST,
-      // data: { title, category, imagePaths },
       data: formData
     });
-  }, [userInfo, title, category, imagePaths, thumbnailPath]);
+  }, [userInfo, title, content, category, imagePaths, thumbnailPath]);
 
   return (
     <Fragment>
@@ -153,10 +154,13 @@ const Upload = () => {
       
       <Form className='admin-upload-form' encType="multipart/form-data" onFinish={onSubmit}>
           {/* TITLE */}
-          <Input className='admin-upload-title-input' value={title} showCount maxLength={30} onChange={onChangeTitle} placeholder="제목을 써주세요!" allowClear={true} />
+          <Input className='admin-upload-title-input' value={title} required showCount maxLength={30} onChange={onChangeTitle} placeholder="제목을 써주세요!" allowClear={true} />
           <h1 className='admin-upload-title-preview'>{title}</h1>
           <Divider dashed />
 
+          {/* TEXT CONTENT */}
+          <TextArea className='admin-upload-text-input' value={content} showCount rows={2} maxLength={50} onChange={onChangeContent} placeholder="(optional)텍스트를 써주세요!(최대 50자)" allowClear={true} />
+          <br />
           {/* IMAGES UPLOAD */}
           <div>
               <input key={imagePaths.join()} type="file" name='image' accept="image/*" multiple hidden ref={imageInput} onChange={onChangeImages} />

@@ -70,8 +70,9 @@ const upload = multer({
 router.post('/', isLoggedIn, upload.none(), async (req, res, next) => { // POST /post
     try {
         const post = await Post.create({
-            title: req.body.title,
             UserId: req.user.id,
+            title: req.body.title,
+            content: req.body.content,
         });
         if(req.body.category) {
             const category = await Category.findOne({ where: { label: req.body.category } });

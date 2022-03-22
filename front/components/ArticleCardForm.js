@@ -63,6 +63,13 @@ const ArticleCardForm = () => {
             <Divider dashed />
             {/* ARTICLE CONTENTS */}
             <div>
+                {/* TEXT CONTENTS */}
+                {singlePost?.content
+                ? <p className='article-text'>{singlePost.content}</p>
+                : null
+                }
+
+                {/* IMAGE CONTENTS */}
                 {isOpened
                 ? (
                     singlePost.Images.map((image, index) => {
