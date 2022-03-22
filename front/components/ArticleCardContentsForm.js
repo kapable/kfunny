@@ -15,13 +15,13 @@ const ArticleCardContentsForm = () => {
     const { singlePost, coupangCookie } = useSelector((state) => state.post);
     const { managingUrls } = useSelector((state) => state.url);
     
-    const adProb = Math.random() < 0.5;
+    const adProb = Math.random() < 0.9;
     const coupangLinks = managingUrls.filter((l) => l.name.includes("쿠팡"));
     const coupangProbIndex = Math.floor(Math.random() * coupangLinks.length);
     const coupangLink = coupangLinks[coupangProbIndex]?.link;
 
     const onCoupangButtonClick = useCallback(() => {
-        setCoupangCookie('coupang', true, { path: '/', maxAge: 30 }); // 30 sec
+        setCoupangCookie('coupang', true, { path: '/', maxAge: 60*60*12 }); // 60 sec * 60 min * 12 hour
         gtag.event({ action: "Click go-to-Coupang Button", category: "Opening", label: "article page" });
     }, []);
 
