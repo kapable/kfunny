@@ -5,15 +5,17 @@ import { Image } from 'antd';
 import { ArrowDownOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import * as gtag from '../lib/gtag';
+import { useCookies } from 'react-cookie';
 
 const ArticleCardContentsForm = () => {
+    const [coupangCookies, setCoupangCookie, removeCoupangCookie] = useCookies(['coupang']);
     const [isOpened, setIsOpened] = useState(false);
     const { singlePost } = useSelector((state) => state.post);
     const { managingUrls } = useSelector((state) => state.url);
 
-    useEffect(() => {
-        window.location.href.includes('fbclid') && window.history?.length > 1 ? setIsOpened(true) : null;
-    });
+    // useEffect(() => {
+    //     window.location.href.includes('fbclid') && window.history?.length > 1 ? setIsOpened(true) : null;
+    // });
     
     const adProb = Math.random() < 0.5;
     const coupangLinks = managingUrls.filter((l) => l.name.includes("쿠팡"))
@@ -22,6 +24,7 @@ const ArticleCardContentsForm = () => {
 
     const onCoupangButtonClick = useCallback(() => {
         setIsOpened(true);
+        setCoupangCookie('coupang', true, { path: '/', maxAge: 30 }); // 30 sec
         gtag.event({ action: "Click go-to-Coupang Button", category: "Opening", label: "article page" });
     }, []);
 
@@ -30,8 +33,13 @@ const ArticleCardContentsForm = () => {
         gtag.event({ action: "Click open-article Button", category: "Opening", label: "article page" });
     }, []);
 
+    const onRemoveCookie = useCallback(() => {
+        removeCoupangCookie('coupang', { path: '/' });
+    }, []);
+
     return (
         <div>
+                {/* <button onClick={onRemoveCookie}>COUPANG</button> */}
                 {/* TEXT CONTENTS */}
                 {!singlePost.content || singlePost.conent === null
                 ? <p className='article-text'>{singlePost.content}</p>
@@ -39,7 +47,7 @@ const ArticleCardContentsForm = () => {
                 }
 
                 {/* IMAGE CONTENTS */}
-                {isOpened // if cover opened, show full images
+                {isOpened || coupangCookies?.coupang // if cover opened, show full images
                 ? (
                     singlePost.Images.map((image, index) => {
                         return (

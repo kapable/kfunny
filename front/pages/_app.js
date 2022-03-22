@@ -6,7 +6,8 @@ import '../css/admin.css';
 import AppLayout from '../components/AppLayout';
 import wrapper from '../store/configureStore';
 import { useRouter } from 'next/router';
-import * as gtag from '../lib/gtag'
+import * as gtag from '../lib/gtag';
+import { CookiesProvider } from 'react-cookie';
 React.useLayoutEffect = React.useEffect;
 
 const App = ({ Component }) => {
@@ -21,9 +22,11 @@ const App = ({ Component }) => {
 
     return (
         <Fragment>
-            <AppLayout>
-                <Component />
-            </AppLayout>
+            <CookiesProvider>
+                <AppLayout>
+                    <Component />
+                </AppLayout>
+            </CookiesProvider>
         </Fragment>
     );
 };
