@@ -6,7 +6,7 @@ import ArticleCardForm from '../../components/ArticleCardForm';
 import { END } from 'redux-saga';
 import axios from 'axios';
 import { LOAD_MY_INFO_REQUEST } from '../../reducers/user';
-import { LOAD_POSTS_REQUEST, LOAD_POST_REQUEST } from '../../reducers/post';
+import { LOAD_POSTS_REQUEST, LOAD_POST_REQUEST, SET_COUPANG_COOKIE } from '../../reducers/post';
 import wrapper from '../../store/configureStore';
 import { LOAD_URLS_REQUEST } from '../../reducers/url';
 
@@ -74,6 +74,10 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
     context.store.dispatch({
         type: LOAD_URLS_REQUEST
     });
+    context.store.dispatch({
+        type: SET_COUPANG_COOKIE,
+        data: (context.req.cookies?.coupang === "true")
+    })
     context.store.dispatch(END)
 
     await context.store.sagaTask.toPromise()

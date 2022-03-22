@@ -34,6 +34,7 @@ export const initialState = {
     },
     imagePaths: [],
     thumbnailPath: [],
+    coupangCookie: false || null,
     hasMorePosts: true,
     loadPostsLoading: false,
     loadPostsDone: false,
@@ -92,6 +93,8 @@ export const UPLOAD_THUMBNAIL_SUCCESS = 'UPLOAD_THUMBNAIL_SUCCESS';
 export const UPLOAD_THUMBNAIL_FAILURE = 'UPLOAD_THUMBNAIL_FAILURE';
 
 export const RESET_KEYWORD_POSTS = 'RESET_KEYWORD_POSTS';
+
+export const SET_COUPANG_COOKIE = 'SET_COUPANG_COOKIE';
 
 export const REMOVE_IMAGE = 'REMOVE_IMAGE';
 export const REMOVE_THUMBNAIL = 'REMOVE_THUMBNAIL';
@@ -205,6 +208,8 @@ const reducer = (state = initialState, action) => {
             case RESET_KEYWORD_POSTS:
                 draft.loadPostsLoading = false;
                 draft.mainPosts = [];
+            case SET_COUPANG_COOKIE:
+                draft.coupangCookie = action.data || null;
             case UPLOAD_IMAGES_REQUEST:
                 draft.uploadImagesLoading = true;
                 draft.uploadImagesDone = false;
