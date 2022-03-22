@@ -42,27 +42,6 @@ const upload = multer({
             done(null, basename + '_' + new Date().getTime() + ext);
         },
     }),
-    // storage: multer.diskStorage({
-    //     destination(req, file, done) {
-    //         done(null, 'uploads');
-    //     },
-    //     filename(req, file, done) {
-    //         const ext = path.extname(file.originalname);
-    //         const basename = path.basename(file.originalname, ext);
-    //         done(null, basename + '_' + new Date().getTime() + ext);
-    //     },
-    // }),
-    // storage: multerS3({
-    //     s3: new AWS.S3(),
-    //     bucket: 'kfunny-image-s3',
-    //     key(req, file, cb) {
-    //         cb(null, `original/${Date.now()}_${path.basename(file.originalname)}`)
-    //     },
-    //     contentType(req, file, cb) {
-    //         const extension = path.extname(file.originalname).replace('.','');
-    //         cb(null, `image/${extension}`);
-    //     },
-    // }),
     limits: { fileSize: 20 * 1024 * 1024 },
 });
 
@@ -183,6 +162,28 @@ router.patch(`/title`, isLoggedIn, async (req, res, next) => { // PATCH /post/ti
             }
         });
         res.status(200).json({ id: parseInt(req.body.id, 10), title: req.body.title });
+    } catch (error) {
+        console.error(error);
+        next(error);
+    };
+});
+// SET POST TEXT
+router.patch(`/text`, isLoggedIn, async (req, res, next) => { // PATCH /post/title
+    try {
+        const post = await Post.findOne({
+            where: { id: parseInt(req.body.id, 10) }
+        });
+        if(!post) {
+            return res.status(404).send('존재하지 않는 게시글입니다ㅠㅠ');
+        };
+        await Post.update({
+            content: req.body.content
+        }, {
+            where: {
+                id: parseInt(req.body.id, 10)
+            }
+        });
+        res.status(200).json({ id: parseInt(req.body.id, 10), content: req.body.content });
     } catch (error) {
         console.error(error);
         next(error);

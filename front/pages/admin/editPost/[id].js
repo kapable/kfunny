@@ -6,17 +6,20 @@ import { END } from 'redux-saga';
 import axios from 'axios';
 import { Button, Divider, Form, Input } from 'antd';
 import { LOAD_MY_INFO_REQUEST } from '../../../reducers/user';
-import { LOAD_POST_REQUEST, SET_POST_TITLE_REQUEST } from '../../../reducers/post';
+import { LOAD_POST_REQUEST, SET_POST_TEXT_REQUEST, SET_POST_TITLE_REQUEST } from '../../../reducers/post';
 import wrapper from '../../../store/configureStore';
 import useInput from '../../../hooks/useInput';
+
+const { TextArea } = Input;
 
 const editPost = () => {
     const router = useRouter();
     const dispatch = useDispatch();
     const { id } = router.query;
-    const { singlePost, setPostTitleDone } = useSelector((state) => state.post);
+    const { singlePost, setPostTitleDone, setPostTextDone } = useSelector((state) => state.post);
     const { userInfo } = useSelector((state) => state.user);
     const [title, onChangeTitle, setTitle] = useInput('');
+    const [text, onChangeText, setText] = useInput('');
 
     useEffect(() => {
         if(!userInfo?.admin) {
@@ -32,6 +35,13 @@ const editPost = () => {
         }
     }, [setPostTitleDone]);
 
+    useEffect(() => {
+        if(setPostTextDone) {
+            alert("텍스트 수정이 반영되엇습니다!");
+            return setText('');
+        }
+    }, [setPostTextDone]);
+
     const onTitleSubmit = useCallback(() => {
         if(!title) {
             return alert("제목란을 채워주세요!");
@@ -41,6 +51,16 @@ const editPost = () => {
             data: { id, title }
         });
     }, [id, title]);
+
+    const onTextSubmit = useCallback(() => {
+        if(!text) {
+            return alert("텍스트를 채워주세요!");
+        };
+        dispatch({
+            type: SET_POST_TEXT_REQUEST,
+            data: { id: id, content: text }
+        });
+    }, [id, text]);
 
     return (
         <Fragment>
@@ -83,11 +103,25 @@ const editPost = () => {
                 <h1 className='admin-upload-title-preview'>{singlePost.title}</h1>
                 <div>
                     <Form.Item htmlFor='post-title' required label="새로운 제목">
-                        <Input name='post-title' value={title} required onChange={onChangeTitle} maxLength={30}/>
+                        <Input showCount placeholder={title ? "최대 30자" : "제목을 입력해야 수정이 가능합니다(최대 30자)."} name='post-title' value={title} required onChange={onChangeTitle} maxLength={30}/>
                     </Form.Item>
                 </div>
                 <div className='signup-form-button-group'>
-                    <Button type="primary" htmlType="submit" >제목 수정</Button>
+                    <Button disabled={title ? false : true} type="primary" htmlType="submit" >{title ? "제목 수정" : "제목을 입력해야 수정이 가능합니다."}</Button>
+                </div>
+            </Form>
+            <Divider dashed />
+            {/* CONTENTS TEXT EDITING */}
+            <Form onFinish={onTextSubmit} layout="vertical" className='user-profile-edit-form'>
+                <h3>기존 텍스트</h3>
+                <h1 className='admin-upload-title-preview'>{singlePost.content ? singlePost.content : "(텍스트 없음)"}</h1>
+                <div>
+                    <Form.Item htmlFor='post-text' required label="새로운 텍스트">
+                        <TextArea showCount placeholder={text ? "최대 50자" : "텍스트를 입력해야 수정이 가능합니다(최대 50자)."} name='post-text' value={text} required onChange={onChangeText} maxLength={50}/>
+                    </Form.Item>
+                </div>
+                <div className='signup-form-button-group'>
+                    <Button disabled={text ? false : true} type="primary" htmlType="submit" >{text ? "텍스트 수정" : "텍스트를 입력해야 수정이 가능합니다."}</Button>
                 </div>
             </Form>
             <Divider dashed />

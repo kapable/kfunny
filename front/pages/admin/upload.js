@@ -17,7 +17,7 @@ const { Option } = Select;
 
 const Upload = () => {
   const dispatch = useDispatch();
-  const { imagePaths, thumbnailPath, addPostLoading, addPostDone } = useSelector((state) => state.post);
+  const { imagePaths, thumbnailPath, addPostLoading, addPostDone, addPostError } = useSelector((state) => state.post);
   const { postCategories } = useSelector((state) => state.category);
   const { userInfo } = useSelector((state) => state.user);
   const [category, setCategory] = useState('');
@@ -39,6 +39,12 @@ const Upload = () => {
         Router.replace('/login');
     }
   }, [userInfo]);
+
+  useEffect(() => {
+    if(addPostError) {
+      alert("업로드 중 에러가 발생했습니다 ㅠㅠ");
+    }
+  }, [addPostError]);
 
   const onClickImageUpload = useCallback(() => {
     imageInput.current.click();

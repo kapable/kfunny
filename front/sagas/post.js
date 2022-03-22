@@ -9,6 +9,7 @@ import {
     UPLOAD_THUMBNAIL_SUCCESS, UPLOAD_THUMBNAIL_FAILURE, UPLOAD_THUMBNAIL_REQUEST,
     LOAD_POST_REQUEST, LOAD_POST_SUCCESS, LOAD_POST_FAILURE,
     SET_POST_TITLE_REQUEST, SET_POST_TITLE_SUCCESS, SET_POST_TITLE_FAILURE,
+    SET_POST_TEXT_SUCCESS, SET_POST_TEXT_FAILURE, SET_POST_TEXT_REQUEST,
 } from '../reducers/post';
 import { ADD_POST_TO_ME, REMOVE_POST_OF_ME } from '../reducers/user';
 
@@ -120,6 +121,26 @@ function* setPostTitle(action) {
     }
 }
 
+function setPostTextAPI(data) {
+    return axios.patch(`/post/text`, data);
+}
+
+function* setPostText(action) {
+    try {
+        const result = yield call(setPostTextAPI, action.data);
+        yield put({
+            type: SET_POST_TEXT_SUCCESS,
+            data: result.data
+        });
+    } catch (err) {
+        console.log(err);
+        yield put({
+            type: SET_POST_TEXT_FAILURE,
+            error: err.response.data
+        })
+    }
+}
+
 function addCommentAPI(data) {
     return axios.post(`/post/${data.postId}/comment`, data);
 };
@@ -201,6 +222,10 @@ function* watchSetPostTitle() {
     yield takeLatest(SET_POST_TITLE_REQUEST, setPostTitle);
 }
 
+function* watchSetPostText() {
+    yield takeLatest(SET_POST_TEXT_REQUEST, setPostText);
+}
+
 function* watchAddComment() {
     yield takeLatest(ADD_COMMENT_REQUEST, addComment);
 }
@@ -220,6 +245,7 @@ export default function* postSaga() {
         fork(watchAddPost),
         fork(watchRemovePost),
         fork(watchSetPostTitle),
+        fork(watchSetPostText),
         fork(watchAddComment),
         fork(watchUploadImages),
         fork(watchUploadThumbnail),
