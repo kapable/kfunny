@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Image } from 'antd';
@@ -8,14 +8,10 @@ import * as gtag from '../lib/gtag';
 import { useCookies } from 'react-cookie';
 
 const ArticleCardContentsForm = () => {
-    const [coupangCookies, setCoupangCookie, removeCoupangCookie] = useCookies(['coupang']);
+    const [coupangCookies, setCoupangCookie] = useCookies(['coupang']);
     const [isOpened, setIsOpened] = useState(false);
     const { singlePost } = useSelector((state) => state.post);
     const { managingUrls } = useSelector((state) => state.url);
-
-    // useEffect(() => {
-    //     window.location.href.includes('fbclid') && window.history?.length > 1 ? setIsOpened(true) : null;
-    // });
     
     const adProb = Math.random() < 0.5;
     const coupangLinks = managingUrls.filter((l) => l.name.includes("쿠팡"))
@@ -33,13 +29,8 @@ const ArticleCardContentsForm = () => {
         gtag.event({ action: "Click open-article Button", category: "Opening", label: "article page" });
     }, []);
 
-    const onRemoveCookie = useCallback(() => {
-        removeCoupangCookie('coupang', { path: '/' });
-    }, []);
-
     return (
         <div>
-                {/* <button onClick={onRemoveCookie}>COUPANG</button> */}
                 {/* TEXT CONTENTS */}
                 {!singlePost.content || singlePost.conent === null
                 ? <p className='article-text'>{singlePost.content}</p>

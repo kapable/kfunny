@@ -89,6 +89,7 @@
 }
 .article-image-div {
   margin: 0 auto;
+  display: block;
 }
 
 .article-share-btn-div {
