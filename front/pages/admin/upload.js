@@ -22,7 +22,7 @@ const Upload = () => {
   const { userInfo } = useSelector((state) => state.user);
   const [category, setCategory] = useState('');
   const [title, onChangeTitle] = useInput('');
-  const [content, onChangeContent] = useInput(null);
+  const [content, onChangeContent] = useInput('');
   const imageInput = useRef(null);
   const thumbnailInput = useRef(null);
 
