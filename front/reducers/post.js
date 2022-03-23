@@ -20,7 +20,7 @@ export const initialState = {
             src: '1_1646486661931.png'
         }, ],
         Comments: [{
-            id:"Kfunny",
+            id:35,
             User: {
                 id:"Kfunny",
                 nickname: 'abcd',

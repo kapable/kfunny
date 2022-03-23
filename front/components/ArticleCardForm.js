@@ -1,6 +1,6 @@
 import React, { Fragment, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { Divider, List, Comment, Avatar, BackTop } from 'antd';
+import { Divider, BackTop } from 'antd';
 import { LinkOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import CommentForm from './CommentForm';
 import ArticleNewsForm from './ArticleNewsForm';
 import ArticleCardContentsForm from './ArticleCardContentsForm';
+import ArticleCardCommentsForm from './ArticleCardCommentsForm';
 import * as gtag from '../lib/gtag';
 import AdPlus from '../lib/AdPlus';
 import Mobon from '../lib/Mobon';
@@ -50,26 +51,7 @@ const ArticleCardForm = () => {
 
             {/* COMMENT FORM */}
             <CommentForm singlePost={singlePost} />
-            <div className='article-comment-list-div'>
-                <List
-                    className='article-comment-list'
-                    header={`${singlePost.Comments.length}개의 댓글`}
-                    dataSource={singlePost.Comments}
-                    itemLayout="horizontal"
-                    renderItem={(item) => (
-                        <li>
-                            <Comment
-                                author={item.User.nickname}
-                                avatar={(
-                                    <Avatar>{item.User.nickname[0]}</Avatar>
-                                )}
-                                content={item.content}
-                                datetime={moment(item.createdAt).format('YYYY-MM-DD')}
-                            />
-                        </li>
-                    )}
-                />
-            </div>
+            <ArticleCardCommentsForm comments={singlePost.Comments} />
             <Divider dashed />
 
             {/* NEW ARTICLES LIST */}
