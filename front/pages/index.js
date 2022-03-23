@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
-import { Tabs } from 'antd';
+import { BackTop, Tabs } from 'antd';
 import HomeCardForm from '../components/HomeCardForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { LOAD_POSTS_REQUEST, RESET_KEYWORD_POSTS } from '../reducers/post';
@@ -10,6 +10,7 @@ import wrapper from '../store/configureStore';
 import axios from 'axios';
 import Head from 'next/head';
 import * as gtag from '../lib/gtag';
+import { CaretDownOutlined, VerticalAlignBottomOutlined } from '@ant-design/icons';
 
 const { TabPane } = Tabs;
 
@@ -84,6 +85,8 @@ const Home = () => {
                 <meta property="twitter:image:alt" content="핫이슈가 모인 최신 미디어, 케이퍼니" />
                 <meta property='og:site_name' content='케이퍼니' />
             </Head>
+
+            {/* Category Bar */}
             <Tabs tabPosition='top' size='default' type='line' onChange={onChangeCategory}>
                 {postCategories.map((category, _) => {
                     if(category.enabled) {
@@ -93,6 +96,24 @@ const Home = () => {
                     }
                 })}
             </Tabs>
+
+            {/* Scroll Down guide */}
+            {hasMorePosts
+            ? (
+                <div className='main-scroll-down-div'>
+                    <h3>스크롤해서 더보기</h3>
+                    <CaretDownOutlined />
+                </div>
+            )
+            : (
+                <div className='main-scroll-down-div'>
+                    <h3>아티클이 더이상 없어요!</h3>
+                    <VerticalAlignBottomOutlined />
+                </div>
+            )
+            }
+
+            <BackTop />
         </Fragment>
     );
 };
