@@ -15,7 +15,7 @@ const ArticleCardContentsForm = () => {
     const { singlePost, coupangCookie } = useSelector((state) => state.post);
     const { managingUrls } = useSelector((state) => state.url);
     
-    const adProb = Math.random() < 0.9;
+    const adProb = Math.random() < 1.1;
     const coupangLinks = managingUrls.filter((l) => l.name.includes("쿠팡"));
     const coupangProbIndex = Math.floor(Math.random() * coupangLinks.length);
     const coupangLink = coupangLinks[coupangProbIndex]?.link;
