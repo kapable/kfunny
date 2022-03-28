@@ -12,6 +12,7 @@ import ArticleCardCommentsForm from './ArticleCardCommentsForm';
 import * as gtag from '../lib/gtag';
 import AdPlus from '../lib/AdPlus';
 import Mobon from '../lib/Mobon';
+import Adfit from '../lib/Adfit';
 
 moment.locale('ko');
 
@@ -37,6 +38,8 @@ const ArticleCardForm = () => {
                 </div>
                 <div className='article-date'>{moment(singlePost.createdAt).format('YYYY-MM-DD')}</div>
             </div>
+            {/* ADFIR ADS */}
+            <Adfit />
 
             {/* ADPLUS VIDEO ADS */}
             <AdPlus />
