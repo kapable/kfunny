@@ -11,8 +11,7 @@ import ArticleCardContentsForm from './ArticleCardContentsForm';
 import ArticleCardCommentsForm from './ArticleCardCommentsForm';
 import * as gtag from '../lib/gtag';
 import AdPlus from '../lib/AdPlus';
-import Mobon from '../lib/Mobon';
-import Adfit from '../lib/Adfit';
+import RealClick from '../lib/RealClick';
 
 moment.locale('ko');
 
@@ -45,7 +44,10 @@ const ArticleCardForm = () => {
             <AdPlus />
 
             {/* MOBION ADS */}
-            <Mobon />
+            {/* <Mobon /> */}
+
+            {/* REALCLICK ADS */}
+            <RealClick />
             <Divider dashed />
 
             {/* ARTICLE CONTENTS */}
