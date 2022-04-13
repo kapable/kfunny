@@ -21,7 +21,8 @@ const ArticleCardContentsForm = () => {
     const coupangLink = coupangLinks[coupangProbIndex]?.link;
 
     const onCoupangButtonClick = useCallback(() => {
-        const cookieAges = 60*60*(24 - new Date().getHours()) <= 60*60*12 ? 60*60*(24 - new Date().getHours()) : 60*60*12;
+        // const cookieAges = 60*60*(24 - new Date().getHours()) <= 60*60*12 ? 60*60*(24 - new Date().getHours()) : 60*60*12;
+        const cookieAges = 60*60*22;
         setCoupangCookie('coupang', true, { path: '/', maxAge: cookieAges, secure: true }); // shorter one of 60 sec * 60 min * 12 hour | tommorow 00 - now time
         gtag.event({ action: "Click go-to-Coupang Button", category: "Opening", label: "article page" });
     }, []);
