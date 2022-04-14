@@ -43,8 +43,8 @@ const ArticleCardContentsForm = () => {
         <div>
                 {/* TEXT CONTENTS */}
                 {!singlePost.content || singlePost.conent === null
-                ? <p className='article-text'>{singlePost.content}</p>
-                : <br />
+                ? <br />
+                : <p className='article-text'>{singlePost.content}</p>
                 }
 
                 {/* IMAGE CONTENTS */}
