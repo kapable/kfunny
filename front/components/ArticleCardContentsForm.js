@@ -7,8 +7,10 @@ import { Button } from 'antd';
 import * as gtag from '../lib/gtag';
 import { useCookies } from 'react-cookie';
 import { SET_COUPANG_COOKIE } from '../reducers/post';
+import { useRouter } from 'next/router';
 
 const ArticleCardContentsForm = () => {
+    const router = useRouter();
     const dispatch = useDispatch();
     const [coupangCookies, setCoupangCookie] = useCookies(['coupang']);
     const [isOpened, setIsOpened] = useState(false);
@@ -17,8 +19,13 @@ const ArticleCardContentsForm = () => {
     
     const adProb = Math.random() < 1.1;
     const coupangLinks = managingUrls.filter((l) => l.name.includes("쿠팡"));
-    const coupangProbIndex = Math.floor(Math.random() * coupangLinks.length);
-    const coupangLink = coupangLinks[coupangProbIndex]?.link;
+    const coupangLink = (router.query?.ref_id && coupangLinks.filter((l) => l.name.replace('쿠팡파트너스','') === router.query?.ref_id).length > 0) ? (
+        coupangLinks.find((v) => v.name.replace('쿠팡파트너스', '') === router.query?.ref_id)?.link
+    ) : (
+        coupangLinks.find((v) => v.name === '쿠팡파트너스')?.link
+    );
+    // const coupangProbIndex = Math.floor(Math.random() * coupangLinks.length);
+    // const coupangLink = coupangLinks[coupangProbIndex]?.link;
 
     const onCoupangButtonClick = useCallback(() => {
         // const cookieAges = 60*60*(24 - new Date().getHours()) <= 60*60*12 ? 60*60*(24 - new Date().getHours()) : 60*60*12;
