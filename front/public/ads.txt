@@ -314,3 +314,4 @@ appnexus.com,12637,reseller,f5ab79cb980f11d1
 synacor.com,82171,reseller,e108f11b2cdf7d5b
 video.unrulymedia.com,3350674472,direct
 rhythmone.com,3350674472,direct,a670c89d4a324e47
+optad360.com,4708930,DIRECT

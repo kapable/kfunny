@@ -37,7 +37,7 @@ const ArticleCardForm = () => {
                 </div>
                 <div className='article-date'>{moment(singlePost.createdAt).format('YYYY-MM-DD')}</div>
             </div>
-            {/* ADFIR ADS */}
+            {/* ADFIT ADS */}
             {/* <Adfit /> */}
 
             {/* ADPLUS VIDEO ADS */}
