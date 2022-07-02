@@ -23,6 +23,11 @@ module.exports = {
     "database": process.env.RDS_DATABASE,
     "host": process.env.RDS_HOST,
     "dialect": "mysql",
+    "dialectOptions": {
+      "options": {
+        "requestTimeout": 3000
+      }
+    },
     "port":process.env.RDS_PORT
   }
 }
