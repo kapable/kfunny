@@ -112,7 +112,6 @@ const Home = () => {
                 </div>
             )
             }
-
             <BackTop />
         </Fragment>
     );

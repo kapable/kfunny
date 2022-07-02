@@ -43,6 +43,7 @@ router.get(`/:category`, async (req, res, next) => {
         });
         res.status(200).json(posts);
     } catch (error) {
+        console.log('SERVER GET POSTS');
         console.error(error);
         next(error);
     };
