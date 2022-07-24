@@ -73,8 +73,8 @@ const ArticleCardContentsForm = () => {
                                 {adProb
                                 ? 
                                 <a href={coupangLink} target="_blank" rel='noreferrer noopener'>
-                                    <Button type="primary" shape='round' style={{ width: '15rem'}} onClick={onCoupangButtonClick}>
-                                        쿠팡 보고 컨텐츠 펼쳐보기<ArrowRightOutlined />
+                                    <Button type="primary" shape='round' style={{ width: '15rem', height: '3rem' }} onClick={onCoupangButtonClick}>
+                                        쿠팡 보고 컨텐츠 펼쳐보기<ArrowRightOutlined /><br /><p style={{ fontSize: '0.5rem', color: 'lightgray' }}>원치 않을 경우 뒤로 가기를 눌러주세요</p>
                                     </Button>
                                 </a>
                                 : 
