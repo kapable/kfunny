@@ -31,6 +31,7 @@ const Home = () => {
             type: LOAD_POSTS_REQUEST,
             data: category,
         });
+        setCurrentPage(1);
     }, []);
 
     const onPageChange = useCallback((e) => {
