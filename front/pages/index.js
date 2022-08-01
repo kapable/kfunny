@@ -117,8 +117,7 @@ const Home = () => {
                     }
                 })}
             </Tabs>
-            {console.log('LENG', postsLength)}
-            <Pagination className='main-pagination' showSizeChanger={false} total={postsLength} onChange={onPageChange} defaultPageSize={10} />
+            <Pagination className='main-pagination' showSizeChanger={false} total={mainPosts.length} onChange={onPageChange} defaultPageSize={10} />
 
             {/* Scroll Down guide */}
             {/* {hasMorePosts
