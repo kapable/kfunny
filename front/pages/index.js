@@ -41,7 +41,7 @@ const Home = () => {
     useEffect(() => {
         if(currentPage % 5 === 0 && hasMorePosts) {
             const lastId = mainPosts[mainPosts.length - 1]?.id;
-            return dispatch({
+            return () => dispatch({
                 type: LOAD_POSTS_REQUEST,
                 data: currentCategory,
                 lastId
