@@ -113,7 +113,13 @@ const Home = () => {
                     }
                 })}
             </Tabs>
-            <Pagination className='main-pagination' showSizeChanger={false} total={currentPage % 5 === 0 && hasMorePosts ? mainPosts.length+1 : mainPosts.length} onChange={onPageChange} defaultPageSize={10} />
+            <Pagination
+                className='main-pagination'
+                current={currentPage}
+                showSizeChanger={false}
+                total={currentPage % 5 === 0 && hasMorePosts ? mainPosts.length+1 : mainPosts.length}
+                onChange={onPageChange}
+                defaultPageSize={10} />
 
             {/* Scroll Down guide */}
             {/* {hasMorePosts
