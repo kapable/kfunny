@@ -20,7 +20,6 @@ const Home = () => {
     const { postCategories } = useSelector((state) => state.category);
     const [currentCategory, setCurrentCategory] = useState('HOT 이슈');
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsLength, setPostsLength] = useState(mainPosts.length);
 
     const onChangeCategory = useCallback((category) => {
         gtag.event({ action: "Click another-keyword Tab", category: "Paging", label: "Home page" });
@@ -39,21 +38,15 @@ const Home = () => {
     }, []);
 
     useEffect(() => {
-        if(currentPage % 5 === 0 && hasMorePosts) {
+        if(currentPage % 2 === 0 && hasMorePosts) {
             const lastId = mainPosts[mainPosts.length - 1]?.id;
-            return () => {
-                dispatch({
-                    type: LOAD_POSTS_REQUEST,
-                    data: currentCategory,
-                    lastId
-                });
-            }
+            return dispatch({
+                type: LOAD_POSTS_REQUEST,
+                data: currentCategory,
+                lastId
+            });
         }
     }, [currentPage, hasMorePosts, loadPostsLoading, mainPosts, currentCategory]);
-
-    useState(() => {
-        setPostsLength(mainPosts.length);
-    }, [mainPosts]);
 
     // useEffect(() => {
     //     function onScroll() {
@@ -119,7 +112,7 @@ const Home = () => {
                     }
                 })}
             </Tabs>
-            <Pagination className='main-pagination' showSizeChanger={false} total={postsLength} onChange={onPageChange} defaultPageSize={10} />
+            <Pagination className='main-pagination' showSizeChanger={false} total={mainPosts.length} onChange={onPageChange} defaultPageSize={10} />
 
             {/* Scroll Down guide */}
             {/* {hasMorePosts
