@@ -17,7 +17,7 @@ router.get(`/:category`, async (req, res, next) => {
         };
         const posts = await Post.findAll({
             where: globalWhere,
-            limit: 21,
+            limit: 51,
             order: [
                 ['createdAt', 'DESC'],
                 [Comment, 'createdAt', 'DESC'],
