@@ -21,6 +21,8 @@ const Home = () => {
     const [currentCategory, setCurrentCategory] = useState('HOT 이슈');
     const [currentPage, setCurrentPage] = useState(1);
     const [postsLength, setPostsLength] = useState(mainPosts.length);
+    const [, updateState] = React.useState();
+    const forceUpdate = React.useCallback(() => updateState({}), []);
 
     const onChangeCategory = useCallback((category) => {
         gtag.event({ action: "Click another-keyword Tab", category: "Paging", label: "Home page" });
@@ -41,11 +43,13 @@ const Home = () => {
     useEffect(() => {
         if(currentPage % 5 === 0 && hasMorePosts) {
             const lastId = mainPosts[mainPosts.length - 1]?.id;
-            return () => dispatch({
+            return () => {dispatch({
                 type: LOAD_POSTS_REQUEST,
                 data: currentCategory,
                 lastId
             });
+            forceUpdate()
+        }
         }
     }, [currentPage, hasMorePosts, loadPostsLoading, mainPosts, currentCategory]);
 
