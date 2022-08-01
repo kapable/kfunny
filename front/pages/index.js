@@ -38,7 +38,7 @@ const Home = () => {
     }, []);
 
     useEffect(() => {
-        if(currentPage % 2 === 0 && hasMorePosts) {
+        if(currentPage % 5 === 0 && hasMorePosts) {
             const lastId = mainPosts[mainPosts.length - 1]?.id;
             return () => dispatch({
                 type: LOAD_POSTS_REQUEST,
@@ -112,7 +112,7 @@ const Home = () => {
                     }
                 })}
             </Tabs>
-            <Pagination className='main-pagination' showSizeChanger={false} total={currentPage % 2 === 0 && hasMorePosts ? mainPosts.length+1 : mainPosts.length} onChange={onPageChange} defaultPageSize={10} />
+            <Pagination className='main-pagination' showSizeChanger={false} total={currentPage % 5 === 0 && hasMorePosts ? mainPosts.length+1 : mainPosts.length} onChange={onPageChange} defaultPageSize={10} />
 
             {/* Scroll Down guide */}
             {/* {hasMorePosts
