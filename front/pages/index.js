@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
-import { BackTop, Tabs } from 'antd';
+import { BackTop, Tabs, Pagination } from 'antd';
 import HomeCardForm from '../components/HomeCardForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { LOAD_POSTS_REQUEST, RESET_KEYWORD_POSTS } from '../reducers/post';
@@ -19,6 +19,7 @@ const Home = () => {
     const { mainPosts, hasMorePosts, loadPostsLoading } = useSelector((state) => state.post);
     const { postCategories } = useSelector((state) => state.category);
     const [currentCategory, setCurrentCategory] = useState('HOT 이슈');
+    const [currentPage, setCurrentPage] = useState(1);
 
     const onChangeCategory = useCallback((category) => {
         gtag.event({ action: "Click another-keyword Tab", category: "Paging", label: "Home page" });
@@ -32,24 +33,39 @@ const Home = () => {
         });
     }, []);
 
+    const onPageChange = useCallback((e) => {
+        setCurrentPage(e)
+    }, []);
+
     useEffect(() => {
-        function onScroll() {
-            if(window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight - 500) {
-                if(hasMorePosts && !loadPostsLoading) {
-                    const lastId = mainPosts[mainPosts.length - 1]?.id;
-                    dispatch({
-                        type: LOAD_POSTS_REQUEST,
-                        data: currentCategory,
-                        lastId
-                    });
-                };
-            };
-        };
-        window.addEventListener('scroll', onScroll);
-        return () => {
-            window.removeEventListener('scroll', onScroll);
-        };
-    }, [hasMorePosts, loadPostsLoading, mainPosts, currentCategory]);
+        if(currentPage % 5 === 0 && hasMorePosts) {
+            const lastId = mainPosts[mainPosts.length - 1]?.id;
+            dispatch({
+                type: LOAD_POSTS_REQUEST,
+                data: currentCategory,
+                lastId
+            });
+        }
+    }, [currentPage, hasMorePosts, loadPostsLoading, mainPosts, currentCategory]);
+
+    // useEffect(() => {
+    //     function onScroll() {
+    //         if(window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight - 500) {
+    //             if(hasMorePosts && !loadPostsLoading) {
+    //                 const lastId = mainPosts[mainPosts.length - 1]?.id;
+    //                 dispatch({
+    //                     type: LOAD_POSTS_REQUEST,
+    //                     data: currentCategory,
+    //                     lastId
+    //                 });
+    //             };
+    //         };
+    //     };
+    //     window.addEventListener('scroll', onScroll);
+    //     return () => {
+    //         window.removeEventListener('scroll', onScroll);
+    //     };
+    // }, [hasMorePosts, loadPostsLoading, mainPosts, currentCategory]);
     
     return (
         <Fragment>
@@ -91,14 +107,15 @@ const Home = () => {
                 {postCategories.map((category, _) => {
                     if(category.enabled) {
                         return (<TabPane key={category.label} tab={`${category.label}`}>
-                                    <HomeCardForm posts={mainPosts} keyword={`${category.label}`}/>
+                                    <HomeCardForm posts={mainPosts.slice((currentPage-1)*10, (currentPage-1)*10+10)} keyword={`${category.label}`}/>
                                 </TabPane>)
                     }
                 })}
             </Tabs>
+            <Pagination className='main-pagination' total={mainPosts.length} onChange={onPageChange} defaultPageSize={10} />
 
             {/* Scroll Down guide */}
-            {hasMorePosts
+            {/* {hasMorePosts
             ? (
                 <div className='main-scroll-down-div'>
                     <h3>스크롤해서 더보기</h3>
@@ -111,7 +128,7 @@ const Home = () => {
                     <VerticalAlignBottomOutlined />
                 </div>
             )
-            }
+            } */}
             <BackTop />
         </Fragment>
     );

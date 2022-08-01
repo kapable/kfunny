@@ -8,7 +8,7 @@ const HomeCardForm = ({ posts, keyword }) => {
     if (keyword === "HOT 이슈") {
         return (
             <Fragment>
-                {loadPostsLoading ? <HomeCardSkeleton number={10} /> : <HomeCards posts={mainPosts}/>}
+                {loadPostsLoading ? <HomeCardSkeleton number={10} /> : <HomeCards posts={posts}/>}
             </Fragment>
         );
     } else {

@@ -31,6 +31,10 @@
 }
 
 /* index */
+.main-pagination {
+  margin-top: 2rem;
+  text-align: center;
+}
 .main-scroll-down-div {
   width: 10rem;
   margin: 2rem auto 0;
