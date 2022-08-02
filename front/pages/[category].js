@@ -87,7 +87,7 @@ const CategoryIndex = () => {
             </Head>
 
             {/* Category Bar */}
-            <Tabs tabPosition='top' size='default' type='line' onChange={onChangeCategory}>
+            <Tabs tabPosition='top' size='default' type='line' onChange={onChangeCategory} activeKey={category}>
                 {postCategories.map((category, _) => {
                     if(category.enabled) {
                         return (<TabPane key={category.label} tab={`${category.label}`}>
