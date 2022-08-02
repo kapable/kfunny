@@ -9,30 +9,31 @@ import { END } from 'redux-saga';
 import wrapper from '../store/configureStore';
 import axios from 'axios';
 import Head from 'next/head';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import * as gtag from '../lib/gtag';
 
 const { TabPane } = Tabs;
 
-const Home = () => {
+const CategoryIndex = () => {
+    const router = useRouter();
+    const { category } = router.query;
     const dispatch = useDispatch();
     const { mainPosts, hasMorePosts } = useSelector((state) => state.post);
     const { postCategories } = useSelector((state) => state.category);
-    const [currentCategory, setCurrentCategory] = useState('HOT 이슈');
     const [currentPage, setCurrentPage] = useState(1);
+
+    useEffect(() => {
+        if(!postCategories.map(cat => cat.label).includes(category)) {
+            alert('존재하지 않는 카테고리입니다!');
+            return Router.replace('/');
+        }
+    }, [postCategories, category]);
 
     const onChangeCategory = useCallback((category) => {
         gtag.event({ action: "Click another-keyword Tab", category: "Paging", label: "Home page" });
-        Router.push(`/${category}`);
-        // setCurrentCategory(category);
-        // dispatch({
-        //     type: RESET_KEYWORD_POSTS,
-        // });
-        // dispatch({
-        //     type: LOAD_POSTS_REQUEST,
-        //     data: category,
-        // });
-        // setCurrentPage(1);
+        category === postCategories[0].label
+        ? (Router.push('/'))
+        : (Router.push(`/${category}`))
     }, []);
 
     const onPageChange = useCallback((e) => {
@@ -44,11 +45,11 @@ const Home = () => {
             const lastId = mainPosts[mainPosts.length - 1]?.id;
             return () => dispatch({
                 type: LOAD_POSTS_REQUEST,
-                data: currentCategory,
+                data: category,
                 lastId
             });
         }
-    }, [currentPage, hasMorePosts, mainPosts, currentCategory]);
+    }, [currentPage, hasMorePosts, mainPosts, category]);
     
     return (
         <Fragment>
@@ -127,11 +128,11 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
     });
     context.store.dispatch({
         type: LOAD_POSTS_REQUEST,
-        data: encodeURI("HOT 이슈"),
+        data: encodeURI(context.params.category),
     });
     context.store.dispatch(END)
 
     await context.store.sagaTask.toPromise()
 });
 
-export default Home;
+export default CategoryIndex;

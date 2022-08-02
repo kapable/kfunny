@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Link from 'next/link';
+import Router from 'next/router';
 import { Menu, Layout } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { LOG_OUT_REQUEST } from '../reducers/user';
@@ -27,37 +27,41 @@ const AppLayout = ({ children }) => {
 
     const onHomeButtonClick = useCallback(() => {
         gtag.event({ action: "Click Home logo Button", category: "Paging", label: "navigation bar" });
+        return Router.push('/');
     }, []);
 
     const onSignupButtonClick = useCallback(() => {
         gtag.event({ action: "Click go-to-Signup Button", category: "Paging", label: "navigation bar" });
+        return Router.push('/signup');
     }, []);
 
     const onLoginButtonClick = useCallback(() => {
         gtag.event({ action: "Click go-to-Login Button", category: "Paging", label: "navigation bar" });
+        return Router.push('/login');
     }, []);
 
     const onMyInfoButtonClick = useCallback(() => {
         gtag.event({ action: "Click go-to-Myinfo Button", category: "Paging", label: "navigation bar" });
+        return Router.push('/profile');
     }, []);
 
     return (
         <Layout className='applayout'>
             <Header className='applayout-header'>
                 <Menu mode='horizontal' triggerSubMenuAction="click" theme='light'>
-                    <Menu.Item key="home"><Link href='/'><a><img onClick={onHomeButtonClick} className='applayout-nav-kfunny-main-logo' src='https://images.niair.xyz/basic/kfunny_logo.png' alt='케이퍼니' /></a></Link></Menu.Item>
+                    <Menu.Item key="home" onClick={onHomeButtonClick}><img className='applayout-nav-kfunny-main-logo' src='https://images.niair.xyz/basic/kfunny_logo.png' alt='케이퍼니' /></Menu.Item>
                     <Menu.Item key="divider" disabled={true}>|</Menu.Item>
                     {userInfo 
                     ? (
                     <>
-                        <Menu.Item key="profile"><Link href='/profile'><a onClick={onMyInfoButtonClick}>내 정보</a></Link></Menu.Item>
+                        <Menu.Item key="profile" onClick={onMyInfoButtonClick}>내 정보</Menu.Item>
                         <Menu.Item key='logout' onClick={onLogout}>로그아웃</Menu.Item>
                     </>
                     )
                     : (
                     <>
-                        <Menu.Item key="signup" ><Link href='/signup'><a onClick={onSignupButtonClick}>회원가입</a></Link></Menu.Item>
-                        <Menu.Item key="login" ><Link href='/login'><a onClick={onLoginButtonClick}>로그인</a></Link></Menu.Item>
+                        <Menu.Item key="signup" onClick={onSignupButtonClick} >회원가입</Menu.Item>
+                        <Menu.Item key="login" onClick={onLoginButtonClick} >로그인</Menu.Item>
                     </>)}
                 </Menu>
             </Header>
