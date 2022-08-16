@@ -105,7 +105,7 @@ router.get(`/:postId`, async (req, res, next) => {
         if(!post) {
             return res.status(404).send('존재하지 않는 게시글입니다ㅠㅠ');
         };
-        const fullPost = await Post.findOne({
+        let fullPost = await Post.findOne({
             where: { id: parseInt(post.id) },
             include: [{
                 model: Category,
@@ -115,6 +115,7 @@ router.get(`/:postId`, async (req, res, next) => {
                 attributes: ['id', 'nickname'],
             }, {
                 model: Image,
+                order: ['id', 'ASC'],
             }, {
                 model: Thumbnail,
             },{
@@ -125,6 +126,14 @@ router.get(`/:postId`, async (req, res, next) => {
                 }]
             }]
         });
+        // sort by image id for sorting by order
+        fullPost.Images.sort((a, b) => {
+            if(a.id > b.id) {
+                return 1
+            } else {
+                return -1
+            }
+        })
         res.status(200).json(fullPost);
     } catch (error) {
         console.error(error);
