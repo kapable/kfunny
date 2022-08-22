@@ -58,7 +58,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 passportConfig();
 app.use(cors({
-    origin: [process.env.SERVICE_FRONT_URL, process.env.DEV_FRONT_URL],
+    origin: [process.env.SERVICE_FRONT_URL, process.env.SERVICE_FRONT_URL2, process.env.DEV_FRONT_URL],
     credentials: true,
 }));
 app.use(passport.initialize());
