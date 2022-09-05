@@ -12,7 +12,7 @@ import ArticleCardCommentsForm from './ArticleCardCommentsForm';
 import * as gtag from '../lib/gtag';
 import AdPlus from '../lib/AdPlus';
 import RealClick from '../lib/RealClick';
-import CoupangBanner from '../lib/coupangBanner';
+import CoupangBanner from '../lib/CoupangBanner';
 
 moment.locale('ko');
 
