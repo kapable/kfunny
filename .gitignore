@@ -4,3 +4,5 @@ node_modules
 uploads
 mysql-apt-config*.*
 mysql-apt-config*.*.*
+out
+.DS_Store
