@@ -32,7 +32,7 @@ exports.handler = async (event, context, callback) => {
         // }
         await s3.putObject({
             Bucket,
-            Key: `resized/${filename}}`,
+            Key: `resized/${filename}`,
             Body: resizedImage,
         }).promise();
         console.log('put', resizedImage.length);
