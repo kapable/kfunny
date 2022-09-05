@@ -228,7 +228,7 @@ router.post(`/:postId/comment`, isLoggedIn, async (req, res, next) => { // POST 
 // ADD IMAGES
 router.post(`/images`, isLoggedIn, upload.array('image'), async (req, res, next) => { // POST /post/images
     try {
-        res.status(200).json(req.files.map((v) => process.env.NODE_ENV === 'production' ? `https://images.niair.xyz/${v.key}` : `${process.env.DEV_BACKURL}/${v.filename}`));
+        res.status(200).json(req.files.map((v) => process.env.NODE_ENV === 'production' ? `https://images.niair.xyz/${v.key}`.replace(/\/original\//, '/resized/') : `${process.env.DEV_BACKURL}/${v.filename}`));
     } catch (error) {
         console.error(error);
         next(error);
@@ -237,7 +237,7 @@ router.post(`/images`, isLoggedIn, upload.array('image'), async (req, res, next)
 // ADD THUMBNAIL
 router.post(`/thumbnail`, isLoggedIn, upload.array('thumbnail'), async (req, res, next) => { // POST /post/thumbnail
     try {
-        res.status(200).json(req.files.map((v) => process.env.NODE_ENV === 'production' ? `https://images.niair.xyz/${v.key}` : `${process.env.DEV_BACKURL}/${v.filename}`));
+        res.status(200).json(req.files.map((v) => process.env.NODE_ENV === 'production' ? `https://images.niair.xyz/${v.key}`.replace(/\/original\//, '/resized/') : `${process.env.DEV_BACKURL}/${v.filename}`));
     } catch (error) {
         console.error(error);
         next(error);
