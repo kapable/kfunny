@@ -61,6 +61,8 @@ const ArticleCardForm = () => {
             {/* COMMENT FORM */}
             <CommentForm singlePost={singlePost} />
             <ArticleCardCommentsForm comments={singlePost.Comments} />
+            {/* COUPANG BANNER */}
+            <CoupangBanner />
             <Divider dashed />
 
             {/* NEW ARTICLES LIST */}
