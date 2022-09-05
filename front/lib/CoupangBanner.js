@@ -11,7 +11,7 @@ const CoupangBanner = () => {
                     new PartnersCoupang.G({"id":593521,"template":"carousel","trackingCode":"AF4396324","width":"680","height":"140"});
                     `
             }}/> */}
-            <iframe src="https://ads-partners.coupang.com/widgets.html?id=593521&template=carousel&trackingCode=AF4396324&subId=&width=360&height=140" width="360" height="140" frameborder="0" scrolling="no" referrerpolicy="unsafe-url"></iframe>
+            <iframe src="https://ads-partners.coupang.com/widgets.html?id=593521&template=carousel&trackingCode=AF4396324&subId=&width=360&height=140" width="100%" height="140" frameborder="0" scrolling="no" referrerpolicy="unsafe-url"></iframe>
         </>
     );
 };
