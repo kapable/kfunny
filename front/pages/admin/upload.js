@@ -175,7 +175,7 @@ const Upload = () => {
           <div>
               {imagePaths.map((v, i) => (
                   <div key={v} className='admin-upload-img-preview-div'>
-                      <img src={v} className='admin-upload-img-preview' alt={v} />
+                      <img src={v.replace(/\/resized\//, '/original/')} className='admin-upload-img-preview' alt={v} /> {/* Change Image src temporarily about resizing process */}
                       <div className='admin-upload-img-delete-btn-div'>
                           <Button className='admin-upload-img-delete-btn' onClick={onRemoveImage(i)}>Delete</Button>
                       </div>
