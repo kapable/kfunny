@@ -12,6 +12,7 @@ import ArticleCardCommentsForm from './ArticleCardCommentsForm';
 import * as gtag from '../lib/gtag';
 import AdPlus from '../lib/AdPlus';
 import RealClick from '../lib/RealClick';
+import CoupangBanner from '../lib/coupangBanner';
 
 moment.locale('ko');
 
@@ -37,6 +38,9 @@ const ArticleCardForm = () => {
                 </div>
                 <div className='article-date'>{moment(singlePost.createdAt).format('YYYY-MM-DD')}</div>
             </div>
+            {/* COUPANG BANNER */}
+            <CoupangBanner />
+
             {/* ADFIT ADS */}
             {/* <Adfit /> */}
 
