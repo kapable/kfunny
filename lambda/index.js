@@ -14,7 +14,7 @@ exports.handler = async (event, context, callback) => {
 
     try {
         const s3Object = await s3.getObject({ Bucket, Key }).promise;
-        console.log('original', s3Object.Body.length);
+        // console.log('original', s3Object.Body.length);
         let resizedImage = await sharp(s3Object.Body)
                 .resize({ fit : 'inside', width: 480 })
                 .toFormat(requiredFormat)
@@ -34,7 +34,7 @@ exports.handler = async (event, context, callback) => {
             Bucket,
             Key: `resized/${filename}}`,
             Body: resizedImage,
-        }).promise;
+        }).promise();
         console.log('put', resizedImage.length);
         return callback(null, `resized/${filename}}`);
     } catch (error) {
