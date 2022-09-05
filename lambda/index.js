@@ -15,21 +15,21 @@ exports.handler = async (event, context, callback) => {
     try {
         const s3Object = await s3.getObject({ Bucket, Key }).promise();
         // console.log('original', s3Object.Body.length);
-        let resizedImage = await sharp(s3Object.Body)
+        const resizedImage = await sharp(s3Object.Body)
                 .resize({ fit : 'inside', width: 480 })
                 .toFormat(requiredFormat)
                 .toBuffer();
-        const qualityNum = 70;
-        if(requiredFormat === 'jpeg') {
-            let resizedImage = resizedImage
-                .jpeg({ quality: qualityNum });
-        } else if (requiredFormat === 'png' || 'PNG') {
-            let resizedImage = resizedImage
-                .png({ quality: qualityNum });
-        } else if (requiredFormat === 'webp') {
-            let resizedImage = resizedImage
-                .webp({ quality: qualityNum });
-        }
+        // const qualityNum = 70;
+        // if(requiredFormat === 'jpeg') {
+        //     let resizedImage = resizedImage
+        //         .jpeg({ quality: qualityNum });
+        // } else if (requiredFormat === 'png' || 'PNG') {
+        //     let resizedImage = resizedImage
+        //         .png({ quality: qualityNum });
+        // } else if (requiredFormat === 'webp') {
+        //     let resizedImage = resizedImage
+        //         .webp({ quality: qualityNum });
+        // }
         await s3.putObject({
             Bucket,
             Key: `resized/${filename}}`,
