@@ -8,6 +8,7 @@ import wrapper from '../store/configureStore';
 import { useRouter } from 'next/router';
 import * as gtag from '../lib/gtag';
 import { CookiesProvider } from 'react-cookie';
+import Head from 'next/head';
 React.useLayoutEffect = React.useEffect;
 
 const App = ({ Component }) => {
@@ -22,6 +23,9 @@ const App = ({ Component }) => {
 
     return (
         <Fragment>
+            <Head>
+                <meta name="naver-site-verification" content="54431b6c522b48ef23ca288623f778376899e4d2" />
+            </Head>
             <CookiesProvider>
                 <AppLayout>
                     <Component />
