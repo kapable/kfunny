@@ -26,6 +26,7 @@ const App = ({ Component }) => {
             <Head>
                 <meta name="naver-site-verification" content="54431b6c522b48ef23ca288623f778376899e4d2" />
                 <meta name="naver-site-verification" content="da0ab7b6d5a4281d1f2a50b851f21f18fbee57ac" />
+                <meta name="google-site-verification" content="zfvuGf6RBQKn4dtX-sxKdlXrroZ1GOLWC4kGqqtIRy8" />
             </Head>
             <CookiesProvider>
                 <AppLayout>
