@@ -20,7 +20,7 @@ passportConfig();
 dotenv.config();
 
 const app = express();
-db.sequelize.sync()
+db.sequelize.sync({ alter: true })
     .then(() => {
         console.log('DB Connected...');
     })

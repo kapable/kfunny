@@ -1,5 +1,6 @@
 const user = require('./user');
 const post = require('./post');
+const article = require('./article');
 const comment = require('./comment');
 const image = require('./image');
 const thumbnail = require('./thumbnail');
@@ -15,6 +16,7 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 
 db.User = user;
 db.Post = post;
+db.Article = article;
 db.Comment = comment;
 db.Image = image;
 db.Thumbnail = thumbnail;
