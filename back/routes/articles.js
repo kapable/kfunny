@@ -1,8 +1,9 @@
 const express = require('express');
 const { Op } = require('sequelize');
 const router = express.Router();
-const { Post, User, Image, Comment, Category, Thumbnail } = require('../models');
+const { Article, User, Comment, Category } = require('../models');
 
+// LOAD ARTICLES // GET /articles/:categoryId
 router.get(`/:category`, async (req, res, next) => {
     try {
         let globalWhere = {};
@@ -15,7 +16,7 @@ router.get(`/:category`, async (req, res, next) => {
         if (parseInt(req.query.lastId, 10)) {
             globalWhere.id = { [Op.lt]: parseInt(req.query.lastId, 10) };
         };
-        const posts = await Post.findAll({
+        const articles = await Article.findAll({
             where: globalWhere,
             limit: 51,
             order: [
@@ -30,10 +31,6 @@ router.get(`/:category`, async (req, res, next) => {
                 model: User,
                 attributes: ['id', 'nickname'],
             }, {
-                model: Image,
-            }, {
-                model: Thumbnail,
-            },{
                 model: Comment,
                 include: [{
                     model: User,
@@ -41,7 +38,7 @@ router.get(`/:category`, async (req, res, next) => {
                 }]
             }]
         });
-        res.status(200).json(posts);
+        res.status(200).json(articles);
     } catch (error) {
         console.error(error);
         next(error);

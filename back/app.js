@@ -2,6 +2,8 @@ const express = require('express');
 const morgan = require('morgan');
 const postRouter = require('./routes/post');
 const postsRouter = require('./routes/posts');
+const articleRouter = require('./routes/article');
+const articlesRouter = require('./routes/articles');
 const userRouter = require('./routes/user');
 const categoryRouter = require('./routes/category');
 const urlsRouter = require('./routes/urls');
@@ -70,6 +72,8 @@ app.get('/', (req, res) => {
 
 app.use('/post', postRouter);
 app.use('/posts', postsRouter);
+app.use('/article', articleRouter);
+app.use('/articles', articlesRouter);
 app.use('/user', userRouter);
 app.use('/category', categoryRouter);
 app.use('/urls', urlsRouter);
