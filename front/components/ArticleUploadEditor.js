@@ -17,6 +17,7 @@ import axios from 'axios';
 import { backUrl } from '../config/config';
 import { useEffect } from 'react';
 import { UploadOutlined } from '@ant-design/icons';
+import { ADD_ARTICLE_REQUEST } from '../reducers/article';
 
 const { Option } = Select;
 
@@ -95,7 +96,10 @@ const ArticleUploadEditor = () => {
         if(!content || content === '<p><br></p>') {
             return alert('글을 작성해주세요!');
         };
-
+        dispatch({
+            type: ADD_ARTICLE_REQUEST,
+            data: { title, category, content }
+        });
     }, [title, category, content]);
 
     return (
@@ -132,7 +136,7 @@ const ArticleUploadEditor = () => {
                 />
 
                 {/* Submit Button */}
-                <Button type='primary' htmlType="submit" ><UploadOutlined /> 업로드</Button>
+                <Button className='admin-upload-submit-button' type='primary' htmlType="submit" ><UploadOutlined /> 업로드</Button>
             </Form>
         </div>
     );
