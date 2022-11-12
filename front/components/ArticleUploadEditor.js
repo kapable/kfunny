@@ -27,9 +27,17 @@ const ArticleUploadEditor = () => {
     const dispatch = useDispatch();
     const { postCategories } = useSelector((state) => state.category);
     const { userInfo } = useSelector((state) => state.user);
+    const { addArticleDone, addArticleLoading } = useSelector((state) => state.article);
     const [title, onChangeTitle] = useInput('');
     const [category, setCategory] = useState('');
     const [content, setContent] = useState("");
+
+    useEffect(() => {
+        if(addArticleDone) {
+            alert('게시물이 성공적으로 업로드 되었습니다!');
+            router.reload();
+        }
+    }, [addArticleDone]);
 
     const imageHandler = () => {
         // 1. 이미지를 저장할 input type=file DOM을 만든다.
@@ -136,7 +144,7 @@ const ArticleUploadEditor = () => {
                 />
 
                 {/* Submit Button */}
-                <Button className='admin-upload-submit-button' type='primary' htmlType="submit" ><UploadOutlined /> 업로드</Button>
+                <Button className='admin-upload-submit-button' type='primary' htmlType="submit" loading={addArticleLoading} ><UploadOutlined /> 업로드</Button>
             </Form>
         </div>
     );
