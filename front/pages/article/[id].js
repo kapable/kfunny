@@ -2,7 +2,6 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import ArticleCardForm from '../../components/ArticleCardForm';
 import { END } from 'redux-saga';
 import axios from 'axios';
 import { LOAD_MY_INFO_REQUEST } from '../../reducers/user';

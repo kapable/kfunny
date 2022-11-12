@@ -48,7 +48,7 @@ const upload = multer({
 // ADD IMAGES // POST /article/images
 router.post(`/images`, isLoggedIn, upload.array('image'), async (req, res, next) => { 
     try {
-        res.status(200).json(req.files.map((v) => process.env.NODE_ENV === 'production' ? `https://images.doodniairling.kr/${v.key}`.replace(/\/original\//, '/resized/') : `${process.env.DEV_BACKURL}/${v.filename}`));
+        res.status(200).json(req.files.map((v) => process.env.NODE_ENV === 'production' ? `https://images.niair.xyz/${v.key}`.replace(/\/original\//, '/resized/') : `${process.env.DEV_BACKURL}/${v.filename}`));
     } catch (error) {
         console.error(error);
         next(error);
