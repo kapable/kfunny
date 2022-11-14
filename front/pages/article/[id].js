@@ -19,10 +19,12 @@ const Article = () => {
     const imgRegex = new RegExp('<img src="(.*?)"', 'igm');
     const thumbnailSrc = useState(imgRegex.exec(singleArticle.contents)[1].toString() || ['https://images.niair.xyz/basic/kfunny_logo.png'] );
 
+    const textRegex = new RegExp('<\s*p[^>]*>([^<]*)<\s*\/\s*p\s*>', 'igm');
+    console.log(textRegex.exec(singleArticle.contents.toString()));
+
     return (
         <Fragment>
             <Head>
-                {console.log(thumbnailSrc[0])}
                 <title>{singleArticle?.title} | 케이퍼니</title>
                 <meta charSet='utf-8'/>
                 <meta name='desciprtion' content={singleArticle?.title}/>
