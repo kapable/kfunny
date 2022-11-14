@@ -29,7 +29,7 @@ const Article = () => {
 
                 {/* <!-- Open Graph / Facebook --> */}
                 <meta property='og:title' content={`${singleArticle.title} | 케이퍼니`}/>
-                <meta property='og:description' content={singleArticle.title}/>
+                <meta property='og:description' content={singleArticle.contents}/>
                 {/* <meta property='og:image' content={singlePost.Thumbnails.length ? singlePost.Thumbnails[0]?.src : singlePost.Images[0]?.src}/> */}
                 <meta property='og:url' content={`https://niair.xyz/article/${id}`}/>
                 <meta property="og:type" content="website"/>
@@ -41,7 +41,7 @@ const Article = () => {
                 {/* <!-- Twitter --> */}
                 <meta property="twitter:card" content="summary_large_image"/>
                 <meta property='twitter:title' content={`${singleArticle.title} | 케이퍼니`}/>
-                <meta property='twitter:description' content={singleArticle.title}/>
+                <meta property='twitter:description' content={singleArticle.contents}/>
                 {/* <meta property='twitter:image' content={singlePost.Thumbnails.length ? singlePost.Thumbnails[0]?.src : singlePost.Images[0]?.src}/> */}
                 <meta property='twitter:url' content={`https://niair.xyz/article/${id}`}/>
                 <meta property="twitter:type" content="website"/>

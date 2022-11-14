@@ -64,7 +64,7 @@ const reducer = (state = initialState, action) => {
                 draft.mainArticles = draft.mainArticles.concat(action.data.slice(0, 50));
                 draft.loadArticlesDone = true;
                 draft.loadArticlesLoading = false;
-                draft.hasMorePosts = action.data.length === 51;
+                draft.hasMoreArticles = action.data.length === 51;
                 break;
             case LOAD_ARTICLES_FAILURE:
                 draft.loadArticlesLoading = false;
@@ -79,7 +79,7 @@ const reducer = (state = initialState, action) => {
                 draft.singleArticle = action.data;
                 draft.loadArticleDone = true;
                 draft.loadArticleLoading = false;
-                draft.hasMorePosts = action.data.length === 10;
+                draft.hasMoreArticles = action.data.length === 10;
                 break;
             case LOAD_ARTICLE_FAILURE:
                 draft.loadArticlesLoading = false;

@@ -11,15 +11,18 @@ import axios from 'axios';
 import Head from 'next/head';
 import Router from 'next/router';
 import * as gtag from '../lib/gtag';
+import { LOAD_ARTICLES_REQUEST } from '../reducers/article';
 
 const { TabPane } = Tabs;
 
 const Home = () => {
     const dispatch = useDispatch();
     const { mainPosts, hasMorePosts } = useSelector((state) => state.post);
+    const { mainArticles, hasMoreArticles } = useSelector((state) => state.article);
     const { postCategories } = useSelector((state) => state.category);
     const [currentCategory, setCurrentCategory] = useState('HOT 이슈');
     const [currentPage, setCurrentPage] = useState(1);
+    const [currentArticlePage, setCurrentArticlePage] = useState(1);
 
     const onChangeCategory = useCallback((category) => {
         gtag.event({ action: "Click another-keyword Tab", category: "Paging", label: "Home page" });
@@ -39,6 +42,10 @@ const Home = () => {
         setCurrentPage(e)
     }, []);
 
+    const onArticlePageChange = useCallback((e) => {
+        setCurrentArticlePage(e)
+    }, []);
+
     useEffect(() => {
         if(currentPage % 5 === 0 && hasMorePosts) {
             const lastId = mainPosts[mainPosts.length - 1]?.id;
@@ -49,6 +56,17 @@ const Home = () => {
             });
         }
     }, [currentPage, hasMorePosts, mainPosts, currentCategory]);
+
+    useEffect(() => {
+        if(currentArticlePage % 5 === 0 && hasMoreArticles) {
+            const lastId = mainArticles[mainArticles.length - 1]?.id;
+            return () => dispatch({
+                type: LOAD_ARTICLES_REQUEST,
+                data: currentCategory,
+                lastId
+            });
+        }
+    }, [currentArticlePage, hasMoreArticles, mainArticles, currentCategory]);
     
     return (
         <Fragment>
@@ -85,7 +103,7 @@ const Home = () => {
                 <meta property='og:site_name' content='케이퍼니' />
             </Head>
 
-            {/* Category Bar */}
+            {/* SNS POST CONTENTS */}
             <Tabs tabPosition='top' size='default' type='line' onChange={onChangeCategory}>
                 {postCategories.map((category, _) => {
                     if(category.enabled) {
@@ -101,6 +119,24 @@ const Home = () => {
                 showSizeChanger={false}
                 total={currentPage % 5 === 0 && hasMorePosts ? mainPosts.length+1 : mainPosts.length}
                 onChange={onPageChange}
+                defaultPageSize={10} />
+
+            {/* NEWS ARTICLE CONTENTS */}
+            <Tabs tabPosition='top' size='default' type='line' onChange={onChangeCategory}>
+                {postCategories.map((category, _) => {
+                    if(category.enabled) {
+                        return (<TabPane key={category.label} tab={`${category.label}`}>
+                                    <HomeCardForm posts={mainArticles.slice((currentArticlePage-1)*10, (currentArticlePage-1)*10+10)} keyword={`${category.label}`}/>
+                                </TabPane>)
+                    }
+                })}
+            </Tabs>
+            <Pagination
+                className='main-pagination'
+                current={currentArticlePage}
+                showSizeChanger={false}
+                total={currentArticlePage % 5 === 0 && hasMoreArticles ? mainArticles.length+1 : mainArticles.length}
+                onChange={onArticlePageChange}
                 defaultPageSize={10} />
             <BackTop />
         </Fragment>
@@ -127,6 +163,10 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
     });
     context.store.dispatch({
         type: LOAD_POSTS_REQUEST,
+        data: encodeURI("HOT 이슈"),
+    });
+    context.store.dispatch({
+        type: LOAD_ARTICLES_REQUEST,
         data: encodeURI("HOT 이슈"),
     });
     context.store.dispatch(END)
