@@ -17,12 +17,12 @@ const Article = () => {
     const { singleArticle } = useSelector((state) => state.article);
 
     const imgRegex = new RegExp('<img src="(.*?)"', 'igm');
-    const thumbnailSrc = useState(imgRegex.exec(singleArticle.contents)[1] || ['https://images.niair.xyz/basic/kfunny_logo.png'] );
+    const thumbnailSrc = useState(imgRegex.exec(singleArticle.contents)[1].toString() || ['https://images.niair.xyz/basic/kfunny_logo.png'] );
 
     return (
         <Fragment>
             <Head>
-                {console.log(thumbnailSrc.toString())}
+                {console.log(thumbnailSrc[0])}
                 <title>{singleArticle?.title} | 케이퍼니</title>
                 <meta charSet='utf-8'/>
                 <meta name='desciprtion' content={singleArticle?.title}/>
@@ -34,7 +34,7 @@ const Article = () => {
                 {/* <!-- Open Graph / Facebook --> */}
                 <meta property='og:title' content={`${singleArticle.title} | 케이퍼니`}/>
                 <meta property='og:description' content={singleArticle.contents}/>
-                {/* <meta property='og:image' content={thumbnailSrc[0]}/> */}
+                <meta property='og:image' content={thumbnailSrc[0]}/>
                 <meta property='og:url' content={`https://niair.xyz/article/${id}`}/>
                 <meta property="og:type" content="website"/>
                 <meta property="og:image:width" content="800"/>
@@ -46,7 +46,7 @@ const Article = () => {
                 <meta property="twitter:card" content="summary_large_image"/>
                 <meta property='twitter:title' content={`${singleArticle.title} | 케이퍼니`}/>
                 <meta property='twitter:description' content={singleArticle.contents}/>
-                {/* <meta property='twitter:image' content={thumbnailSrc[0]}/> */}
+                <meta property='twitter:image' content={thumbnailSrc[0]}/>
                 <meta property='twitter:url' content={`https://niair.xyz/article/${id}`}/>
                 <meta property="twitter:type" content="website"/>
                 <meta property="twitter:image:width" content="800"/>
