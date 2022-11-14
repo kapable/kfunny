@@ -5,7 +5,7 @@ import HomeCards from './HomeCards';
 import PropTypes from 'prop-types';
 
 const HomeCardForm = ({ shape, posts, keyword }) => {
-    const { mainPosts, loadPostsLoading } = useSelector((state) => state.post);
+    const { loadPostsLoading } = useSelector((state) => state.post);
     if (keyword === "HOT 이슈") {
         return (
             <Fragment>
