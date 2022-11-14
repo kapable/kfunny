@@ -20,7 +20,7 @@ const Article = () => {
     const thumbnailSrc = useState(imgRegex.exec(singleArticle.contents)[1].toString() || ['https://images.niair.xyz/basic/kfunny_logo.png'] );
 
     const textRegex = new RegExp('<\s*p[^>]*>([^<]*)<\s*\/\s*p\s*>', 'igm');
-    console.log(textRegex.exec(singleArticle.contents.toString()));
+    const textDesc = useState(textRegex.exec(singleArticle.contents)[1].toString() || ["쿠키로켓, 핫이슈, 뉴스, 최신 트렌드, 정보, 웃긴, 돈되는, 케이퍼니, 케이퍼티"])
 
     return (
         <Fragment>
@@ -35,7 +35,7 @@ const Article = () => {
 
                 {/* <!-- Open Graph / Facebook --> */}
                 <meta property='og:title' content={`${singleArticle.title} | 케이퍼니`}/>
-                <meta property='og:description' content={singleArticle.contents}/>
+                <meta property='og:description' content={textDesc[0]}/>
                 <meta property='og:image' content={thumbnailSrc[0]}/>
                 <meta property='og:url' content={`https://niair.xyz/article/${id}`}/>
                 <meta property="og:type" content="website"/>
@@ -47,7 +47,7 @@ const Article = () => {
                 {/* <!-- Twitter --> */}
                 <meta property="twitter:card" content="summary_large_image"/>
                 <meta property='twitter:title' content={`${singleArticle.title} | 케이퍼니`}/>
-                <meta property='twitter:description' content={singleArticle.contents}/>
+                <meta property='twitter:description' content={textDesc[0]}/>
                 <meta property='twitter:image' content={thumbnailSrc[0]}/>
                 <meta property='twitter:url' content={`https://niair.xyz/article/${id}`}/>
                 <meta property="twitter:type" content="website"/>
