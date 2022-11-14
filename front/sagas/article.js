@@ -4,12 +4,13 @@ import {
     LOAD_ARTICLES_REQUEST, LOAD_ARTICLES_SUCCESS, LOAD_ARTICLES_FAILURE,
     ADD_ARTICLE_REQUEST, ADD_ARTICLE_SUCCESS, ADD_ARTICLE_FAILURE,
     REMOVE_ARTICLE_REQUEST, REMOVE_ARTICLE_SUCCESS, REMOVE_ARTICLE_FAILURE,
+    EDIT_ARTICLE_REQUEST, EDIT_ARTICLE_SUCCESS, EDIT_ARTICLE_FAILURE,
     UPLOAD_ARTICLE_IMAGE_SUCCESS, UPLOAD_ARTICLE_IMAGE_FAILURE, UPLOAD_ARTICLE_IMAGE_REQUEST,
     LOAD_ARTICLE_REQUEST, LOAD_ARTICLE_SUCCESS, LOAD_ARTICLE_FAILURE,
 } from '../reducers/article';
 
 function loadArticlesAPI(data) {
-    return axios.get(`/posts/${data.data}?lastId=${data.lastId || 0}`);
+    return axios.get(`/articles/${data.data}?lastId=${data.lastId || 0}`);
 }
 
 function* loadArticles(action) {
@@ -29,7 +30,7 @@ function* loadArticles(action) {
 };
 
 function loadArticleAPI(data) {
-    return axios.get(`/post/${data}`);
+    return axios.get(`/article/${data}`);
 }
 
 function* loadArticle(action) {
@@ -49,7 +50,7 @@ function* loadArticle(action) {
 };
 
 function addArticleAPI(data) {
-    return axios.post(`/post`, data);
+    return axios.post(`/article`, data);
 }
 
 function* addArticle(action) {
@@ -69,7 +70,7 @@ function* addArticle(action) {
 };
 
 function removeArticleAPI(data) {
-    return axios.delete(`/post/${data}`);
+    return axios.delete(`/article/${data}`);
 }
 
 function* removeArticle(action) {
@@ -88,8 +89,28 @@ function* removeArticle(action) {
     }
 }
 
+function editArticleAPI(data) {
+    return axios.patch(`/article/${data.articleId}`, data);
+}
+
+function* editArticle(action) {
+    try {
+        const result = yield call(editArticleAPI, action.data);
+        yield put({
+            type: EDIT_ARTICLE_SUCCESS,
+            data: result.data
+        });
+    } catch (err) {
+        console.log(err);
+        yield put({
+            type: EDIT_ARTICLE_FAILURE,
+            error: err.response.data
+        })
+    }
+}
+
 function uploadArticleImageAPI(data) {
-    return axios.post(`/post/images`, data);
+    return axios.post(`/article/images`, data);
 };
 
 function* uploadArticleImage(action) {
@@ -124,6 +145,10 @@ function* watchRemoveArticle() {
     yield takeLatest(REMOVE_ARTICLE_REQUEST, removeArticle);
 }
 
+function* watchEditArticle() {
+    yield takeLatest(EDIT_ARTICLE_REQUEST, editArticle);
+}
+
 function* watchUploadArticleImage() {
     yield takeLatest(UPLOAD_ARTICLE_IMAGE_REQUEST, uploadArticleImage);
 }
@@ -134,6 +159,7 @@ export default function* articleSaga() {
         fork(watchLoadArticle),
         fork(watchAddArticle),
         fork(watchRemoveArticle),
+        fork(watchEditArticle),
         fork(watchUploadArticleImage),
     ])
 }

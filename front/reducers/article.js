@@ -15,6 +15,9 @@ export const initialState = {
     removeArticleLoading: false,
     removeArticleDone: false,
     removeArticleError: false,
+    editArticleLoading: false,
+    editArticleDone: false,
+    editArticleError: false,
     loadArticleLoading: false,
     loadArticleDone: false,
     loadArticleError: false,
@@ -38,6 +41,10 @@ export const ADD_ARTICLE_FAILURE = 'ADD_ARTICLE_FAILURE';
 export const REMOVE_ARTICLE_REQUEST = 'REMOVE_ARTICLE_REQUEST';
 export const REMOVE_ARTICLE_SUCCESS = 'REMOVE_ARTICLE_SUCCESS';
 export const REMOVE_ARTICLE_FAILURE = 'REMOVE_ARTICLE_FAILURE';
+
+export const EDIT_ARTICLE_REQUEST = 'EDIT_ARTICLE_REQUEST';
+export const EDIT_ARTICLE_SUCCESS = 'EDIT_ARTICLE_SUCCESS';
+export const EDIT_ARTICLE_FAILURE = 'EDIT_ARTICLE_FAILURE';
 
 export const UPLOAD_ARTICLE_IMAGE_REQUEST = 'UPLOAD_ARTICLE_IMAGE_REQUEST';
 export const UPLOAD_ARTICLE_IMAGE_SUCCESS = 'UPLOAD_ARTICLE_IMAGE_SUCCESS';
@@ -105,6 +112,20 @@ const reducer = (state = initialState, action) => {
             case REMOVE_ARTICLE_FAILURE:
                 draft.removeArticleLoading = false;
                 draft.removeArticleError = action.error;
+                break;
+            case EDIT_ARTICLE_REQUEST:
+                draft.editArticleLoading = true;
+                draft.editArticleDone = false;
+                draft.editArticleError = null;
+                break;
+            case EDIT_ARTICLE_SUCCESS:
+                draft.singleArticle = action.data;
+                draft.editArticleDone = true;
+                draft.editArticleLoading = false;
+                break;
+            case EDIT_ARTICLE_FAILURE:
+                draft.editArticleLoading = false;
+                draft.editArticleError = action.error;
                 break;
             case SET_COUPANG_COOKIE:
                 draft.coupangCookie = action.data || null;

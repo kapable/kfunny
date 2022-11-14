@@ -9,7 +9,7 @@ import { SET_COUPANG_COOKIE } from '../../reducers/post';
 import wrapper from '../../store/configureStore';
 import { LOAD_URLS_REQUEST } from '../../reducers/url';
 import ContentsCardForm from '../../components/ContentsCardForm';
-import { LOAD_ARTICLE_REQUEST } from '../../reducers/article';
+import { LOAD_ARTICLES_REQUEST, LOAD_ARTICLE_REQUEST } from '../../reducers/article';
 
 const Article = () => {
     const router = useRouter();
@@ -68,10 +68,10 @@ export const getServerSideProps = wrapper.getServerSideProps(async (context) => 
         type: LOAD_ARTICLE_REQUEST,
         data: context.params.id,
     });
-    // context.store.dispatch({
-    //     type: LOAD_POSTS_REQUEST,
-    //     data: encodeURI("HOT 이슈"),
-    // });
+    context.store.dispatch({
+        type: LOAD_ARTICLES_REQUEST,
+        data: encodeURI("HOT 이슈"),
+    });
     context.store.dispatch({
         type: LOAD_URLS_REQUEST
     });

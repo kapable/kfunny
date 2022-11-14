@@ -23,5 +23,6 @@ module.exports = class Category extends Model {
     }
     static associate(db) {
         db.Category.belongsToMany(db.Post, { through: 'PostCategory' });
+        db.Category.belongsToMany(db.Article, { through: 'ArticleCategory' });
     };
 };

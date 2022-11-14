@@ -18,6 +18,7 @@ router.get(`/:category`, async (req, res, next) => {
         };
         const articles = await Article.findAll({
             where: globalWhere,
+            attributes: { exclude: ['updatedAt'] },
             limit: 51,
             order: [
                 ['createdAt', 'DESC'],

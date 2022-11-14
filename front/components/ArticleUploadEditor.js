@@ -17,27 +17,35 @@ import axios from 'axios';
 import { backUrl } from '../config/config';
 import { useEffect } from 'react';
 import { UploadOutlined } from '@ant-design/icons';
-import { ADD_ARTICLE_REQUEST } from '../reducers/article';
+import { ADD_ARTICLE_REQUEST, EDIT_ARTICLE_REQUEST } from '../reducers/article';
 
 const { Option } = Select;
 
-const ArticleUploadEditor = () => {
+const ArticleUploadEditor = ({ contents, isNewContents }) => {
     const quillRef = useRef(null);
     const router = useRouter();
     const dispatch = useDispatch();
     const { postCategories } = useSelector((state) => state.category);
     const { userInfo } = useSelector((state) => state.user);
-    const { addArticleDone, addArticleLoading } = useSelector((state) => state.article);
-    const [title, onChangeTitle] = useInput('');
-    const [category, setCategory] = useState('');
-    const [content, setContent] = useState("");
+    const { addArticleDone, addArticleLoading, editArticleDone, editArticleLoading } = useSelector((state) => state.article);
+    const [title, onChangeTitle] = useInput(contents?.title || '');
+    const [category, setCategory] = useState(contents?.Categories ? contents?.Categories[0].label :'');
+    const [content, setContent] = useState(contents?.contents || "");
+    const [isNew, setIsNew] = useState(isNewContents); // upload Or Edit
 
     useEffect(() => {
         if(addArticleDone) {
             alert('게시물이 성공적으로 업로드 되었습니다!');
-            router.reload();
+            router.push(`/`);
         }
     }, [addArticleDone]);
+
+    useEffect(() => {
+        if(editArticleDone) {
+            alert('게시물이 성공적으로 수정 되었습니다!');
+            router.push(`/`);
+        }
+    }, [editArticleDone]);
 
     const imageHandler = () => {
         // 1. 이미지를 저장할 input type=file DOM을 만든다.
@@ -104,11 +112,20 @@ const ArticleUploadEditor = () => {
         if(!content || content === '<p><br></p>') {
             return alert('글을 작성해주세요!');
         };
-        dispatch({
-            type: ADD_ARTICLE_REQUEST,
-            data: { title, category, content }
-        });
-    }, [title, category, content]);
+        isNew
+        ? ( // upload a new article
+            dispatch({
+                type: ADD_ARTICLE_REQUEST,
+                data: { title, category, content }
+            })
+        )
+        : ( // edit a exist article
+            dispatch({
+                type: EDIT_ARTICLE_REQUEST,
+                data: { articleId: contents?.id, title, category, content }
+            })
+        )
+    }, [title, category, content, contents]);
 
     return (
         <div className='upload-main-div'>
@@ -123,6 +140,7 @@ const ArticleUploadEditor = () => {
                     placeholder="카테고리를 골라주세요"
                     optionLabelProp="label"
                     onChange={setCategory}
+                    value={category}
                 >
                     {postCategories.slice(1).map((postCategory) => ( // except 최신 related to slice
                     <Option value={postCategory.label} label={postCategory.label} key={`${postCategory.label}_category`}>
@@ -144,7 +162,7 @@ const ArticleUploadEditor = () => {
                 />
 
                 {/* Submit Button */}
-                <Button className='admin-upload-submit-button' type='primary' htmlType="submit" loading={addArticleLoading} ><UploadOutlined /> 업로드</Button>
+                <Button className='admin-upload-submit-button' type='primary' htmlType="submit" loading={addArticleLoading || editArticleLoading} ><UploadOutlined /> 업로드</Button>
             </Form>
         </div>
     );

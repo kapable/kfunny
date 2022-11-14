@@ -1,14 +1,5 @@
 import produce from '../util/produce';
 
-const dummyUser = {
-    id: 1,
-    nickname: '더미 유저',
-    description: 'Hello, World!',
-    createdAt: "2022-01-02",
-    admin: true,
-    Posts: [],
-};
-
 export const initialState = {
     logInLoading: false,
     logInDone: false,

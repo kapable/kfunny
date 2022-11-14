@@ -1,13 +1,13 @@
 import React, { Fragment, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { LOAD_CATEGORIES_REQUEST } from '../../reducers/category';
 import Router from 'next/router';
-import { LOAD_MY_INFO_REQUEST } from '../../reducers/user';
 import { END } from 'redux-saga';
 import axios from 'axios';
-import wrapper from '../../store/configureStore';
 import Head from 'next/head';
-import ArticleUploadEditor from '../../components/ArticleUploadEditor';
+import ArticleUploadEditor from '../../../components/ArticleUploadEditor';
+import { LOAD_MY_INFO_REQUEST } from '../../../reducers/user';
+import { LOAD_CATEGORIES_REQUEST } from '../../../reducers/category';
+import wrapper from '../../../store/configureStore';
 
 const UploadArticle = () => {
     const { userInfo } = useSelector((state) => state.user);
@@ -22,7 +22,7 @@ const UploadArticle = () => {
     return (
         <Fragment>
             <Head>
-                <title>게시물 업로드 | 케이퍼니</title>
+                <title>기사 작성 | 케이퍼니</title>
                 <meta charSet='utf-8'/>
                 <link rel='main-url' href='https://niair.xyz/admin/uploadArticle' />
                 <link rel='shortcut icon' href='/favicon.png'/>
@@ -53,7 +53,7 @@ const UploadArticle = () => {
                 <meta property="twitter:image:alt" content="핫이슈가 모인 최신 미디어, 케이퍼니" />
                 <meta property='og:site_name' content="게시물 업로드 | 케이퍼니" />
             </Head>
-            <ArticleUploadEditor />
+            <ArticleUploadEditor isNewContents={true} />
         </Fragment>
     );
 };
