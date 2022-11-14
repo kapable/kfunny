@@ -108,7 +108,7 @@ const Home = () => {
                 {postCategories.map((category, _) => {
                     if(category.enabled) {
                         return (<TabPane key={category.label} tab={`${category.label}`}>
-                                    <HomeCardForm posts={mainPosts.slice((currentPage-1)*10, (currentPage-1)*10+10)} keyword={`${category.label}`}/>
+                                    <HomeCardForm shape={"post"} posts={mainPosts.slice((currentPage-1)*10, (currentPage-1)*10+10)} keyword={`${category.label}`}/>
                                 </TabPane>)
                     }
                 })}
@@ -126,7 +126,7 @@ const Home = () => {
                 {postCategories.map((category, _) => {
                     if(category.enabled) {
                         return (<TabPane key={category.label} tab={`${category.label}`}>
-                                    <HomeCardForm posts={mainArticles.slice((currentArticlePage-1)*10, (currentArticlePage-1)*10+10)} keyword={`${category.label}`}/>
+                                    <HomeCardForm shape={"article"} posts={mainArticles.slice((currentArticlePage-1)*10, (currentArticlePage-1)*10+10)} keyword={`${category.label}`}/>
                                 </TabPane>)
                     }
                 })}
