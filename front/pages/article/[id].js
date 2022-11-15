@@ -30,7 +30,6 @@ const Article = () => {
     return (
         <Fragment>
             <Head>
-                {console.log()}
                 <title>{singleArticle?.title} | 케이퍼니</title>
                 <meta charSet='utf-8'/>
                 <meta name='desciprtion' content={singleArticle?.title}/>
