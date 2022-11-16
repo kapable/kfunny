@@ -1,5 +1,5 @@
 import { LinkOutlined } from '@ant-design/icons';
-import React, { Fragment, useCallback } from 'react';
+import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
 import CopyToClipboard from 'react-copy-to-clipboard';
@@ -13,9 +13,14 @@ import { useRouter } from 'next/router';
 moment.locale('ko');
 
 const ContentsCardForm = () => {
+    const urlExpression = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/igm;
+    const regex = new RegExp(urlExpression);
+
     const router = useRouter();
     const { singleArticle } = useSelector((state) => state.article);
     const { userInfo } = useSelector((state) => state.user);
+
+    const [renderingText, setRenderingText] = useState(singleArticle?.contents);
 
     const onShareButtonClick = useCallback(() => {
         gtag.event({ action: "Click link-share Button", category: "Sharing", label: "article page"});
@@ -34,6 +39,15 @@ const ContentsCardForm = () => {
             });
         };
         router.push('/');
+    }, [singleArticle]);
+
+    useEffect(() => {
+        let finalText = singleArticle && singleArticle?.contents;
+        const urls = finalText && [...finalText.matchAll(regex)];
+        urls && urls.map((url) => (
+            finalText = finalText.replace(`<p>${url[0]}</p>`, `<a href=${url[0]}>${url[0]}</a>`)
+        ));
+        setRenderingText(finalText);
     }, [singleArticle]);
     
     return (
@@ -59,7 +73,7 @@ const ContentsCardForm = () => {
 
             {/* COMMENT FORM */}
             <div className='article-contents-main-div'>
-                <div className='article-contents-div' dangerouslySetInnerHTML={{ __html: singleArticle.contents }}></div>
+                <div className='article-contents-div' dangerouslySetInnerHTML={{ __html: renderingText }}></div>
             </div>
 
             <Divider dashed />
