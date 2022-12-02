@@ -13,14 +13,22 @@ import { useRouter } from 'next/router';
 moment.locale('ko');
 
 const ContentsCardForm = () => {
-    const urlExpression = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/igm;
-    const regex = new RegExp(urlExpression);
-
     const router = useRouter();
     const { singleArticle } = useSelector((state) => state.article);
     const { userInfo } = useSelector((state) => state.user);
 
+    const urlExpression = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/igm;
+    const regex = new RegExp(urlExpression);
     const [renderingText, setRenderingText] = useState(singleArticle?.contents);
+
+    useEffect(() => { // for url text to a tagging
+        let finalText = singleArticle && singleArticle?.contents;
+        const urls = finalText && [...finalText.matchAll(regex)];
+        urls && urls.map((url) => (
+            finalText = finalText.replace(`<p>${url[0]}</p>`, `<a href=${url[0]}>${url[0]}</a>`)
+        ));
+        setRenderingText(finalText);
+    }, [singleArticle]);
 
     const onShareButtonClick = useCallback(() => {
         gtag.event({ action: "Click link-share Button", category: "Sharing", label: "article page"});
@@ -39,15 +47,6 @@ const ContentsCardForm = () => {
             });
         };
         router.push('/');
-    }, [singleArticle]);
-
-    useEffect(() => {
-        let finalText = singleArticle && singleArticle?.contents;
-        const urls = finalText && [...finalText.matchAll(regex)];
-        urls && urls.map((url) => (
-            finalText = finalText.replace(`<p>${url[0]}</p>`, `<a href=${url[0]}>${url[0]}</a>`)
-        ));
-        setRenderingText(finalText);
     }, [singleArticle]);
     
     return (

@@ -39,7 +39,7 @@ const ArticleCardForm = () => {
                 <div className='article-date'>{moment(singlePost.createdAt).format('YYYY-MM-DD')}</div>
             </div>
             {/* COUPANG BANNER */}
-            <CoupangBanner />
+            {/* <CoupangBanner /> */}
 
             {/* ADFIT ADS */}
             {/* <Adfit /> */}
@@ -62,7 +62,7 @@ const ArticleCardForm = () => {
             <CommentForm singlePost={singlePost} />
             <ArticleCardCommentsForm comments={singlePost.Comments} />
             {/* COUPANG BANNER */}
-            <CoupangBanner />
+            {/* <CoupangBanner /> */}
             <Divider dashed />
 
             {/* NEW ARTICLES LIST */}
