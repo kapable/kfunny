@@ -20,7 +20,8 @@ const ArticleCardContentsForm = () => {
     const adProb = Math.random() < 1.1;
     const otherAdProb = Math.random() < 0.8;
     const coupangLinks = managingUrls.filter((l) => l.name.includes("쿠팡"));
-    const coupangLink = (router.query?.ref_id && coupangLinks.filter((l) => l.name.replace('쿠팡파트너스','') === router.query?.ref_id).length > 0 && otherAdProb) ? (
+    const isOtherCoupangLink = router.query?.ref_id && coupangLinks.filter((l) => l.name.replace('쿠팡파트너스','') === router.query?.ref_id).length > 0 && otherAdProb;
+    const coupangLink = isOtherCoupangLink ? (
         coupangLinks.find((v) => v.name.replace('쿠팡파트너스', '') === router.query?.ref_id)?.link
     ) : (
         coupangLinks.find((v) => v.name === '쿠팡파트너스')?.link
@@ -33,6 +34,13 @@ const ArticleCardContentsForm = () => {
         const cookieAges = 60*60*12;
         setCoupangCookie('coupang', true, { path: '/', maxAge: cookieAges, secure: true }); // shorter one of 60 sec * 60 min * 12 hour | tommorow 00 - now time
         gtag.event({ action: "Click go-to-Coupang Button", category: "Opening", label: "article page" });
+    }, []);
+
+    const onOtherCoupangButtonClick = useCallback(() => {
+        // const cookieAges = 60*60*(24 - new Date().getHours()) <= 60*60*12 ? 60*60*(24 - new Date().getHours()) : 60*60*12;
+        const cookieAges = 60*60*12;
+        setCoupangCookie('coupang', true, { path: '/', maxAge: cookieAges, secure: true }); // shorter one of 60 sec * 60 min * 12 hour | tommorow 00 - now time
+        gtag.event({ action: "Click go-to-Other-Coupang Button", category: "Opening", label: "article page" });
     }, []);
 
     const onCollapseButtonClick = useCallback(() => {
@@ -74,7 +82,8 @@ const ArticleCardContentsForm = () => {
                                 {adProb
                                 ? 
                                 <a href={coupangLink} target="_blank" rel='noreferrer noopener'>
-                                    <Button type="primary" shape='round' style={{ width: '15rem', height: '3rem' }} onClick={onCoupangButtonClick}>
+                                    {/* onOtherCoupangButtonClick */}
+                                    <Button type="primary" shape='round' style={{ width: '15rem', height: '3rem' }} onClick={isOtherCoupangLink ? onOtherCoupangButtonClick : onCoupangButtonClick}> 
                                         쿠팡 보고 컨텐츠 펼쳐보기<ArrowRightOutlined /><br /><p style={{ fontSize: '0.5rem', color: 'lightgray' }}>원치 않을 경우 뒤로 가기를 눌러주세요</p>
                                     </Button>
                                 </a>
