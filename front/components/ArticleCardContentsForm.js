@@ -18,7 +18,7 @@ const ArticleCardContentsForm = () => {
     const { managingUrls } = useSelector((state) => state.url);
     
     const adProb = Math.random() < 1.1;
-    const otherAdProb = Math.random() < 0.2;
+    const otherAdProb = Math.random() < 0.8;
     const coupangLinks = managingUrls.filter((l) => l.name.includes("쿠팡"));
     const coupangLink = (router.query?.ref_id && coupangLinks.filter((l) => l.name.replace('쿠팡파트너스','') === router.query?.ref_id).length > 0 && otherAdProb) ? (
         coupangLinks.find((v) => v.name.replace('쿠팡파트너스', '') === router.query?.ref_id)?.link
