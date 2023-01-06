@@ -18,13 +18,14 @@ const ArticleCardContentsForm = () => {
     const { managingUrls } = useSelector((state) => state.url);
     
     const adProb = Math.random() < 1.1;
+    let originAdProb = Math.random > 0.1;
     const otherAdProb = Math.random() < 0.8;
     const coupangLinks = managingUrls.filter((l) => l.name.includes("쿠팡"));
     const isOtherCoupangLink = router.query?.ref_id && coupangLinks.filter((l) => l.name.replace('쿠팡파트너스','') === router.query?.ref_id).length > 0 && otherAdProb;
     const coupangLink = isOtherCoupangLink ? (
         coupangLinks.find((v) => v.name.replace('쿠팡파트너스', '') === router.query?.ref_id)?.link
     ) : (
-        coupangLinks.find((v) => v.name === '쿠팡파트너스')?.link
+        originAdProb ? coupangLinks.find((v) => v.name === '쿠팡파트너스')?.link : 'https://link.coupang.com/a/LgUrO'
     );
     // const coupangProbIndex = Math.floor(Math.random() * coupangLinks.length);
     // const coupangLink = coupangLinks[coupangProbIndex]?.link;
