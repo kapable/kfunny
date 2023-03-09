@@ -136,22 +136,5 @@ router.patch(`/description`, isLoggedIn, async (req, res, next) => { // PATCH /u
         next(error);
     };
 });
-// CHANGE PASSWORD
-router.patch(`/password`, async (req, res, next) => {
-    try {
-        const hashedPassword = await bcrypt.hash(req.body.password, 12);
-        const changedUser = await User.update({
-            password: hashedPassword,
-        }, {
-            where: {
-                email: req.body.email,
-            }
-        });
-        res.status(200).json({changedUser});
-    } catch (error) {
-        console.error(error);
-        next(error);
-    };
-});
 
 module.exports = router;
