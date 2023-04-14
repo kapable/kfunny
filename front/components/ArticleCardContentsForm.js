@@ -13,7 +13,7 @@ const ArticleCardContentsForm = () => {
     const router = useRouter();
     const dispatch = useDispatch();
     const [coupangCookies, setCoupangCookie] = useCookies(['coupang']);
-    const [isOpened, setIsOpened] = useState(false);
+    const [isOpened, setIsOpened] = useState(true);
     const { singlePost, coupangCookie } = useSelector((state) => state.post);
     const { managingUrls } = useSelector((state) => state.url);
     
